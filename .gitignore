@@ -1,0 +1,33 @@
+# External dependencies — install separately (see README)
+POEMCP/
+poe-dust/
+pob/pobfrontend/
+pob/old/
+pob/jewel/
+pob/timeless-jewels/
+
+# PathOfBuilding — exclude all except our modified import script
+pob/PathOfBuilding-2.59.2/*
+!pob/PathOfBuilding-2.59.2/tools
+pob/PathOfBuilding-2.59.2/tools/*
+!pob/PathOfBuilding-2.59.2/tools/import_character_cli.lua
+
+# Character data and personal files
+*.json
+!.mcp.json.example
+*.png
+*.jpg
+*.jpeg
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+dist/
+
+# OS
+.DS_Store
+
+# Claude Code session data
+.claude/

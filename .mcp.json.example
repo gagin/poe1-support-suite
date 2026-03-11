@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "poemcp": {
+      "command": "python",
+      "args": ["/path/to/poe1-support-suite/POEMCP/server.py"]
+    },
+    "pob-importer": {
+      "command": "python3",
+      "args": ["/path/to/poe1-support-suite/pob/PathOfBuilding-2.59.2/tools/mcp_server.py"]
+    }
+  }
+}
