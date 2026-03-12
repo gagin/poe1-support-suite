@@ -28,6 +28,13 @@ Note: The `--import` combined flag exists but the two-step approach is preferred
 
 ## Build Analysis Rules
 
+### Information Validity — Always Verify
+**PoE changes mechanics every league (~3 months). Assume any recalled knowledge may be outdated.**
+
+- Before stating a mechanic as fact, verify it via MCP tools (search_passive, get_gem_detail, fetch_wiki_page) or note explicitly that it is unverified.
+- Training data and previous memory entries can describe mechanics that no longer exist. Example: alternate quality gems (Anomalous/Divergent/Phantasmal) were removed in patch 3.23.0 and no longer exist.
+- When a fact is verified in a session, it can be noted with a date in memory files: `[verified YYYY-MM]`. Undated entries should be reverified before being cited confidently.
+
 ### Weapon Swaps
 **Ignore weapon swap slots entirely.** Only analyze the main hand and offhand that are active for the build. Weapon swap sets are typically for utility (flasks, movement) and not part of the core build.
 

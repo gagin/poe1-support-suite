@@ -80,7 +80,7 @@ Ordered roughly by accessibility — earlier sections apply at all stages, later
 - [ ] All active skill gems at level 20, 20% quality minimum
 - [ ] All support gems at level 20, 20% quality minimum
 - [ ] Key active skill gems: attempt corruption for level 21 (21/20 is standard endgame)
-- [ ] **Alternate quality** (Anomalous/Divergent/Phantasmal): these are not upgrades — they change the gem's behavior entirely. Use only when the specific behavior is what the build wants. Check each key gem's alternate versions to see if any variant's mechanic is better suited than the normal version for the build. Do not default to alt quality; default to normal and swap only with reason.
+- [ ] **Transfigured gems**: alternate versions of skills with different mechanics (e.g. Shield Crush of the Chieftain). Not upgrades — different behaviors. Use only when the transfigured variant's mechanic is better for the build than the base version.
 - [ ] Vaal versions of active skills where relevant (Vaal Molten Shell, Vaal Ancestral Warchief, etc.)
 
 ### Jewels
