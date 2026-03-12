@@ -81,6 +81,25 @@ Non-unique, non-influenced, non-corrupted body armour, helmets, gloves, and boot
 
 Catalysts add quality to rings, amulets, and belts, increasing the numeric value of specific mod categories on the item. Different catalyst types boost different mod types (e.g. Abrasive Catalyst boosts attack mods, Fertile Catalyst boosts life/mana mods). Quality caps at 20%. Apply before crafting to get higher mod values.
 
+## Shield Crush — Wave Overlap and Positioning
+
+Shield Crush fires 3 waves in a segmented cone: left, center, right. The center wave is the longest. Enemies can be hit by **up to 2 waves** where adjacent waves overlap — counting as 2 separate hits for impale, life-on-hit, and similar effects.
+
+**Overlap zones:** The seams are between center+left and center+right, not at the dead center of the cone.
+
+**Optimal positioning:** Stand adjacent to (touching) the boss. At point-blank melee range, the cone's seam zones land on or very near the target naturally. Alternatively, angle your attack so the boss is slightly off-center — at the boundary between center and a side wave. Both approaches work; touching the boss is the simpler and more consistent method.
+
+**On controller:** Achievable. You don't control aim angle with mouse precision, but standing flush against the boss achieves the overlap naturally. The difference vs mouse is minor — overlap is a bonus, not a requirement.
+
+### Shield Crush of the Chieftain differences
+Same 3-wave/2-overlap geometry. Key changes:
+- Converts entirely to **fire damage** — benefits from fire scaling, not physical
+- Adds fire damage from the shield's **armour rating** (not evasion) — an armour-based shield provides both defense and skill damage
+- Center wave has significantly **more AoE** than base version; gem quality further scales center wave AoE — the seam zone is easier to land naturally
+- Lower mana cost; slower base attack speed than the base version
+
+---
+
 ## Cord Belt — Second Anoint (Mirage League)
 
 The **Cord Belt** base (added in Mirage league) can be anointed with oils like an amulet, granting an additional passive notable beyond the amulet anoint. This effectively gives two anoint slots: one on the amulet and one on the Cord Belt. Factor this into build planning — the belt anoint is a meaningful extra notable slot.
