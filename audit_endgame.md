@@ -46,7 +46,7 @@ First, determine what the swap is actually for:
 
 **Gem leveling swap** — items are just there to level gems while playing:
 - [ ] 9-socket setup (6-socket weapon + Maloney's Mechanism 3-socket) if DEX allows equipping a bow — maximizes gems being leveled simultaneously
-- [ ] If only 6 sockets available: items have 20% quality for the +20% gem experience bonus
+- [ ] **Empower / Enlighten / Enhance**: gem quality directly increases their XP gain rate (they level very slowly, so this matters). Socket them in a weapon with "Socketed Gems have +X% Quality" if possible — this effectively adds quality without corrupting the gem itself
 - [ ] No gems in swap are already fully levelled (L20+) — they waste XP; replace with unlevelled gems you need
 - [ ] No gems are attribute-blocked (check in-game: gem level requirement exceeds current STR/DEX/INT) — blocked gems silently stop gaining XP
 

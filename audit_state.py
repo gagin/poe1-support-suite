@@ -19,6 +19,7 @@ Audit state is saved as <CharName>_audit.json in the current directory.
 
 import argparse
 import json
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -336,22 +337,35 @@ def analyze_swap(raw_pob_path):
     has_maloneys = any(i.get('name') == "Maloney's Mechanism" for i in swap_items)
     total_sockets = sum(len(i.get('sockets', [])) for i in swap_items)
 
-    # Gem inventory
+    # Exceptional gems (XP gain scales with gem quality; level very slowly)
+    EXCEPTIONAL_GEMS = {'Empower Support', 'Enlighten Support', 'Enhance Support'}
+
+    # Gem inventory — also track which item each gem is in (for quality-weapon matching)
     all_swap_gems = []
     for item in swap_items:
         inv_id = item.get('inventoryId', '?')
-        item_q = item_quality(item)
         item_name = item.get('name') or item.get('typeLine', '?')
         sockets = len(item.get('sockets', []))
-        findings.append(f"{inv_id}: {item_name} — {sockets} sockets, {item_q}% quality")
-        if item_q < 20:
-            findings.append(f"  ↳ Item at {item_q}% quality — gem XP penalty; bring to 20% for full gem leveling speed")
+
+        # Check for "Socketed Gems have +X% Quality" mod on this item
+        socketed_gem_quality_bonus = 0
+        for mod in item.get('explicitMods', []) + item.get('implicitMods', []):
+            m = re.search(r'Socketed Gems have \+(\d+)% Quality', mod)
+            if m:
+                socketed_gem_quality_bonus = int(m.group(1))
+
+        findings.append(f"{inv_id}: {item_name} — {sockets} sockets"
+                        + (f", grants +{socketed_gem_quality_bonus}% quality to socketed gems" if socketed_gem_quality_bonus else ""))
+
         for gem in item.get('socketedItems', []):
             lvl = gem_level(gem)
             qual = gem_quality(gem)
             name = gem.get('typeLine', '?')
             is_support = gem.get('support', False)
-            all_swap_gems.append({'name': name, 'level': lvl, 'quality': qual, 'support': is_support})
+            all_swap_gems.append({
+                'name': name, 'level': lvl, 'quality': qual,
+                'support': is_support, 'item_quality_bonus': socketed_gem_quality_bonus,
+            })
 
     findings.append(f"Total swap sockets: {total_sockets}{' (9-socket setup via Maloney\'s)' if has_maloneys else ''}")
 
@@ -363,12 +377,23 @@ def analyze_swap(raw_pob_path):
     maxed = [g for g in all_swap_gems if g['level'] >= 20]
     if maxed:
         findings.append(f"Maxed gems wasting XP ({len(maxed)}): " + ', '.join(f"{g['name']} L{g['level']}" for g in maxed))
-        findings.append("  ↳ Replace maxed gems with unleveled ones to use this XP efficiently")
+        findings.append("  ↳ Replace maxed gems with unleveled ones to use XP efficiently")
+
+    # Check exceptional gems (Empower/Enlighten/Enhance) — quality directly speeds up leveling
+    exceptional = [g for g in all_swap_gems if g['name'] in EXCEPTIONAL_GEMS]
+    for g in exceptional:
+        effective_q = g['quality'] + g['item_quality_bonus']
+        if effective_q == 0:
+            findings.append(f"  {g['name']} L{g['level']} at 0% effective quality — add quality for faster leveling")
+        elif effective_q < 20:
+            findings.append(f"  {g['name']} L{g['level']} at {effective_q}% effective quality — higher quality = faster XP")
+        else:
+            findings.append(f"  {g['name']} L{g['level']} at {effective_q}% effective quality ✓")
 
     # Gems not yet maxed (being actively leveled)
-    leveling = [g for g in all_swap_gems if g['level'] < 20]
+    leveling = [g for g in all_swap_gems if g['level'] < 20 and g['name'] not in EXCEPTIONAL_GEMS]
     if leveling:
-        findings.append("Gems being leveled: " + ', '.join(f"{g['name']} L{g['level']}" for g in leveling))
+        findings.append("Gems being leveled (non-exceptional): " + ', '.join(f"{g['name']} L{g['level']}" for g in leveling))
         findings.append("  ↳ Check in-game that none are stopped by attribute requirements")
 
     note = f"Gem leveling swap — {total_sockets} total sockets"
@@ -376,9 +401,9 @@ def analyze_swap(raw_pob_path):
         note += " (9-socket via Maloney's)"
     if maxed:
         note += f"; {len(maxed)} maxed gems wasting XP"
-    any_low_quality = any(item_quality(i) < 20 for i in swap_items)
-    if any_low_quality:
-        note += "; some items below 20% quality"
+    exceptional_issues = [g for g in exceptional if (g['quality'] + g['item_quality_bonus']) < 20]
+    if exceptional_issues:
+        note += f"; exceptional gems need quality: {', '.join(g['name'] for g in exceptional_issues)}"
 
     return 'leveling', findings, note
 
