@@ -234,6 +234,7 @@ A modifier is **local** if it meets any of these criteria:
 - **League changes significantly affect meta, balance, and item availability.** Check the wiki or patch notes for current league changes before recommending items or builds.
 - Current league: **Mirage** (Sony/PlayStation realm)
 - **No price data exists for PlayStation** — do not reference prices from any tool or site.
+- **Borrowed power mechanics** — each league introduces temporary mechanics that do not carry to Standard or future leagues. Mirage example: Coin of Power/Knowledge/Skill gem imbuement. When advising on whether to invest in a borrowed power mechanic, factor in that it disappears at league end. Also note that random-pool borrowed power mechanics (like gem imbuement) typically have poor hit rates for any specific build — selling the currency is often better EV than self-use.
 - Items, gem levels, and passive tree may be buffed/nerfed each league - always verify current state via wiki before advising.
 
 ### League Stage Priorities

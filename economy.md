@@ -259,10 +259,12 @@ This is the high-value use case. Steps:
 The implicit is random, so this is a gamble — but if the result is good, the item is significantly more valuable than either base form alone. Check demand for the Maraketh item before investing Coins of Desecration (which are rarer than Coins of Restoration).
 
 ### Mirage Gem Imbuement — Coins of Power/Knowledge/Skill
+**Borrowed power mechanic** — league-temporary, will not exist after Mirage ends.
+
 These coins corrupt a **level 20 skill gem**, adding the effects of a random Support gem of the matching colour (Str/Int/Dex) as an implicit. The gem becomes corrupted.
 
 - Coin of Power → random Strength support effect
 - Coin of Knowledge → random Intelligence support effect
 - Coin of Skill → random Dexterity support effect
 
-An imbued gem with a strong support implicit on a popular active skill can be very valuable. The result is random — evaluate the expected value against the cost of a level 20 gem + the coin before using.
+**In practice:** The support pool is large and most rolls are irrelevant to any specific build. Coin of Power in particular has very poor hit rate for melee/phys builds — the chance of landing a useful Str support (e.g. Brutality, Impale, Melee Physical Damage) is low. Don't use these on gems you care about unless the coin itself is cheap and the gem is replaceable. Selling coins to players who want to gamble is likely better EV than self-use for most builds.
