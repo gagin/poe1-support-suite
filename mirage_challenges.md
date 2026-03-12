@@ -1,11 +1,14 @@
 # Mirage League (3.28) — 40 Challenges
 
-Reward milestones: **12** = Orb Regalia Boots, **20** = Gloves, **28** = Body Armour, **36** = Helmet.
-Totem pole decoration pieces awarded throughout.
+Reward milestones (exact cosmetics unverified — third-party guides conflicted with in-game):
+- **12** = Weapon effect (confirmed in-game)
+- **20**, **28**, **36** = unknown, check in-game challenge panel
 
-**Progress: 12/40 — Boots unlocked ✓**
+Totem pole decoration pieces from challenge 19 onward, every 3 challenges.
 
-[verified 2026-03 via u4n/poedb/poewiki]
+**Progress: 12/40 — first milestone reached ✓**
+
+[challenge list verified 2026-03; reward structure: 12-challenge reward confirmed in-game as weapon effect, rest unverified]
 
 ---
 
