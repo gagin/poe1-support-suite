@@ -202,3 +202,67 @@ fetch_wiki_page("Divine Font")
 ```
 
 **Reminder:** No price data exists for PlayStation on poe.ninja. All value assessments must be done via in-game trade search or community knowledge. When in doubt, ask in trade chat before converting.
+
+---
+
+## 5. Selling Items — Trade Filter Visibility
+
+When listing rare items for sale, the item needs to match what buyers' trade filters are searching for. A 5-mod item may be invisible to filters that require 6 mods or a specific combination.
+
+### Benchcraft for discoverability
+Add a cheap bench craft to fill the last affix slot before listing. This makes the item:
+- Show as "6 affixes" (some filters specifically require 6-mod rares)
+- Match more specific filter combinations if the craft adds a commonly-searched mod (e.g. fire resistance, life regeneration, flat armour)
+
+The craft costs you nothing meaningful but can significantly increase the number of buyers who see the item. Pick a craft that:
+1. Is cheap (1–2c bench cost or free)
+2. Doesn't conflict with the item's purpose
+3. Ideally adds something buyers might want alongside the item's main mods
+
+**Important:** Catalyst quality interacts with benchcrafts — apply catalysts *before* crafting, as catalyst quality only boosts mods of the matching type. A suffix craft after a suffix-quality catalyst will benefit from the quality.
+
+### Exalted orbs — current state (Mirage league)
+Exalted orbs are cheap this league. Use them freely to fill out rare items:
+- Fill 5 mods with exalts, **keep one slot open for a bench craft**
+- The bench craft is reserved for the most useful or cheapest option you can add
+- An item with 5 strong exalted mods + a bench craft is nearly always better than 4 exalted + 2 bench (or leaving slots empty)
+
+---
+
+## 6. Mirage League — Coin of Restoration Economy
+
+### What it does
+Coin of Restoration upgrades an Afarud unique (tainted Maraketh item that drops in Mirage encounters) to its Maraketh form — the restored, usually stronger version.
+
+| Afarud (drops from Mirage) | → Maraketh (after Coin of Restoration) |
+|---|---|
+| Khatal's Weeping | Khatal's Geyser |
+| Fleshrender | Skysunder |
+| The Bane of Hope | The Flame of Hope |
+| The Desecrated Chalice | The Sacred Chalice |
+| Saresh's Darkness | Solerai's Radiance |
+
+Maraketh forms are generally the endgame-ready versions. The Afarud drops are common; Coins of Restoration are the bottleneck. Buying cheap Afarud items and restoring them with Coins can generate profit if the Maraketh version has meaningful demand.
+
+### Foulborn items — the high-value interaction
+**Coin of Desecration** (drops from Beyond bosses in Mirage areas) does the reverse: converts a Maraketh unique into its Afarud form and **adds a corruption implicit modifier** to it. The resulting item is corrupted.
+
+**Key rule:** Using Coin of Restoration on a Coin-of-Desecration'd (foulborn) item restores it to Maraketh form **while preserving the corruption implicit**. This produces:
+
+> Maraketh unique + corruption implicit = most valuable state
+
+This is the high-value use case. Steps:
+1. Obtain a Maraketh unique (or restore an Afarud one first)
+2. Use Coin of Desecration → get Afarud form with a corruption implicit
+3. Use Coin of Restoration → get Maraketh form, implicit preserved
+
+The implicit is random, so this is a gamble — but if the result is good, the item is significantly more valuable than either base form alone. Check demand for the Maraketh item before investing Coins of Desecration (which are rarer than Coins of Restoration).
+
+### Mirage Gem Imbuement — Coins of Power/Knowledge/Skill
+These coins corrupt a **level 20 skill gem**, adding the effects of a random Support gem of the matching colour (Str/Int/Dex) as an implicit. The gem becomes corrupted.
+
+- Coin of Power → random Strength support effect
+- Coin of Knowledge → random Intelligence support effect
+- Coin of Skill → random Dexterity support effect
+
+An imbued gem with a strong support implicit on a popular active skill can be very valuable. The result is random — evaluate the expected value against the cost of a level 20 gem + the coin before using.
