@@ -260,7 +260,7 @@ Coin of Restoration upgrades an Afarud unique (tainted Maraketh item that drops 
 | The Desecrated Chalice | The Sacred Chalice |
 | Saresh's Darkness | Solerai's Radiance |
 
-Maraketh forms are generally the endgame-ready versions. The Afarud drops are common; Coins of Restoration are the bottleneck. Buying cheap Afarud items and restoring them with Coins can generate profit if the Maraketh version has meaningful demand.
+Maraketh forms are generally the endgame-ready versions. Coins of Restoration drop commonly and have no meaningful market value — they are effectively free. The conversion is therefore costless: buy a cheap Afarud unique, restore it for free, sell the Maraketh version. Profit is purely the price spread between Afarud and Maraketh forms, which depends on whether the Maraketh version has any demand.
 
 ### Foulborn items — the high-value interaction
 **Coin of Desecration** (drops from Beyond bosses in Mirage areas) does the reverse: converts a Maraketh unique into its Afarud form and **adds a corruption implicit modifier** to it. The resulting item is corrupted.
@@ -274,7 +274,7 @@ This is the high-value use case. Steps:
 2. Use Coin of Desecration → get Afarud form with a corruption implicit
 3. Use Coin of Restoration → get Maraketh form, implicit preserved
 
-The implicit is random, so this is a gamble — but if the result is good, the item is significantly more valuable than either base form alone. Check demand for the Maraketh item before investing Coins of Desecration (which are rarer than Coins of Restoration).
+The implicit is random, so this is a gamble — but if the result is good, the item is significantly more valuable than either base form alone. Check demand for the Maraketh item before investing Coins of Desecration. Coins of Restoration are worthless/free so the only real cost is the Desecration coin and the base Maraketh item.
 
 ### Mirage Gem Imbuement — Coins of Power/Knowledge/Skill
 **Borrowed power mechanic** — league-temporary, will not exist after Mirage ends.
@@ -285,4 +285,4 @@ These coins corrupt a **level 20 skill gem**, adding the effects of a random Sup
 - Coin of Knowledge → random Intelligence support effect
 - Coin of Skill → random Dexterity support effect
 
-**In practice:** The support pool is large and most rolls are irrelevant to any specific build. Coin of Power in particular has very poor hit rate for melee/phys builds — the chance of landing a useful Str support (e.g. Brutality, Impale, Melee Physical Damage) is low. Don't use these on gems you care about unless the coin itself is cheap and the gem is replaceable. Selling coins to players who want to gamble is likely better EV than self-use for most builds.
+**In practice:** The support pool is large and most rolls are irrelevant to any specific build. Coin of Power in particular has very poor hit rate for melee/phys builds — the chance of landing a useful Str support (e.g. Brutality, Impale, Melee Physical Damage) is low. These coins have market value because other players want to gamble with them. **Always sell Power/Knowledge/Skill coins rather than using them yourself** — the EV of self-use is too low to justify, and the coins are worth more to gamblers than to you.
