@@ -36,6 +36,22 @@ Ordered roughly by accessibility — earlier sections apply at all stages, later
 
 ## 2. Mid-League Optimization
 
+### Weapon Swap
+
+First, determine what the swap is actually for:
+
+**Active mechanic swap** — the build requires swapping to trigger something (e.g. a unique shield that enables infinite warcries, Victario's Charity for charge generation, etc.):
+- [ ] Verify the mechanic works as intended and is worth the swap cost
+- [ ] The swap set items are optimised for their role
+
+**Gem leveling swap** — items are just there to level gems while playing:
+- [ ] 9-socket setup (6-socket weapon + Maloney's Mechanism 3-socket) if DEX allows equipping a bow — maximizes gems being leveled simultaneously
+- [ ] If only 6 sockets available: items have 20% quality for the +20% gem experience bonus
+- [ ] No gems in swap are already fully levelled (L20+) — they waste XP; replace with unlevelled gems you need
+- [ ] No gems are attribute-blocked (check in-game: gem level requirement exceeds current STR/DEX/INT) — blocked gems silently stop gaining XP
+
+Use `python audit_state.py analyze-swap <raw_pob.json> --audit <audit.json>` to auto-detect swap type and populate the check.
+
 ### Flasks
 - [ ] All 5 flask slots filled with appropriate types for the build
 - [ ] Each flask has **3 charges on hit** or equivalent sustain prefix (keeps flasks active during combat)

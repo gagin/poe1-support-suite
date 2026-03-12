@@ -86,11 +86,16 @@ CHECKS = {
         "tier": 1,
     },
     "aura_budget": {
-        "label": "All reservation slots filled — no spare reservation unused",
+        "label": "Main-hand set: all reservation slots filled — no spare reservation unused",
         "depends": ["gems", "passive_tree", "equipment"],
         "tier": 1,
     },
     # Tier 2 — Mid-League
+    "swap_setup": {
+        "label": "Weapon swap: active mechanic OR optimal gem-leveling setup (9-socket, item quality, no maxed/attribute-blocked gems)",
+        "depends": ["equipment", "gems"],
+        "tier": 2,
+    },
     "flask_setup": {
         "label": "Flasks: 3 charges on hit, useful suffixes, 20% quality, no conflicts",
         "depends": ["flasks", "equipment"],
@@ -254,8 +259,128 @@ def apply_diff(state, diff):
 
 
 # ---------------------------------------------------------------------------
-# Commands
+# Weapon swap analysis
 # ---------------------------------------------------------------------------
+
+SWAP_SLOTS = {'Weapon2', 'Offhand2'}
+MAIN_SLOTS = {'Weapon', 'Offhand'}
+
+# Uniques known to provide active mechanics when swapped to (not gem leveling)
+ACTIVE_SWAP_UNIQUES = {
+    "Victario's Charity",       # frenzy/power charges on kill
+    "Heartbound Loop",          # minion life triggers
+    "Geofri's Sanctuary",       # ES recovery
+    "The Surrender",            # reckoning proc
+    "Echoforge",                # warcry enchant stacks
+}
+
+
+def load_raw_pob(path):
+    with open(path) as f:
+        d = json.load(f)
+    # Support both top-level list of items and nested structure
+    items = d.get('items', {})
+    if isinstance(items, dict):
+        return items.get('items', [])
+    return items
+
+
+def gem_level(socketed_item):
+    for p in socketed_item.get('properties', []):
+        if p['name'] == 'Level' and p.get('values'):
+            val = p['values'][0][0]
+            return int(val.split()[0]) if val else 1
+    return 1
+
+
+def gem_quality(socketed_item):
+    for p in socketed_item.get('properties', []):
+        if p['name'] == 'Quality' and p.get('values'):
+            val = p['values'][0][0].strip('+%')
+            try:
+                return int(val)
+            except ValueError:
+                return 0
+    return 0
+
+
+def item_quality(item):
+    for p in item.get('properties', []):
+        if p['name'] == 'Quality' and p.get('values'):
+            val = p['values'][0][0].strip('+%')
+            try:
+                return int(val)
+            except ValueError:
+                return 0
+    return 0
+
+
+def analyze_swap(raw_pob_path):
+    """Return (swap_type, findings_list, recommended_note)."""
+    items = load_raw_pob(raw_pob_path)
+    swap_items = [i for i in items if isinstance(i, dict) and i.get('inventoryId') in SWAP_SLOTS]
+
+    if not swap_items:
+        return 'empty', ['No items in weapon swap.'], 'Swap is empty — no gem leveling or active mechanic setup.'
+
+    findings = []
+
+    # Detect active mechanic swap
+    active_uniques = [i for i in swap_items if i.get('name', '') in ACTIVE_SWAP_UNIQUES]
+    if active_uniques:
+        for u in active_uniques:
+            findings.append(f"Active mechanic unique in swap: {u['name']}")
+        return 'active', findings, 'Active mechanic swap: ' + ', '.join(u['name'] for u in active_uniques) + ' — verify the mechanic is functional and intentional.'
+
+    # Detect 9-socket setup: look for Maloney's Mechanism or any bow in offhand2
+    has_maloneys = any(i.get('name') == "Maloney's Mechanism" for i in swap_items)
+    total_sockets = sum(len(i.get('sockets', [])) for i in swap_items)
+
+    # Gem inventory
+    all_swap_gems = []
+    for item in swap_items:
+        inv_id = item.get('inventoryId', '?')
+        item_q = item_quality(item)
+        item_name = item.get('name') or item.get('typeLine', '?')
+        sockets = len(item.get('sockets', []))
+        findings.append(f"{inv_id}: {item_name} — {sockets} sockets, {item_q}% quality")
+        if item_q < 20:
+            findings.append(f"  ↳ Item at {item_q}% quality — gem XP penalty; bring to 20% for full gem leveling speed")
+        for gem in item.get('socketedItems', []):
+            lvl = gem_level(gem)
+            qual = gem_quality(gem)
+            name = gem.get('typeLine', '?')
+            is_support = gem.get('support', False)
+            all_swap_gems.append({'name': name, 'level': lvl, 'quality': qual, 'support': is_support})
+
+    findings.append(f"Total swap sockets: {total_sockets}{' (9-socket setup via Maloney\'s)' if has_maloneys else ''}")
+
+    if not all_swap_gems:
+        findings.append("No gems socketed in swap items.")
+        return 'leveling', findings, '\n'.join(findings)
+
+    # Flag maxed gems (wasting XP)
+    maxed = [g for g in all_swap_gems if g['level'] >= 20]
+    if maxed:
+        findings.append(f"Maxed gems wasting XP ({len(maxed)}): " + ', '.join(f"{g['name']} L{g['level']}" for g in maxed))
+        findings.append("  ↳ Replace maxed gems with unleveled ones to use this XP efficiently")
+
+    # Gems not yet maxed (being actively leveled)
+    leveling = [g for g in all_swap_gems if g['level'] < 20]
+    if leveling:
+        findings.append("Gems being leveled: " + ', '.join(f"{g['name']} L{g['level']}" for g in leveling))
+        findings.append("  ↳ Check in-game that none are stopped by attribute requirements")
+
+    note = f"Gem leveling swap — {total_sockets} total sockets"
+    if has_maloneys:
+        note += " (9-socket via Maloney's)"
+    if maxed:
+        note += f"; {len(maxed)} maxed gems wasting XP"
+    any_low_quality = any(item_quality(i) < 20 for i in swap_items)
+    if any_low_quality:
+        note += "; some items below 20% quality"
+
+    return 'leveling', findings, note
 
 def cmd_init(args):
     expanded = Path(args.expanded)
@@ -314,6 +439,33 @@ def cmd_update(args):
         print("No previously-verified checks affected.")
 
 
+def cmd_analyze_swap(args):
+    raw_path = Path(args.raw)
+    if not raw_path.exists():
+        print(f"Raw PoB JSON not found: {raw_path}")
+        sys.exit(1)
+
+    swap_type, findings, note = analyze_swap(raw_path)
+
+    print(f"=== Weapon Swap Analysis ===")
+    print(f"Type: {swap_type}\n")
+    for line in findings:
+        print(f"  {line}")
+    print(f"\nRecommended note for swap_setup:\n  {note}")
+
+    if args.audit:
+        audit_path = Path(args.audit)
+        if not audit_path.exists():
+            print(f"\nAudit state not found: {audit_path} — skipping auto-note")
+            return
+        state = load_state(audit_path)
+        if 'swap_setup' not in state['checks']:
+            state['checks']['swap_setup'] = {"status": "unknown", "last_verified_snapshot": None, "last_verified_date": None, "notes": ""}
+        state['checks']['swap_setup']['notes'] = note
+        save_state(state, audit_path)
+        print(f"\nNote saved to swap_setup in {audit_path}")
+
+
 def cmd_verify(args):
     path = Path(args.audit)
     if not path.exists():
@@ -338,6 +490,50 @@ def cmd_verify(args):
     print(f"✓ {check_id}: {CHECKS[check_id]['label']}")
     if args.notes:
         print(f"  Notes: {args.notes}")
+
+
+def cmd_na(args):
+    path = Path(args.audit)
+    if not path.exists():
+        print(f"Audit state not found: {path}")
+        sys.exit(1)
+
+    state = load_state(path)
+    check_id = args.check_id
+
+    if check_id not in CHECKS:
+        print(f"Unknown check: {check_id}")
+        print(f"Valid checks: {', '.join(CHECKS.keys())}")
+        sys.exit(1)
+
+    state['checks'][check_id].update({
+        "status": "na",
+        "notes": args.notes or state['checks'][check_id].get('notes', ''),
+    })
+    save_state(state, path)
+    print(f"- {check_id}: marked N/A")
+    if args.notes:
+        print(f"  Notes: {args.notes}")
+
+
+def cmd_note(args):
+    path = Path(args.audit)
+    if not path.exists():
+        print(f"Audit state not found: {path}")
+        sys.exit(1)
+
+    state = load_state(path)
+    check_id = args.check_id
+
+    if check_id not in CHECKS:
+        print(f"Unknown check: {check_id}")
+        print(f"Valid checks: {', '.join(CHECKS.keys())}")
+        sys.exit(1)
+
+    state['checks'][check_id]['notes'] = args.notes
+    save_state(state, path)
+    print(f"? {check_id}: note added")
+    print(f"  {args.notes}")
 
 
 def cmd_status(args, todo_only=False):
@@ -402,6 +598,20 @@ def main():
     p_verify.add_argument('check_id', help='Check ID to mark verified')
     p_verify.add_argument('--notes', help='Optional notes', default='')
 
+    p_na = sub.add_parser('na', help='Mark a check as not applicable')
+    p_na.add_argument('audit', help='Path to audit state JSON')
+    p_na.add_argument('check_id', help='Check ID to mark N/A')
+    p_na.add_argument('--notes', help='Optional notes', default='')
+
+    p_note = sub.add_parser('note', help='Add notes to a check without changing its status')
+    p_note.add_argument('audit', help='Path to audit state JSON')
+    p_note.add_argument('check_id', help='Check ID')
+    p_note.add_argument('notes', help='Notes text')
+
+    p_swap = sub.add_parser('analyze-swap', help='Analyze weapon swap (gem leveling vs active mechanic)')
+    p_swap.add_argument('raw', help='Path to raw PoB JSON (from lua import, not expanded)')
+    p_swap.add_argument('--audit', help='Path to audit state JSON — if provided, auto-saves note to swap_setup check', default='')
+
     p_status = sub.add_parser('status', help='Show full audit status')
     p_status.add_argument('audit', help='Path to audit state JSON')
 
@@ -410,7 +620,13 @@ def main():
 
     args = parser.parse_args()
 
-    if args.command == 'init':
+    if args.command == 'analyze-swap':
+        cmd_analyze_swap(args)
+    elif args.command == 'na':
+        cmd_na(args)
+    elif args.command == 'note':
+        cmd_note(args)
+    elif args.command == 'init':
         cmd_init(args)
     elif args.command == 'update':
         cmd_update(args)
