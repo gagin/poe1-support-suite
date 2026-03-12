@@ -48,8 +48,7 @@ Ordered roughly by accessibility — earlier sections apply at all stages, later
   - Life/mana flasks may be redundant with strong leech or regen — replace with utility
 
 ### Items — Affixes
-- [ ] Every rare item has 6 affixes (3 prefix + 3 suffix) — no empty slots unless intentional
-- [ ] Benchcraft fills the best available open slot on each item
+- [ ] Every rare item has 6 affixes (3 prefix + 3 suffix) — no empty slots unless intentionally held open for a specific bench craft during an ongoing crafting process
 - [ ] No dead mods for the build (e.g. "damage with one-handed weapons" on Shield Crush, crit multi without crit)
 
 ### Eldritch Implicits (Eater/Exarch)
@@ -81,10 +80,7 @@ Ordered roughly by accessibility — earlier sections apply at all stages, later
 - [ ] All active skill gems at level 20, 20% quality minimum
 - [ ] All support gems at level 20, 20% quality minimum
 - [ ] Key active skill gems: attempt corruption for level 21 (21/20 is standard endgame)
-- [ ] Consider **alternate quality** (Anomalous/Divergent/Phantasmal) for gems where the alternate effect outperforms normal quality — check each key gem:
-  - Anomalous: modified quality effect (e.g. Anomalous Multistrike = less repeat penalty)
-  - Divergent: different quality stat
-  - Phantasmal: different quality stat (typically less common/useful)
+- [ ] **Alternate quality** (Anomalous/Divergent/Phantasmal): these are not upgrades — they change the gem's behavior entirely. Use only when the specific behavior is what the build wants. Check each key gem's alternate versions to see if any variant's mechanic is better suited than the normal version for the build. Do not default to alt quality; default to normal and swap only with reason.
 - [ ] Vaal versions of active skills where relevant (Vaal Molten Shell, Vaal Ancestral Warchief, etc.)
 
 ### Jewels
