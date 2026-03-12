@@ -210,6 +210,32 @@ Rare items can have up to **3 prefixes** and **3 suffixes** (6 explicit mods tot
 - When crafting, check which affixes are already allocated (prefix vs suffix) before choosing a bench craft, since the bench can only fill open slots of the correct type.
 - A "full" item (3 prefixes + 3 suffixes) cannot be crafted further without using an Orb of Annulment to remove a mod first.
 
+### Cluster Jewels — Sockets and Sizing
+
+**Socket counts (non-unique clusters):**
+- **Large** cluster jewels: always **2 jewel sockets** (for medium clusters)
+- **Medium** cluster jewels: always **1 jewel socket** (for small clusters)
+- **Small** cluster jewels: no jewel sockets
+
+**Passive count and sizing preferences:**
+
+*Large clusters:*
+- **8 passives** — preferred when the small passives on the cluster are weak relative to what the passive tree offers nearby. Fewer smalls to path through, lower cost to reach both notables.
+- **12 passives** — preferred when the cluster's small passives are stronger than what the tree would otherwise provide. More smalls allocated, but each small is high value (e.g. 10%+ attack damage per small).
+- Avoid 10-passive larges — worst of both worlds.
+
+*Medium clusters:*
+- **4 or 5 passives** — standard. Minimises small passives pathed through while still reaching both notables.
+
+*Small clusters:*
+- **2 passives** — always preferred. One notable + one small; minimal passive investment, direct access to the notable.
+
+**Evaluating a large cluster:**
+1. Check both notables — are they best-in-slot for the build, or just filler?
+2. Check the small passive enchant — "10% increased Attack Damage" per small is very strong; "2% increased Damage" is filler.
+3. With strong smalls → prefer 12P. With weak smalls → prefer 8P.
+4. The jewel enchant (e.g. "12% increased Physical Damage") is a fixed bonus regardless of passives — factor it in but it's not the primary evaluation criterion.
+
 ### Local vs Global Modifiers
 
 A modifier is **local** if it meets any of these criteria:

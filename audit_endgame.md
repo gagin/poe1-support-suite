@@ -106,9 +106,9 @@ Use `python audit_state.py analyze-swap <raw_pob.json> --audit <audit.json>` to 
 - [ ] Timeless jewel in place with correct seed/position for the build (see timeless_jewel_analysis.py)
 
 ### Cluster Jewels
-- [ ] Large cluster jewels: enchant and notables are best available for the build
-- [ ] Medium cluster jewels: notables provide mods orthogonal to what tree already provides (not stacking into already-large additive pools)
-- [ ] Small cluster jewels in medium cluster sockets: useful notables, not filler
+- [ ] Large cluster jewels: notables are best available for the build; passive count matches small-passive value (8P if smalls are weak, 12P if smalls are strong — see Cluster Jewels section in CLAUDE.md)
+- [ ] Medium cluster jewels: 4 or 5 passives; notables provide mods orthogonal to what tree already provides (not stacking into already-large additive pools)
+- [ ] Small cluster jewels: 2 passives; useful notable, not filler
 
 ### Item Implicits — Completion
 - [ ] All eligible non-unique items have both Eater and Exarch implicits at good tiers
