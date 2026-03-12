@@ -205,7 +205,25 @@ fetch_wiki_page("Divine Font")
 
 ---
 
-## 5. Selling Items — Trade Filter Visibility
+## 5. Menagerie — Unique Map Crafting
+
+Einhar's Menagerie beastcrafting includes a recipe to **create a unique map** from a normal map base using four specific beasts. This is reliable early/mid league income because:
+
+- Unique maps are scarce early — players need them for challenge #23 (Remarkable Realms: complete all 17 unique maps) and for specific farming strategies
+- The recipe is deterministic: you choose which unique map to craft based on the beast combination
+- Normal map bases cost nothing; the value is entirely in the beasts captured
+
+**How to use it:**
+1. Check which unique maps are in demand (challenge #23 requires all 17 — any unique map has demand early league)
+2. Capture the required beasts while mapping (Einhar missions or Einhar appearing naturally)
+3. Craft in the Menagerie — pick the most valuable unique map the current beast stock allows
+4. List immediately; early league scarcity means buyers are active
+
+**Mapping strategy note:** Beasts and Essences do not benefit meaningfully from higher map tiers — their rewards don't scale significantly with map level. Run these mechanics freely on lower-tier progression maps without opportunity cost. Save high-tier map investment for mechanics that do scale: Delirium, Abyss depth, Breach (more splinters), Legion (more emblems), etc.
+
+---
+
+## 6. Selling Items — Trade Filter Visibility
 
 When listing rare items for sale, the item needs to match what buyers' trade filters are searching for. A 5-mod item may be invisible to filters that require 6 mods or a specific combination.
 
@@ -229,7 +247,7 @@ Exalted orbs are cheap this league. Use them freely to fill out rare items:
 
 ---
 
-## 6. Mirage League — Coin of Restoration Economy
+## 7. Mirage League — Coin of Restoration Economy
 
 ### What it does
 Coin of Restoration upgrades an Afarud unique (tainted Maraketh item that drops in Mirage encounters) to its Maraketh form — the restored, usually stronger version.
