@@ -3,29 +3,31 @@
 Reward milestones: **12** = Orb Regalia Boots, **20** = Gloves, **28** = Body Armour, **36** = Helmet.
 Totem pole decoration pieces awarded throughout.
 
+**Progress: 12/40 — Boots unlocked ✓**
+
 [verified 2026-03 via u4n/poedb/poewiki]
 
 ---
 
 ## Tier 1 — Early (Campaign)
 
-1. **Beginner's Basics** — Use Orb of Transmutation, Alteration, Augmentation, and Alchemy at least once each.
+1. ~~**Beginner's Basics**~~ ✓ — Use Orb of Transmutation, Alteration, Augmentation, and Alchemy at least once each.
 
-2. **Mysterious Mirages** — Complete the Mirage mechanic: choose a wish, enter a Mirage portal, break an Astral Chain.
+2. ~~**Mysterious Mirages**~~ ✓ — Complete the Mirage mechanic: choose a wish, enter a Mirage portal, break an Astral Chain.
 
-3. **Peddler's Produce I** — Obtain flasks and jewellery through vendor recipes.
+3. ~~**Peddler's Produce I**~~ ✓ — Obtain flasks and jewellery through vendor recipes.
 
-4. **Act Adversaries I** — Defeat final bosses of Acts 1–5 (Merveil, Vaal Oversoul, Dominus, Malachai, Kitava).
+4. ~~**Act Adversaries I**~~ ✓ — Defeat final bosses of Acts 1–5 (Merveil, Vaal Oversoul, Dominus, Malachai, Kitava).
 
-5. **Beneficial Bounties** — Complete four specific quests across Acts 1–4.
+5. ~~**Beneficial Bounties**~~ ✓ — Complete four specific quests across Acts 1–4.
 
-6. **Desecrated Djinn** — Choose wishes 5 times, defeat 10 rare Mirage monsters, break 15 Astral Chains.
+6. ~~**Desecrated Djinn**~~ ✓ — Choose wishes 5 times, defeat 10 rare Mirage monsters, break 15 Astral Chains.
 
-7. **Act Adversaries II** — Defeat final bosses of Acts 6–10.
+7. ~~**Act Adversaries II**~~ ✓ — Defeat final bosses of Acts 6–10.
 
-8. **Helpful Hideaways** — Visit seven specific areas (including Aspirant's Plaza, Rogue Harbour).
+8. ~~**Helpful Hideaways**~~ ✓ — Visit seven specific areas (including Aspirant's Plaza, Rogue Harbour).
 
-9. **Added Accessories** — Complete 30 encounters each from any 3 of: Essences, Strongboxes, Shrines, Possessed monsters, Rogue Exiles, Beyond.
+9. ~~**Added Accessories**~~ ✓ — Complete 30 encounters each from any 3 of: Essences, Strongboxes, Shrines, Possessed monsters, Rogue Exiles, Beyond.
 
 10. **Atlas Additions** — Complete 30 encounters each from any 5 of 10 league mechanics (Abysses, Expeditions, Harvest, Legion, Blights, etc.).
 
@@ -37,7 +39,7 @@ Totem pole decoration pieces awarded throughout.
 
 12. **Sacred Sigils** — Choose wishes using each of the three Djinn sigils (Navira, Kelari, Ruzhan) 50 times each.
 
-13. **Cartographer's Courage** — Complete a rare map of each tier from Tier 1 to Tier 16.
+13. ~~**Cartographer's Courage**~~ ✓ — Complete a rare map of each tier from Tier 1 to Tier 16.
 
 14. **Crafting Craze** — Use 15 different currency item types a specified number of times each.
 
@@ -65,7 +67,7 @@ Totem pole decoration pieces awarded throughout.
 
 24. **Succinct Scarabs** — Complete rare Tier 14+ maps with any 8 different scarab types, 30 times each.
 
-25. **Glorious Gemcraft** — Complete any 3 of 4 gem tasks:
+25. ~~**Glorious Gemcraft**~~ ✓ — Complete any 3 of 4 gem tasks:
     - Corrupt gems
     - Use Prism items
     - Achieve a quality total across gems *(see note below)*
@@ -73,7 +75,7 @@ Totem pole decoration pieces awarded throughout.
 
 26. **Cross Contamination** — Complete any 4 combined league mechanic encounters (two mechanics simultaneously).
 
-27. **Wishful Willing** — Select any 13 of the 20 available Mirage wishes.
+27. ~~**Wishful Willing**~~ ✓ — Select any 13 of the 20 available Mirage wishes.
 
 28. **Seized Strength** — Defeat any 7 of 11 specific bosses (Trialmaster, Oshabi, Catarina, Simulacrum, etc.).
 
