@@ -380,7 +380,16 @@ Recorded: Mirage league [2026-03-25]. Sony data from in-game trade spreads (bid�
 
 ---
 
-## 9. Gold → Fusing Orb Conversion via Trash Six-Links
+## 9. Gold Disenchanting — Vulconus
+
+For converting gold via the disenchanting vendor (selling items for gold value), **Vulconus** is efficient:
+- Costs 1c to buy
+- Gives ~45k gold at ilvl 83 without quality
+- **Watch item levels when buying** — gold value scales with item level. Lower ilvl = less gold.
+
+---
+
+## 10. Gold → Fusing Orb Conversion via Trash Six-Links
 
 When fusing orbs are expensive (e.g. 2:1 chaos), you can convert excess gold into fusings by buying vendor-priced six-link items from other players and vendoring them.
 
