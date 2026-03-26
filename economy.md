@@ -384,7 +384,8 @@ Recorded: Mirage league [2026-03-25]. Sony data from in-game trade spreads (bidâ
 
 For converting chaos into dust (Mirage disenchanting currency), **Vulconus** is efficient:
 - Costs 1c to buy
-- Gives ~45k dust at ilvl 83 without quality
+- ~45k dust at ilvl 83 without quality
+- ~62.8k dust at ilvl 83 with quality, ~65k at ilvl 85 with quality
 - **Watch item levels when buying** â€” dust value scales with item level. Lower ilvl = less dust.
 
 ---
