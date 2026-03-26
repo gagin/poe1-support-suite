@@ -286,3 +286,99 @@ These coins corrupt a **level 20 skill gem**, adding the effects of a random Sup
 - Coin of Skill → random Dexterity support effect
 
 **In practice:** The support pool is large and most rolls are irrelevant to any specific build. Coin of Power in particular has very poor hit rate for melee/phys builds — the chance of landing a useful Str support (e.g. Brutality, Impale, Melee Physical Damage) is low. These coins have market value because other players want to gamble with them. **Always sell Power/Knowledge/Skill coins rather than using them yourself** — the EV of self-use is too low to justify, and the coins are worth more to gamblers than to you.
+
+### Coin Price Data — Sony (PlayStation) vs PC
+
+Recorded: Mirage league day 5 [2026-03-11]. PC data via poe.ninja; Sony data from in-game trade spreads.
+
+**Sony spread notation: bid–ask** (e.g. 56–91c = buyers at 56c, sellers at 91c). n/a on the left = no buyers; n/a on the right = no sellers. A number with n/a on the other side means one-sided market — no real price.
+
+| Currency | Sony (ask–bid) | PC (poe.ninja) | Notes |
+|---|---|---|---|
+| Coin of Knowledge | 56–91c | ~71c | Sony roughly on par |
+| Coin of Power | 23–69c | ~97c | Sony much cheaper — less demand or more supply |
+| Coin of Skill | 33–57c | ~41c | Sony roughly on par |
+| Coin of Desecration | n/a–17c | ~0.53c (1.9/c) | Sony: sellers at 17c but no buyers — no demand, illiquid |
+| Coin of Restoration | n/a–1/3c | ~0.036c (28/c) | Sony: sellers at 1/3c, no buyers — worthless; drops freely and has no meaningful use |
+| Exalted Orb | 1/2–1c | ~2c | Sony cheaper; both realms near-zero vs divine |
+| Divine Orb | 170–175c | ~172c | Essentially 1:1 |
+
+**Foulborn Exalted Orb** (PC): ~350c — no Sony reference yet, but high value on PC implies significant value on Sony given div parity.
+
+**Observations:**
+- Sony and PC divine orb prices are nearly identical — both markets anchor to the same benchmark.
+- **Coin of Power**: Sony (23–69c) vs PC (97c) — Sony significantly cheaper. Power has the worst hit rate for most builds; PC gamblers may be more active or have more currency to burn.
+- **Coin of Desecration**: 0.53c on PC (liquid market). Sony has sellers at 17c but no buyers — no demand at that price. Effectively illiquid; the ask is meaningless without a bid.
+- **Exalted Orb**: effectively vendor trash on both realms now (~2c PC, sub-1c Sony). Historic high of 60–80c in older leagues — the shift to Divine Orb as the primary currency sink is complete.
+- Restoration worthless because it both drops freely AND has no meaningful use case (conversion is free by design).
+
+---
+
+## PlayStation (Sony) Realm — No Public Price Data
+
+poe.ninja and similar sites do not index the PlayStation market. **Do NOT use price_check or currency_overview MCP tools for PS builds.** Price data returned will be PC prices, which are meaningless for PS economy.
+
+When discussing item costs for PS players:
+- Speak in relative terms only: "this is a chase item and will be expensive", "this drops commonly and should be cheap", "this requires a divine orb craft"
+- Never cite specific chaos/divine values
+
+---
+
+## League Stage Priorities
+
+### Early League / League Start (first 1–2 weeks)
+Do NOT recommend:
+- Forbidden Flame / Forbidden Flesh jewels (extremely rare, expensive early)
+- Awakened support gems (not available early, cost dozens of divines)
+- 21/20 gems (require 23% quality gems + corruption, very expensive)
+- Mirror-tier or high-end crafted items
+- Headhunter, Mageblood, or other chase uniques
+
+DO recommend:
+- Self-craft or cheap rares
+- Normal 20/20 gems (or even 20/0)
+- Budget unique alternatives
+- Core build uniques that drop commonly
+- Cluster jewels with basic notables
+- Survivability before damage optimization
+
+### Mid League (2–6 weeks)
+- Awakened gems exist but are still costly — only recommend if player has surplus currency
+- Forbidden jewels exist but are expensive — only recommend if budget allows
+- 20/20 gems are standard; 21/20 may be achievable for key gems
+- Divine orbs are the main currency benchmark (no exact price data for PS)
+
+### Late League / Endgame Pushing
+- Full optimization: awakened gems, 21/20 on key gems, forbidden jewels
+- Mirror crafts for BIS slots
+- Six-link +1 gems weapons, etc.
+
+---
+
+## 8. Gold → Fusing Orb Conversion via Trash Six-Links
+
+When fusing orbs are expensive (e.g. 2:1 chaos), you can convert excess gold into fusings by buying vendor-priced six-link items from other players and vendoring them.
+
+**How it works:**
+- Six-link items vendor for **20 Fusing Orbs** (guaranteed vendor recipe)
+- Trash six-links (bad bases, bad mods) are listed for 1c or less because they have no use beyond the vendor recipe
+- At 2:1 fusing-to-chaos ratio, 20 fusings = 10 chaos value
+- Cost: 1c purchase + ~5k gold → **~9c profit per item**
+
+**When to do this:**
+- Fusing price is high (1.5:1 or better vs chaos)
+- You have gold to burn and no better use for it
+- Trash six-links are available at 1c or below
+
+**When NOT to do this:**
+- Fusing price drops below 2:1 — profit margin disappears
+- Six-links are listed above 5c — other players are already pricing in the recipe value
+
+---
+
+## General Upgrade Advice
+
+- When suggesting upgrades, order by: impact on build (damage, survivability, QoL) weighted by expected availability.
+- For gem recommendations: check if corrupted implicit (+1 level) matters for the skill before recommending corruption.
+- Always check if a unique's mods are still relevant after potential nerfs — verify via wiki.
+- Mastery choices: verify they work with the build mechanic before suggesting.
