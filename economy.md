@@ -380,12 +380,12 @@ Recorded: Mirage league [2026-03-25]. Sony data from in-game trade spreads (bid�
 
 ---
 
-## 9. Gold Disenchanting — Vulconus
+## 9. Dust Disenchanting — Vulconus
 
-For converting gold via the disenchanting vendor (selling items for gold value), **Vulconus** is efficient:
+For converting chaos into dust (Mirage disenchanting currency), **Vulconus** is efficient:
 - Costs 1c to buy
-- Gives ~45k gold at ilvl 83 without quality
-- **Watch item levels when buying** — gold value scales with item level. Lower ilvl = less gold.
+- Gives ~45k dust at ilvl 83 without quality
+- **Watch item levels when buying** — dust value scales with item level. Lower ilvl = less dust.
 
 ---
 
