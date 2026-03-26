@@ -355,7 +355,32 @@ DO recommend:
 
 ---
 
-## 8. Gold → Fusing Orb Conversion via Trash Six-Links
+## 8. Astrolabe Prices — Sony (PlayStation)
+
+Recorded: Mirage league [2026-03-25]. Sony data from in-game trade spreads (bid–ask in chaos).
+
+| Astrolabe | Bid | Ask |
+|---|---|---|
+| Grasping Breaches | 191 | 300 |
+| Nameless Ritual | 80 | 135 |
+| Runic | 75 | 120 |
+| Fruiting | 102 | 109 |
+| Chaotic Ultimatum | 75 | 100 |
+| Enshrouded Delirium | 50 | 100 |
+| Lightless | 25 | 100 |
+| Timeless Legion | n/a | 75 |
+| Templar Shaper | 55 | 75 |
+| Fungal | 36 | 50 |
+
+**Observations:**
+- Grasping Breaches is the premium astrolabe — wide spread suggests low liquidity at the top
+- Fruiting has the tightest spread (102–109) — most liquid, active market
+- Lightless has a huge spread (25–100) — buyers and sellers far apart, illiquid
+- Timeless Legion has no buyers — sellers only at 75c
+
+---
+
+## 9. Gold → Fusing Orb Conversion via Trash Six-Links
 
 When fusing orbs are expensive (e.g. 2:1 chaos), you can convert excess gold into fusings by buying vendor-priced six-link items from other players and vendoring them.
 
