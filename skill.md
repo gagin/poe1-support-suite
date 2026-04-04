@@ -91,6 +91,22 @@ Shield Crush fires 3 waves in a segmented cone: left, center, right. The center 
 
 **On controller:** Achievable. You don't control aim angle with mouse precision, but standing flush against the boss achieves the overlap naturally. The difference vs mouse is minor — overlap is a bonus, not a requirement.
 
+### Shield Crush — Flat Damage Scaling (Local Armour Only)
+
+Shield Crush adds flat physical damage based on **the shield's own armour/evasion rating as shown on the item tooltip**. This is determined by the shield's base type and its local mods only.
+
+**Global armour modifiers do NOT apply.** Tree nodes like "X% increased Armour", "increased Defences from Shield" notables, Granite Flask, or armour from other pieces do not increase the flat damage Shield Crush derives from the shield. Only what is printed on the shield's tooltip counts.
+
+Stacking global armour improves character defences and Molten Shell absorption, but does **not** boost Shield Crush's flat damage.
+
+### Intimidating Cry — No Double Damage with Multistrike
+
+Intimidating Cry's "Exerted Attacks deal Double Damage" does **not** apply to multi-hit skills. Multistrike makes Shield Crush a multi-hit skill (3 hits per sequence), which disqualifies it from the exert double damage mechanic.
+
+For a Multistrike Shield Crush build, Intimidating Cry provides:
+1. **Intimidate on taunted enemies** — 10% increased attack damage taken (enemy debuff, goes in enemy taken pool)
+2. **Movement speed buff** — from the warcry's power-scaled buff
+
 ### Shield Crush of the Chieftain differences
 Same 3-wave/2-overlap geometry. Key changes:
 - Converts entirely to **fire damage** — benefits from fire scaling, not physical
@@ -193,41 +209,67 @@ import_character(character_name: "YourCharName", league: "Mirage")
 
 ## Scripts
 
-### build_expander.py
+### import_character_cli.lua
 
-Comprehensive build analysis - imports character and enriches with full details.
+First step: download character JSON from PoE.
 
 ```bash
-python build_expander.py [options]
+cd pob/PathOfBuilding-2.59.2/tools
+lua import_character_cli.lua <realm> <account> <character>
+
+# Example
+lua import_character_cli.lua SONY Ladimir_Lepin#9831 MiragMaraBatato
+```
+
+### build_expander.py
+
+Second step: expand character JSON with full details.
+
+```bash
+python build_expander.py <character.json> [options]
 
 Options:
-  character_file          Path to existing character JSON
-  --import               Import character from PoE first
-  --character <name>     Character name to import
-  --league <name>        League name (default: Mirage)
-  --realm <realm>        pc, xbox, sony (default: sony)
-  --output, -o           Output file path
+  character_file    Path to character JSON (from lua import script)
+  --league <name>   League name (default: Mirage)
+  --realm <realm>   pc, xbox, sony (default: sony)
+  --output, -o      Output file path
+  --include-swap    Include weapon swap items and gems
 ```
 
 **Usage Examples:**
 
 ```bash
-# Import and expand character directly
-python build_expander.py --import --character "MyCharacter" --league Mirage --realm sony
+# Expand character (excludes weapon swap by default)
+python build_expander.py pob/PathOfBuilding-2.59.2/tools/MiragMaraBatato.json
 
-# Expand from existing JSON
-python build_expander.py MyCharacter.json --league Mirage
+# Include weapon swap (both weapons + gems)
+python build_expander.py character.json --include-swap
 
 # Save to custom location
-python build_expander.py --import --character "MyCharacter" -o build_analysis.json
+python build_expander.py character.json -o build_analysis.json
 ```
 
 **Output includes:**
 - Passive tree: keystones, notables, masteries with full stats
-- Equipment: all items with explicit/implicit/enchant mods
+- Equipment: all items with explicit/implicit/enchant mods (excludes weapon swap by default)
 - Unique items: mod details from poedb.tw database
-- Skill gems: levels, quality, support/link info
+- Skill gems: levels, quality, support/link info (excludes weapon swap by default)
 - Prices: current chaos/divine values from poe.ninja
+
+### json_to_pob.py (Untested Project)
+
+Generate a PoB import string from character JSON.
+
+```bash
+python json_to_pob.py <character.json> [options]
+
+Options:
+  character_file    Path to character JSON
+  --include-swap   Include weapon swap
+  --output, -o     Output file
+```
+
+**Status:** Untested - may need refinement for exact PoB format.
 
 ---
 

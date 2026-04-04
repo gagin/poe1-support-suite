@@ -411,6 +411,32 @@ When fusing orbs are expensive (e.g. 2:1 chaos), you can convert excess gold int
 
 ---
 
+---
+
+## 11. Augment vs Alteration Orb — Market Prices & Vendor Exchange
+
+Recorded: Mirage league [2026-04-03]. PC data via poe.ninja API.
+
+| Orb | Price (chaos) |
+|-----|---------------|
+| Orb of Augmentation | ~0.09 c |
+| Orb of Alteration | ~0.14 c |
+| Exalted Orb | ~1.85 c |
+| Divine Orb | ~299 c |
+
+### Vendor recipe (3:1)
+The vendor accepts **3× Orb of Augmentation → 1× Orb of Alteration**.
+
+| Exchange | Cost | Return | Profit/Loss |
+|----------|------|--------|-------------|
+| 3× Augment → 1× Alteration | 3 × 0.09 = **0.27 c** | 0.14 c | **-0.13 c (loss)** |
+
+**Verdict: The 3:1 vendor exchange is NOT profitable.** You lose ~0.13c per transaction. Augments are worth more as crafting fodder or selling than as an exchange mechanism into alterations.
+
+**Do not use the vendor recipe** to convert augments to alterations — just sell augments and buy alterations directly if you need alterations.
+
+---
+
 ## General Upgrade Advice
 
 - When suggesting upgrades, order by: impact on build (damage, survivability, QoL) weighted by expected availability.
