@@ -243,10 +243,20 @@ Originally planned to use a no-life chest to activate the **15% increased maximu
 
 See [crafting.md](crafting.md) for other projects.
 
+## Flexible Slots
+
+### Hunter Belt
+The Hunter base gives **+2% to all Attributes** as an implicit, strong value per slot. When bench-crafting:
+- **% attributes > % increased life.** Life adds to an already large increased% pool (heavy diminishing returns). Attributes help all three stats (str for damage/life, int for gems, dex for accuracy) and benefit from the Hunter implicit's more-efficient attribute scaling.
+- % attributes is rarer than % increased life (weight 1000 / 70,750 vs weight 1000 / 54,300) — harder to hit on bench but more valuable.
+
+### Rings
+The biggest remaining pain point is the **non-Amethyst ring missing the -7 non-channelling mana cost prefix**.
+
+The long-term target is a **Vermillion ring** that carries life and attribute burden while also enabling the mana craft.
+
 ## Endgame Mistakes
 
 - **+2 max fire res on rings is wasted** if max fire res is 85 without them. Ruby flask carries the remaining 5 res via its "gains max fire res" mod — no need to overcap on gear.
 - **Quality on CwDT and Vaal Molten Shell is unnecessary.** Vaal Molten Shell can be self-corrupted by buying a regular 1/20 Molten Shell and using a Vaal Orb — cheaper than quality on the Vaal version.
 - **Assassin's Mark vs Poacher's Mark:** Assassin's is life on kill (useless in boss fights), Poacher's is life on hit (procs continuously at high hit rate). Poacher is strictly better for sustained boss damage.
-- **Hunter belt: % attributes > % increased life.** Life adds to an already large increased% pool (heavy diminishing returns). Attributes help all three stats (str for damage/life, int for gems, dex for accuracy) and benefit from Hunter's "more attribute" implicit. More efficient use of the belt slot.
-  - % attributes is rarer than % increased life (weight 1000 out of 70,750 vs weight 1000 out of 54,300) — harder to hit on bench but more valuable.
