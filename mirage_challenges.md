@@ -171,3 +171,20 @@ All 8 invitations with 4+ modifiers. Just roll invitations until you get baby mo
 - Shaper/Elder/Conqueror maps with 100%+ IQ ×50 (Maven rotas)
 - T16 maps with scarabs ×1000 (skip unless deep into endgame)
 - Skip: Level 100, Mirage T16 bosses ×100
+
+---
+
+## Mirage League (3.28) — Mechanic Changes
+
+### Originator Map Petal Skills — Removed in 3.28
+Prior to Mirage, Originator-influenced maps had 8 manually-activated memory petal skills (Memory of Desire, Memory of Panic, etc.) accessible via the skill bar (L2+R2 on controller). These were **removed entirely in 3.28**. Petals now passively increase the chance for dropped items to have Memory Strands. Active decision-making moved to Memory Altars at the end of each map boss in a Memory Thread — these apply modifiers automatically, some consuming petals under conditions. If a player reports the L2+R2 memory skill option missing, this is intentional, not a bug.
+
+### Borrowed Power — Mirage Coin Imbuement
+Mirage-league mechanic: Coins of Power/Knowledge/Skill can imbue a skill gem with a random support effect. This is a temporary borrowed power mechanic that does not carry to Standard or future leagues.
+
+Key rules:
+- Support pool is large; most rolls are irrelevant to any specific build
+- Coin of Power has very poor hit rate for melee/phys builds (random Str support — chance of landing Brutality, Impale, MPD is low)
+- **Always sell Power/Knowledge/Skill coins rather than self-using** — the EV of self-use is too low; coins are worth more to gamblers
+
+General principle for all borrowed power mechanics: when advising on whether to invest in a borrowed power mechanic, factor in that it disappears at league end.

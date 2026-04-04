@@ -27,9 +27,21 @@ The original build revolves around **Enmity's Embrace** ring: stacking fire resi
 - Three utility auras replace one damage ring + one defensive aura
 
 ### Curse Setup
-- **Flammability on Hit** ring suffix + **Whispers of Doom** belt anoint for double curse (Flammability + Assassin's Mark)
-- Assassin's Mark is not for crit scaling — EO provides 40% more damage with no crit multiplier, so crit beyond EO activation is irrelevant. Assassin's Mark exists to activate the **Mark mastery** (frenzy on hit) and **culling strike**
-- With high hit rate from Static Strike beams, EO uptime is effectively permanent regardless
+- **Flammability on Hit** ring suffix + **Whispers of Doom** belt anoint for double curse (Flammability + Mark)
+- **Flammability** — 15% fire exposure (meaningful upgrade over axe baseline 10%)
+
+### Mark Analysis
+Marks applied via Mark on Hit support. Mark mastery provides 10% chance to gain frenzy charge on hit against marked enemy (primary frenzy source during bossing).
+
+| Mark | Assessment |
+|------|-----------|
+| **Assassin's Mark** | Current. Culling strike + life/mana on kill. Power charges and crit wasted (EO self-sustains, no crit scaling). On-kill useless for boss sustain. |
+| **Warlord's Mark** | Life leech overcapped, endurance charges redundant (Enduring Cry), rage on stun unreliable. |
+| **Poacher's Mark** | **Best overall.** Life + mana on hit procs continuously during boss fights at high hit rate (Greater Multistrike + Ancestral Call). Frenzy on kill backs up mastery 10% for reliable frenzy capping during clear. Flat phys converts to fire via AoF (minor). -20% phys reduction dead (fire build). |
+| **Alchemist's Mark** | Dead. No ignite (Elemental Focus), no poison. |
+| **Sniper's Mark** | Projectiles only, irrelevant. |
+
+**Recommendation: Poacher's Mark.** Switch to Assassin's if culling strike threshold matters for specific boss.
 
 ### Pathing & Split Personalities
 - Long winding passive tree path to maximise **two Split Personalities** (life+str)
@@ -207,11 +219,9 @@ The engine (Grey Wind + Rathpith + Crown of Eyes + life stacking) is **skill-agn
 
 **Current: Vaal Molten Shell + Withering Step + CwDT L11**
 
-Withering Step is essentially dead weight — CwDT triggers on damage taken, but Withering Step wants to be used proactively for Elusive/movement and can't be cast while already Elusive. The reactive nature of CwDT and the proactive nature of Withering Step are fundamentally at odds.
+Withering Step is dead weight — CwDT triggers on damage taken, but Withering Step wants to be used proactively and can't be cast while already Elusive.
 
-**Upgrade: Frost Bomb** — fills the slot with something useful without needing to think about it. Impact is situational (vs regen enemies like Uber Lab, map bosses with regen mods) but when it matters, it matters. Other triggered spells are weak or short-duration; Frost Bomb is the best value for the slot.
-
-**Duration on Molten Shell** — tested and rejected. With ~2k absorption at 10k armour, the shield dies to hits before duration expires anyway. Duration doesn't help when 2k damage ends it instantly.
+**Best: Wave of Conviction** — 15% fire exposure via CwDT is irreplacable. Axe only provides 10% baseline exposure. Frost Bomb kept in inventory for swap-in against regen enemies (Uber Lab, map mods).
 
 ## Grey Wind Enchant (2026-04-03)
 
@@ -232,3 +242,11 @@ Upgraded to uncorrupted Grey Wind with **12% life conversion + +5 rage** (from 8
 Originally planned to use a no-life chest to activate the **15% increased maximum Life** mastery. Tested and rejected: the 15% more max life (11,148 final) is less than the current flat life (11,489 final). The third prefix slot has no meaningful upgrade to compensate. Keep the current armour.
 
 See [crafting.md](crafting.md) for other projects.
+
+## Endgame Mistakes
+
+- **+2 max fire res on rings is wasted** if max fire res is 85 without them. Ruby flask carries the remaining 5 res via its "gains max fire res" mod — no need to overcap on gear.
+- **Quality on CwDT and Vaal Molten Shell is unnecessary.** Vaal Molten Shell can be self-corrupted by buying a regular 1/20 Molten Shell and using a Vaal Orb — cheaper than quality on the Vaal version.
+- **Assassin's Mark vs Poacher's Mark:** Assassin's is life on kill (useless in boss fights), Poacher's is life on hit (procs continuously at high hit rate). Poacher is strictly better for sustained boss damage.
+- **Hunter belt: % attributes > % increased life.** Life adds to an already large increased% pool (heavy diminishing returns). Attributes help all three stats (str for damage/life, int for gems, dex for accuracy) and benefit from Hunter's "more attribute" implicit. More efficient use of the belt slot.
+  - % attributes is rarer than % increased life (weight 1000 out of 70,750 vs weight 1000 out of 54,300) — harder to hit on bench but more valuable.

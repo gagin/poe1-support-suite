@@ -147,10 +147,22 @@ def find_unique_item(name: str, items_list: list[dict]) -> dict | None:
     return None
 
 
-def expand_items(character_data: dict, realm: str = "pc", league: str = "") -> tuple[dict, set]:
-    """Expand character items with full details."""
-    print("Loading item database...")
-    items_db = _get_all_items()
+def expand_items(character_data: dict, realm: str = "pc", league: str = "", include_swap: bool = False, skip_poedb: bool = False) -> tuple[dict, set]:
+    """Expand character items with full details.
+    
+    Args:
+        character_data: The character data dict
+        realm: Realm for price checks
+        league: League for price checks
+        include_swap: If True, include weapon swap items and gems
+        skip_poedb: If True, skip poedb.tw item lookup (use when site is down)
+    """
+    if skip_poedb:
+        print("Skipping poedb.tw item lookup...")
+        items_db = []
+    else:
+        print("Loading item database...")
+        items_db = _get_all_items()
     
     items_data = character_data.get("items", {})
     inventory = items_data.get("items", [])  # Not "inventory"
@@ -159,6 +171,10 @@ def expand_items(character_data: dict, realm: str = "pc", league: str = "") -> t
     tree_items = character_data.get("passive_tree", {}).get("items", [])
     inventory = inventory + [i for i in tree_items if i]
 
+    # Filter out weapon swap items unless include_swap is True
+    if not include_swap:
+        inventory = [i for i in inventory if i and i.get("inventoryId") not in ("Weapon2", "Offhand2")]
+    
     result = {
         "equipment": [],
         "flasks": [],
@@ -171,6 +187,10 @@ def expand_items(character_data: dict, realm: str = "pc", league: str = "") -> t
 
     for idx, item in enumerate(inventory):
         if not item:
+            continue
+            
+        # Skip weapon swap items if not included
+        if not include_swap and item.get("inventoryId") in ("Weapon2", "Offhand2"):
             continue
             
         item_id = item.get("id", f"slot_{idx}")
@@ -189,6 +209,8 @@ def expand_items(character_data: dict, realm: str = "pc", league: str = "") -> t
             "enchantMods": item.get("enchantMods", []),
             "fracturedMods": item.get("fracturedMods", []),
             "synthesizedMods": item.get("synthesizedMods", []),
+            "craftedMods": item.get("craftedMods", []),
+            "veiledMods": item.get("veiledMods", []),
             "corrupted": item.get("corrupted", False),
             "shaper": item.get("shaper", False),
             "elder": item.get("elder", False),
@@ -231,13 +253,27 @@ def expand_items(character_data: dict, realm: str = "pc", league: str = "") -> t
     return result, unique_names
 
 
-def expand_skills(character_data: dict) -> dict:
-    """Expand skill gems with full details."""
-    print("Loading gem database...")
-    gems_db = _get_all_gems()
+def expand_skills(character_data: dict, include_swap: bool = False, skip_poedb: bool = False) -> dict:
+    """Expand skill gems with full details.
+    
+    Args:
+        character_data: The character data dict
+        include_swap: If True, include gems from weapon swap
+        skip_poedb: If True, skip poedb.tw gem lookup (use when site is down)
+    """
+    if skip_poedb:
+        print("Skipping poedb.tw gem lookup...")
+        gems_db = []
+    else:
+        print("Loading gem database...")
+        gems_db = _get_all_gems()
     
     items_data = character_data.get("items", {})
     inventory = items_data.get("items", [])
+    
+    # Filter out weapon swap items unless include_swap is True
+    if not include_swap:
+        inventory = [i for i in inventory if i and i.get("inventoryId") not in ("Weapon2", "Offhand2")]
     
     result = {
         "active_skills": [],
@@ -297,6 +333,8 @@ async def main():
     parser.add_argument("--league", default="Mirage", help="League name (default: Mirage)")
     parser.add_argument("--realm", default="sony", help="Realm: pc, xbox, sony (default: sony)")
     parser.add_argument("--output", "-o", help="Output file path")
+    parser.add_argument("--include-swap", action="store_true", help="Include weapon swap items and gems")
+    parser.add_argument("--skip-poedb", action="store_true", help="Skip poedb.tw item lookup (use when site is down)")
     
     args = parser.parse_args()
     
@@ -319,10 +357,24 @@ async def main():
     passives = expand_passive_tree(character_data)
     
     print("2. Expanding items...")
-    items, unique_names = expand_items(character_data, realm=realm, league=league)
+    try:
+        items, unique_names = expand_items(character_data, realm=realm, league=league, include_swap=args.include_swap, skip_poedb=args.skip_poedb)
+    except Exception as e:
+        if "503" in str(e) or "poedb" in str(e).lower():
+            print(f"poedb.tw unavailable ({e}), retrying with --skip-poedb...")
+            items, unique_names = expand_items(character_data, realm=realm, league=league, include_swap=args.include_swap, skip_poedb=True)
+        else:
+            raise
     
     print("3. Expanding skill gems...")
-    skills = expand_skills(character_data)
+    try:
+        skills = expand_skills(character_data, include_swap=args.include_swap, skip_poedb=args.skip_poedb)
+    except Exception as e:
+        if "503" in str(e) or "poedb" in str(e).lower():
+            print(f"poedb.tw unavailable ({e}), retrying with --skip-poedb...")
+            skills = expand_skills(character_data, include_swap=args.include_swap, skip_poedb=True)
+        else:
+            raise
     
     print("4. Fetching prices...")
     prices = await get_prices(unique_names, realm=realm, league=league)
