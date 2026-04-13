@@ -145,6 +145,9 @@ Use `python audit_state.py analyze-swap <raw_pob.json> --audit <audit.json>` to 
 - [ ] Every slot: mirror-tier crafted base with optimal influence combination and perfect rolls
 - [ ] All items double-corrupted with two useful implicits
 - [ ] Influenced item combinations (e.g. Shaper+Elder, Crusader+Warlord) for the strongest possible mod combinations per slot
+- [ ] **Armor intrinsic values**: on all non-corrupted armour pieces, the implicit modifiers (e.g. armor/evasion/energy shield values) are in the top 25% of the mod range — if not, consider using a **Sacred Orb** to upgrade the tier
+  - Check the implicit tier range for each base type; low-tier implicits are a significant stat leak
+  - Sacred Orb bumps implicits up one tier, so only apply to items where the current implicit tier is not already T1
 
 ---
 
