@@ -48,8 +48,8 @@ Marks applied via Mark on Hit support. Mark mastery provides 10% chance to gain 
 - The winding path also passes through many small nodes in Lethal Pride radius, each gaining +5 Str
 
 ### Mana Solution
-- 8-link (7 supports + Cruelty imbue on gem) creates high mana cost
-- **-7 to non-channelling mana cost** craft on ring prefix solves this
+- 8-link (Ancestral Call from acendancy + 5 actual supports + imbue on gem) creates high mana cost
+- **-7 to non-channelling mana cost** craft on ring prefix solves this (if not using multistrike to have several its for same mana cost, then on both rings)
 
 ## The Damage Engine
 
@@ -101,7 +101,14 @@ Flat/Added  ×  Increased  ×  More multipliers  ×  Overlaps  ×  Enemy res red
 - Ancestral Call (free from Tukohama ascendancy) — **unclear if phantom strikes generate independent beam sets.** Wiki says beam damage is "considered damage from the attack that granted static energy" but doesn't address whether each Ancestral Call strike grants its own energy/beams. Saresh testing suggests some contribution but unverified. [unverified 2026-03]
 
 ### Links (Body Armour, 7L + Tukohama)
-Static Strike (Cruelty imbue) + Elemental Focus + Greater Multistrike + Inspiration + **[Greater Chain / Hypothermia]** + Elemental Damage with Attacks + Ancestral Call (free from Tukohama)
+Static Strike (Ruthless imbue) + Close Combat + Greater Multistrike + Inspiration + **[Greater Chain / Hypothermia]** + Elemental Damage with Attacks + Ancestral Call (free from Tukohama)
+
+**Imbue:** Ruthless instead of Cruelty — Close Combat replaces Elemental Focus for melee-specific scaling.
+
+### Build Milestones
+
+**Simulacrum:** Current build state clears all waves with 3 portals remaining.
+- Build file: `builds_arc/MiragMaraBatato_simulacrum_expanded.json`
 
 **Green socket swap (same socket, two options):**
 - **Mapping:** Greater Chain — beams chain 3x, packs clear while moving
@@ -109,17 +116,30 @@ Static Strike (Cruelty imbue) + Elemental Focus + Greater Multistrike + Inspirat
 
 **Greater Chain and Beyond:** Greater Chain's longer range is counterproductive for Beyond density farming. Beyond portals spawn when monsters die clustered near each other — longer chain range spreads kills across a wider area, reducing clustering and therefore fewer Beyond portals. For maximum Beyond density, use Faster Attacks (shorter-range beams, deaths stay clustered). Greater Chain makes Beyond manageable but actively reduces Beyond spawn rate.
 
+### Support Gem Paths
+
+Static Strike has two viable support gem paths that fundamentally change its scaling direction:
+
+**Greater Multistrike path** — hit-heavy. Attack speed directly increases hit rate, beams trigger more frequently from faster attacks. Better for single-target focused builds with high attack speed.
+
+**Void Shockwave path** — beam-heavy. Shockwave adds AoE wave damage that chains from hit enemies, and waves repeat from nearby enemies. Attack speed does NOT affect beam frequency or shockwave cooldown — convert attack speed sources to flat damage instead. Potential for ignite build-around (WIP — PoB shows small contribution, supposedly working without large hits and Grey Wind DoT mod).
+
+Void Shockwave is comparable in DPS to Greater Multistrike on paper and against static bosses, but is more sluggish and beam-focused. It works best with Static Strike only.
+
 ### Skill Swap Framework
 
 The engine (Grey Wind + Rathpith + Crown of Eyes + life stacking) is **skill-agnostic** — any strike skill benefits from the same links and scaling. Gem swap only, no regearing needed.
 
-| Content | Skill | Why |
-|---------|-------|-----|
-| **Easy mapping** | Static Strike + Greater Chain | Beams chain 3x, clears packs while moving. Note: longer range reduces Beyond spawn clustering. |
-| **Hard bossing** | Static Strike + Hypothermia | 30% more damage on chilled enemies (Skitterbots). Applies to beams — Faster Attacks doesn't. Saresh-tested 12% faster than Smite despite lower PoB DPS. |
-| **Beyond / density farming** | Infernal Blow | On-death explosions chain through packs and cluster kills for Beyond portal spawning. Best clear skill in the kit. |
-| **Loaded Blights / 50+ simultaneous mobs** | Smite of Divine Judgement | Static beams cap at **24 simultaneous hits per 0.32s tick** (6 beams × 4 targets with 3 chains). Above this density Smite's unlimited area scales better. |
-| **Mid-tier face-tank** | Smite of Divine Judgement | 6.37m PoB DPS (2.46m hit + 3.76m area + cull). Stand still, full DPS, no positioning required. |
+Path column: **MS** = Greater Multistrike path, **VS** = Void Shockwave path
+
+| Content | Skill | Path | Why |
+|---------|-------|------|-----|
+| **Easy mapping** | Static Strike + Greater Chain | MS | Beams chain 3x, clears packs while moving. Note: longer range reduces Beyond spawn clustering. |
+| **Hard bossing** | Static Strike + Hypothermia | MS | 30% more damage on chilled enemies (Skitterbots permanently chill the boss), applies to both hit AND beams. Faster Attacks only boosts hit speed and does nothing for beam frequency, so Hypothermia is strictly better for bossing. |
+| **Easy mapping (Shockwave path)** | Static Strike + Shockwave | VS | Shockwave adds AoE clear, beams handle single-target. More beam-heavy than Multistrike. |
+| **Beyond / density farming** | Infernal Blow | MS/VS | On-death explosions chain through packs and cluster kills for Beyond portal spawning. Best clear skill in the kit. |
+| **Loaded Blights / 50+ simultaneous mobs** | Smite of Divine Judgement | MS/VS | Static beams cap at **24 simultaneous hits per 0.32s tick** (6 beams × 4 targets with 3 chains). Above this density Smite's unlimited area scales better. |
+| **Mid-tier face-tank** | Smite of Divine Judgement | MS/VS | 6.37m PoB DPS (2.46m hit + 3.76m area + cull). Stand still, full DPS, no positioning required. |
 
 **PoB numbers (corrected, Cruelty imbue disabled for fair comparison):** Smite 6.37m (2.46m hit + 3.76m area, with cull) vs Static Strike 4.76m (2.76m hit + 1.23m beams, with cull). Smite is 34% higher on paper.
 
@@ -257,6 +277,12 @@ The long-term target is a **Vermillion ring** that carries life and attribute bu
 
 ## Endgame Mistakes
 
+### Build-specific
+
 - **+2 max fire res on rings is wasted** if max fire res is 85 without them. Ruby flask carries the remaining 5 res via its "gains max fire res" mod — no need to overcap on gear.
-- **Quality on CwDT and Vaal Molten Shell is unnecessary.** Vaal Molten Shell can be self-corrupted by buying a regular 1/20 Molten Shell and using a Vaal Orb — cheaper than quality on the Vaal version.
 - **Assassin's Mark vs Poacher's Mark:** Assassin's is life on kill (useless in boss fights), Poacher's is life on hit (procs continuously at high hit rate). Poacher is strictly better for sustained boss damage.
+- **Having rage ramp too slow** - it's inherently limited to 1 rage per source in 0.5 seconds, so need more gain rage on hit - glove exarch implicit, lethal pride potentially, but best - Bloodscent node on axe/sword large cluster is the best, with 2  points from tree it brings to 4 total and 8 per second, whihc is good. Another alternative - rage on warcry on mastery instead of intimidation on max rage, can be considered if using indimidating cry instead, but cluster + indimidate on max is better because of easier uptime.
+
+### General minmaxxing (from actual experience)
+- **Not applying sacred orbs to armor** - check if all done
+- **Not using lvl 4 exceptional gems when have funds already

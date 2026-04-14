@@ -437,6 +437,23 @@ The vendor accepts **3× Orb of Augmentation → 1× Orb of Alteration**.
 
 ---
 
+## 12. Abyss Jewels — Valuable Mods
+
+Wanders use flat damage from abyss jewels as a primary source — high flat values are sought after. Roll quality affects the magnitude of the affix range.
+
+| Priority | Mod | Notes |
+|----------|-----|-------|
+| **Core** | Flat damage (especially lightning) | Primary scaling for wanders; highest value |
+| **Core** | High accuracy | Wanted for crit builds; high-tier rolls matter |
+| **Core** | Phasing on kill | Useful for movement/mapping builds |
+| **Bonus** | Life | Always valuable |
+| **Bonus** | Crit multi | Nice multiplier on good rolls |
+| **Bonus** | Attack speed | Secondary scaling |
+
+**Benchcraft availability:** Cannot benchcraft abyss jewels — their value is entirely on the rolled mods. Rings/amulets/belts can be benchcrafted; abyss jewels cannot.
+
+---
+
 ## General Upgrade Advice
 
 - When suggesting upgrades, order by: impact on build (damage, survivability, QoL) weighted by expected availability.
