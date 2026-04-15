@@ -14,6 +14,7 @@ pob/PathOfBuilding-2.59.2/tools/*
 
 # Character data and personal files
 *.json
+!builds/*.json
 !.mcp.json.example
 *.png
 *.jpg

@@ -1,44 +1,36 @@
 # Crafting Projects & Notes
 
-## 1. Vermillion Ring with Flammability on Hit
+## 1. ~~Vermillion Ring~~ → Enthalpic Ring with Flammability on Hit (DONE)
 
-**Goal:** Vermillion Ring base (% increased max life implicit) with Flammability on Hit suffix.
+**Goal:** ~~Vermillion Ring base~~ → **Enthalpic Ring** base (+2% max fire res implicit, "Cannot roll Modifiers of Non-Fire Damage Types") with Flammability on Hit suffix.
 
-**Why:** Vermillion implicit is a direct life scaling upgrade for the Grey Wind / Rathpith engine. Flammability on Hit is required for the curse setup (belt anoint is Whispers of Doom for double curse).
+**Why Enthalpic over Vermillion:** +2% max fire res becomes +2% ALL max ele res via Valako ascendancy. Going from 86→88% max ele res = 14.3% less elemental damage taken. Far more impactful than Vermillion's ~3-4% effective life increase.
 
-### Approach A: Recombination (Vermillion + Flammability ring)
+**Result:**
+- Life prefix (organic roll, 111 base → **133 with sinistral catalyst**)
+- Flammability on Hit suffix (delve drop-only mod)
+- Multimod suffix (2 divine cost)
+- -7 to non-channelling mana cost prefix (crafted, boosted from -6 → **-7 with sinistral catalyst**)
+- +13 fire/chaos res suffix (crafted)
+- 5-12 added fire damage to attacks prefix (exalt slam — negligible but better than mana)
 
-- Roll Vermillion magic until high life prefix
-- Recombine with a Flammability on Hit ring
-- Explicitly selecting life on Vermillion and Flammability on the other gives ~15% stated success rate
-- **Results so far:** 12+ attempts, zero successes. One "success" landed flat life on the Flammability base instead (happened to be a life base — became the current equipped ring)
-- Matching explicit counts (make Vermillion rare with same number of mods) hasn't helped yet either
+**Sinistral Catalyst** (Mirage league) boosts prefix mod values — pushed life and mana cost to effective caps.
 
-### Approach B: Fracture Flammability on Amethyst base
+**Note on "Cannot roll Non-Fire Damage Types":** Only affects organic rolls (chaos/alt/exalt). Bench crafts bypass this restriction — chaos res can be crafted but not rolled (confirmed by market: only crafted chaos res suffixes exist on Enthalpic rings).
 
-- Find a Flammability on Hit Amethyst Ring
-- Fracture orb to lock the Flammability suffix
-- Then craft life/stats freely on a guaranteed curse + chaos res implicit base
-- **Results so far:** 3 fracture attempts, no success. Will retry when another Flammability on Amethyst base is found
-- Solves chaos res gap AND curse in one item, but Amethyst implicit is less valuable than Vermillion for the build's life scaling
-
-### Notes
-- Current ring (Spirit Gyre, Coral Ring) was the accidental recombinator result — life landed on the Flammability base
-- Either path works; Vermillion is higher ceiling, Amethyst is more practical (covers chaos res)
+### Previous Attempts (Vermillion/Amethyst — abandoned)
+- Recombination (Vermillion + Flammability): 12+ attempts, zero successes
+- Fracture (Amethyst + Flammability): 3 attempts, no success
+- Current equipped ring (Spirit Gyre, Coral Ring) was the accidental recombinator result — life landed on the Flammability base
 
 ---
 
-## 2. No-Life Royal Plate (Body Armour)
+## 2. No-Life Royal Plate (Body Armour) — CRAFTED (stopgap)
 
-**Goal:** Royal Plate with zero life mods to activate Life Mastery ("15% increased maximum Life if there are no Life Modifiers on Equipped Body Armour").
+**Mods:** 93% increased armour, reflect damage to attackers (prefix), 287 armour crafted prefix | 55 Int, 28 chaos res, 34 fire res (suffixes)
 
-**Target mods:**
-- Prefixes: flat armour, % increased armour, hybrid armour (no life)
-- Suffixes: +50 Intelligence (cover Crown of Eyes / Rathpith requirements), chaos resistance, fire resistance or other useful suffix
-- Quality 20%+ for base armour
+**Why keep it:** Useful swap when int or chaos res is tight elsewhere — provides 10 more Int and 28 chaos res vs current chest, at the cost of ~330 life and some armour.
 
-**Why:** With 11k+ life pool and 6 life masteries, the 15% more max life mastery is worth more than any flat life roll on chest. Current chest (Spirit Pelt) has +180 life which blocks this mastery.
+**Why not main chest:** The 15% increased max life mastery (activated by no life mods on chest) only yields ~407 life, while losing a flat life prefix costs ~740 life at current scaling (274% increased). Net −333 life vs Spirit Pelt. The mastery math only works with Apostate's ES→life conversion, which requires mirror-tier investment.
 
-**Notes:**
-- Royal Plate prefixes naturally skew toward life + armour — getting three armour prefixes with zero life requires either fossils (Dense + Pristine blocking) or harvest reforge defence
-- The +45 Intelligence on current chest is important — new chest needs to cover this
+**Current chest (Spirit Pelt) is better** as long as int and chaos res are covered by rings/other gear. Royal Plate swap in if that coverage slips.

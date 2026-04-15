@@ -44,7 +44,7 @@ Marks applied via Mark on Hit support. Mark mastery provides 10% chance to gain 
 **Recommendation: Poacher's Mark.** Switch to Assassin's if culling strike threshold matters for specific boss.
 
 ### Pathing & Split Personalities
-- Long winding passive tree path to maximise **two Split Personalities** (life+str)
+- Long winding passive tree path to maximise **two Split Personalities** (life+str and life+acc to catch up on hit chance)
 - The winding path also passes through many small nodes in Lethal Pride radius, each gaining +5 Str
 
 ### Mana Solution
@@ -200,8 +200,7 @@ Path column: **MS** = Greater Multistrike path, **VS** = Void Shockwave path
 | **Grey Wind** (axe) | Flat fire = 12% max life — the engine's core |
 | **Crown of Eyes** (helmet) | Spell damage → attack damage at 150% |
 | **Rathpith Globe** (shield) | Spell damage per 100 life |
-| **Xoph's Blood** (amulet) | Avatar of Fire + Elemental Overload |
-| **Defiance of Destiny** (body, template) | Not used in this variation — replaced by rare armour chest |
+| **Foulborn Xoph's Blood** (amulet) | Elemental Overload (double foulborn with phys as fire nice but not crucial) |
 
 ## Jewels
 
@@ -214,11 +213,6 @@ Path column: **MS** = Greater Multistrike path, **VS** = Void Shockwave path
 
 **Note:** Dex on rare jewels is required to cap Dex for gem requirements. All attributes jewel solves Int requirement for Crown of Eyes + Rathpith after Split Personality swap from life+int to life+str.
 
-## Current Stats (as of 2026-03-27)
-- **Life:** ~10.9k
-- **PoB DPS:** 2.975m hit + 2.055m beams = **5.03m** (+ culling = **5.59m total**)
-- **Gem setup:** All main supports 21/20 corrupted. Static Strike 20/20 Cruelty imbued. Greater Multistrike L3.
-- **Levelling:** Blood Rage L13 — dex-capped, cannot level further without more dex. CDR Support L1 (needs levelling). Infernal Blow of Immolation L18 + Dominating Blow L17 being levelled in weapon swap bow.
 
 ## Other Gem Links
 
@@ -237,7 +231,7 @@ Path column: **MS** = Greater Multistrike path, **VS** = Void Shockwave path
 
 ## CwDT Slot (Shield)
 
-**Current: Vaal Molten Shell + Withering Step + CwDT L11**
+**Current: Vaal Molten Shell L? + WoC L14 + CwDT L11**
 
 Withering Step is dead weight — CwDT triggers on damage taken, but Withering Step wants to be used proactively and can't be cast while already Elusive.
 
@@ -271,9 +265,15 @@ The Hunter base gives **+2% to all Attributes** as an implicit, strong value per
 - % attributes is rarer than % increased life (weight 1000 / 70,750 vs weight 1000 / 54,300) — harder to hit on bench but more valuable.
 
 ### Rings
-The biggest remaining pain point is the **non-Amethyst ring missing the -7 non-channelling mana cost prefix**.
-
-The long-term target is a **Vermillion ring** that carries life and attribute burden while also enabling the mana craft.
+Rings carry
+- Int
+- Chaos res
+- Life
+- Str
+- Fire res
+- Two -7 mana cost crafted prefixes
+Middle endgame vermillion and amethyst - both fractured, one life, other flammability on hit (first, get flammability on good base, then try to fracture it)
+Make sure +1 curse is coming from somewhere (Whispers of Doom anoint is simplest), so flammability and mark both would work
 
 ## Endgame Mistakes
 
@@ -283,6 +283,6 @@ The long-term target is a **Vermillion ring** that carries life and attribute bu
 - **Assassin's Mark vs Poacher's Mark:** Assassin's is life on kill (useless in boss fights), Poacher's is life on hit (procs continuously at high hit rate). Poacher is strictly better for sustained boss damage.
 - **Having rage ramp too slow** - it's inherently limited to 1 rage per source in 0.5 seconds, so need more gain rage on hit - glove exarch implicit, lethal pride potentially, but best - Bloodscent node on axe/sword large cluster is the best, with 2  points from tree it brings to 4 total and 8 per second, whihc is good. Another alternative - rage on warcry on mastery instead of intimidation on max rage, can be considered if using indimidating cry instead, but cluster + indimidate on max is better because of easier uptime.
 
-### General minmaxxing (from actual experience)
+### General minmaxxing mistakes (from actual experience)
 - **Not applying sacred orbs to armor** - check if all done
-- **Not using lvl 4 exceptional gems when have funds already
+- **Not using lvl 4 exceptional gems** when have funds already
