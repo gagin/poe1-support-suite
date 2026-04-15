@@ -211,6 +211,7 @@ def expand_items(character_data: dict, realm: str = "pc", league: str = "", incl
             "synthesizedMods": item.get("synthesizedMods", []),
             "craftedMods": item.get("craftedMods", []),
             "veiledMods": item.get("veiledMods", []),
+            "mutatedMods": item.get("mutatedMods", []),
             "corrupted": item.get("corrupted", False),
             "shaper": item.get("shaper", False),
             "elder": item.get("elder", False),

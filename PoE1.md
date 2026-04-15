@@ -2,6 +2,8 @@
 
 All PoE1-specific instructions, workflow, and knowledge index for this project.
 
+**Note:** Always use `uv run python` to run Python scripts in this project.
+
 ---
 
 ## MCP Servers (pre-configured in .mcp.json)
@@ -25,9 +27,15 @@ Output: `pob/PathOfBuilding-2.59.2/tools/<CharacterName>_YYYYMMDDHHMM.json`
 
 ### Step 2: Expand the JSON (run from repo root)
 ```bash
-python build_expander.py pob/PathOfBuilding-2.59.2/tools/<CharacterName>_YYYYMMDDHHMM.json --league <League> --realm sony
+uv run python build_expander.py pob/PathOfBuilding-2.59.2/tools/<CharacterName>_YYYYMMDDHHMM.json --league <League> --realm sony
 ```
 Output: `<CharacterName>_YYYYMMDDHHMM_expanded.json`
+
+Or use the Makefile (downloads + expands automatically):
+```bash
+make snapshot CHARACTER=<CharacterName> LEAGUE=<League> REALM=sony
+```
+Output: `build_snapshots/<CharacterName>_YYYYMMDDHHMM_expanded.json`
 
 ---
 
@@ -60,5 +68,5 @@ Output: `<CharacterName>_YYYYMMDDHHMM_expanded.json`
 - POEMCP server: `POEMCP/server.py`
 - POB importer CLI: `pob/PathOfBuilding-2.59.2/tools/import_character_cli.lua`
 - Build expander: `build_expander.py`
-- Expanded builds: `<CharName>_YYYYMMDDHHMM_expanded.json`
+- Expanded builds: `build_snapshots/<CharName>_YYYYMMDDHHMM_expanded.json`
 - Better Trading importer: `better_trading/`
