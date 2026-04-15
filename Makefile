@@ -2,7 +2,7 @@
 
 CHARACTER ?= MiragMaraBatato
 LEAGUE ?= Mirage
-REALM ?= sony
+REALM ?= SONY
 POB_TOOLS := pob/PathOfBuilding-2.59.2/tools
 BUILD_SNAPSHOTS := build_snapshots
 
