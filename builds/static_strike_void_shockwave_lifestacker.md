@@ -64,10 +64,9 @@ This build was developed on the **PlayStation / Sony realm** in Mirage league. T
 Skipping the Enmity's Embrace loop entirely is not purely a loss. The original build must run **Purity of Elements** (35% reservation) to cap non-fire resistances, since every suffix on every piece of gear must go to fire res for the loop to function. By abandoning the loop we free those aura slots entirely:
 
 - **Skitterbots** — permanent Shock (increased damage taken) and permanent Chill on nearby enemies, enabling Hypothermia for bossing
-- **Arctic Armour** — 21% less physical and fire damage taken while stationary
+- **Arctic Armour** — 21% less physical and fire damage taken while stationary - Although later we dropped it, as in fights like Feared there's not much stationary really, so those reservation points better be spend elsewhere
 - **Precision** — accuracy for hit chance + critical strike for Elemental Overload uptime
 
-Three utility auras replace one damage ring plus one defensive aura. Gearing becomes simpler — suffixes can carry mixed resistances, chaos res, and attributes instead of being entirely devoted to fire res.
 
 ## The Apostate Decision
 
@@ -120,7 +119,7 @@ Skitterbots permanently Shock and Chill nearby enemies. Shock increases damage t
 ## Double Curse
 
 - **Flammability on Hit** (fractured ring suffix): automatically applies Flammability on every hit, lowering enemy fire resistance
-- **Poacher's Mark** (via Mark on Hit Support): needed to enable Frenzy on hit and cull via Mark wheel on the tree. See Section 9b for full mark analysis
+- **Poacher's Mark** (via Mark on Hit Support): needed to enable Frenzy on hit and cull via Mark wheel on the tree. See Section 9b for full mark analysis - although later to do maximum Split Personality pathing without detours and non-contonuous branching we dropped it, dropped 4th frenzy charge and took 6th endurance charge. In that version we rely only on 5% frenzy on hit from Poacher's, and that doesn't ramp to 4 charges really. Culling then goes either on WoC or, not to rely on bosses hitting us, on Shield Charge.
 
 Double curse currently enabled by *Whispers of Doom* anoint on the Cord Belt (+1 curse limit). If Cord belts go away after 3.28, it would have to be on the amulet instead of Tenacity.
 
@@ -131,6 +130,7 @@ Auto-triggers on damage taken, applying −15% Fire Exposure. This is stronger t
 ## Extra Chaos Damage — Foulborn Red Dream
 
 The Foulborn Red Dream jewel (socketed near Barbarism) provides passives in radius that convert fire resistance nodes to maximum life, and its Foulborn implicit grants **8% of Fire Damage as Extra Chaos Damage**. Because our Xoph's Blood mutation *removed* Avatar of Fire, we deal non-fire damage types — this chaos component is not deleted by the engine and functions as a true ~8% more damage multiplier. This interaction only works because of the mutated amulet.
+In later pathing version we do a loop in that area, all covered with Firewalker tattoos.
 
 ## Tincture
 
@@ -238,11 +238,12 @@ Tasalio + Valako mean that capping fire resistance caps all three elements. Maxi
 
 ## Arctic Armour
 
-21% less physical and fire damage taken from hits while stationary - useful to stand and facetank bosses.
+21% less physical and fire damage taken from hits while stationary - useful to stand and facetank bosses. But can be dropped if reservation wheel is out of points, as heavier bosses don't allow stationary, and easier don't matter with higher life, so spend on higher life is more important than Arctic Armour.
 
 ## Endurance Charges
 
 5 maximum charges (Endurance + Stamina notables). Maintained permanently by Enduring Cry (Sione's infinite warcry power guarantees full charges on every use). Each charge provides 4% physical damage reduction and 4% elemental resistances — 5 charges is 20% physical reduction and 20% all elemental resistances permanently.
+Later 6 charges.
 
 ## Phys Taken as Fire
 
@@ -270,9 +271,11 @@ Passive regeneration from multiple sources compounds continuously:
 Total passive regen outside consecrated ground is substantial enough to recover from chip damage between encounters without flask use. PoB shows 2400 life/second recovery.
 Then there's leech, about 2200 per second.
 
+Very useful to gave increased % life recovery rage on gloves/boots, as it's multiplicative for our regeneration, which is passive.
+
 ## Mana & Life Cost
 
-The 8-link setup (Static Strike + 5 supports + Inspiration + free Ancestral Call from Tukohama) is expensive to run. The cost solution layers three systems:
+The 8-link setup (Static Strike + 5 supports + free Ancestral Call from Tukohama + lvl1 imbue) is expensive to run. The cost solution layers three systems:
 
 - **2× −7 Non-Channelling Mana Cost** crafted on both rings: −14 mana flat
 - **Skills Cost Life instead of 15% of Mana Cost** (Life Mastery): offloads 15% of remaining cost to life
@@ -328,18 +331,19 @@ Greater Multistrike feels better though. Despite it's locking the toon in the an
 The main skill gem is imbued — a Mirage league mechanic where a support gem's effect is baked directly into the skill gem as a property, freeing a link slot. Depends on what you can get, and what that gem will do at level 1 (while having the same mana cost multiplier as level 21 would).
 
 I couldn't roll or buy Hypothermia imbue (20% more against chilled at lvl1 vs 30% at lvl 21, 130% cost miltiplier), so I use Cruelty - Grants a flat 15% more damage multiplier on hits at lvl 1 (vs 25% at level 21, so same loss of "more", but has 140% cost multiplier). It's damage over time effects are irrelevant here.
+Later I got lucky to imbue Combustion, and that is better - as its 10% fire penetration part doesn't scale with level anyway, and even at lvl1 it gives 10% more fire damage, so only 5% less than Cruelty, but 10% penetration well worth it.
 
 I have also Ruthless imbue, but not sure if it works with triggered effects - beams and shockwave explosions. Likely interpretation: with Ruthless support, every third attack causes a Ruthless Blow — the blow is the melee strike itself dealing more damage. Beams are not the blow, they are a secondary effect of the attack. So Ruthless only amplifies the strike hit every third swing, not beams or shockwave. Cruelty imbue: flat 15% more damage with hits from the supported skill. Applies consistently to every strike hit and likely beams (as damage from the originating attack). Shockwave excluded as a triggered skill.
 
 ## Gem Links (Body Armour — 8L with Tukohama and imbue)
 
-**Static Strike *(Ruthless imbue)* + Void Shockwave + Inspiration + Close Combat / Greater Chain + Elemental Damage with Attacks + Hypothermia  + Ancestral Call *(free from Tukohama)* + Cruelty imbue**
+**Static Strike *(Combustion imbue)* + Void Shockwave + Inspiration + Fire Penetration  + Elemental Damage with Attacks + Hypothermia / Greater Chain + Ancestral Call *(free from Tukohama)***
 
-Arguably ELemental Focus can be better than Close Combat as it's more universal. We lose ignite/chill/shock, but ignite is small, and chill/shock provided by Skitterbots. But at facetank distance, Close Combat is stronger (40% vs 35% more at lvl 21). Plus ignite gives few percents of dps too.
+Arguably ELemental Focus can be better than Close Combat as it's more universal. We lose ignite/chill/shock, but ignite is small, and chill/shock provided by Skitterbots. But at facetank distance, Close Combat is stronger (40% vs 35% more at lvl 21). Plus ignite gives few percents of dps too. In the final version I actually used Fire Penetration - on bigger bosses with more fire resistance it's more impactful.
 
 **The swappable socket:**
-- **Bossing**: Close Combat.
-- **Mapping**: Greater Chain — beams chain 3 additional times, clearing packs across a wider area while moving. Note: Greater Chain's longer range spreads kills over a wider area, which *reduces* Beyond portal spawn clustering. For Beyond density farming specifically, this is a drawback.
+- **Bossing**: Close Combat / Fire Penetration / Hypothermia.
+- **Mapping**: Replace either of above with Greater Chain — beams chain 3 additional times, clearing packs across a wider area while moving. Note: Greater Chain's longer range spreads kills over a wider area, which *reduces* Beyond portal spawn clustering. For Beyond density farming specifically, this is a drawback.
 
 **Socket colours:** We mostly need red, which is easy with armour base, so it's not hard to use **Omen of Blanching** to get enough white sockets for flexibility.
 
@@ -440,22 +444,24 @@ Infinite power guarantees full endurance charges on every Enduring Cry use and m
 
 ## Body Armour (effective 8L)
 
-**Static Strike *(Cruelty imbue)* + Void Shockwave + Inspiration + Close Combat / Greater Chain + Elemental Damage with Attacks + Hypothermia  + Ancestral Call *(free)***
+**Static Strike *(Cruelty or Combustion imbue)* + Void Shockwave + Inspiration + Close Combat / Greater Chain + Elemental Damage with Attacks + Hypothermia  + Ancestral Call *(free)***
 
 - **Void Shockwave** (4/23 Exceptional): core of the shockwave path, triggers on beam ticks at ~2/sec
 - **Inspiration**: 40% less mana cost + more elemental damage per charge. Despite being a "free" support in terms of mana, it is a genuine damage gem.
-- **Close Combat**: up to 40% more melee damage (at lvl21) based on proximity. Swap to **Greater Chain** for relaxed mapping situations.
+- **Close Combat**: up to 40% more melee damage (at lvl21) based on proximity. Alternatively **Elemental Focus** or **Fire Penetration**
 - **Elemental Damage with Attacks**: flat more multiplier on all elemental damage - 35% more at level 21.
 - **Hypothermia** 30% more damage on chilled enemies at lvl 21 (Skitterbots chill them)
 - **Ancestral Call** (free, Level 30): 10% more damage + extra strike targets. Whether phantom strikes generate independent beam sets is unverified but Saresh testing suggests they may
+Swap to **Greater Chain** for relaxed mapping situations. What to replace depends on situation and what gems you use. Closer Combat, of using it, obvious candidate.
 
 ## Helmet (4L)
+Helmet can be a corrupted one with +level of some gems, in my case to fire ones, boosting Purity of Fire.
 
 **Purity of Fire + Arctic Armour + Summon Skitterbots + Enlighten**
 
 - **Enlighten** keeps reservation manageable across three auras simultaneously
 - **Purity of Fire**: aura grants +52 fire res and +4 maximum fire res.
-- **Arctic Armour**: 21% less physical and fire damage taken while stationary. Freeze immunity. Chills enemies that hit you
+- **Arctic Armour**: 21% less physical and fire damage taken while stationary. Freeze immunity. Chills enemies that hit you - Later if drop it, **Precision** takes it place
 - **Summon Skitterbots**: permanent Shock and Chill. Enables Hypothermia. A corruption on rare jewel (6% non-damaging ailment effect) makes both stronger
 
 ## Gloves (4L)
@@ -481,13 +487,13 @@ Infinite power guarantees full endurance charges on every Enduring Cry use and m
 
 **Precision; Faster Attacks - Shield Charge, FLame Dash
 
-- **Precision**: accuracy for hit chance cap + base crit for Elemental Overload uptime
+- **Precision**: accuracy for hit chance cap + base crit for Elemental Overload uptime - can move to wherever Precision is
 - **Faster Attacks**: supports Shield Charge movement speed
 
 ## Weapon (3L)
 
 **Blood Rage** — self-cast, Level 11/20 or whatever dex allows. 15% attack speed and 1.2% attack damage leeched as life. Degen is covered by leech and endurance charges. 25% chance to gain a Frenzy Charge on Kill (but we have it on hit anyway, as we need it for bossing).
-- **Poacher's Mark + Mark on Hit**: marks used to enable cull and frenzy charge generation on hit. Marks' own effects are mostly irrelevant. Poacher's Life and mana on hit procs continuously during boss fights at our hit rate. Frenzy on kill helps charge generation during mapping (but then same does Blood Rage).
+- **Poacher's Mark + Mark on Hit**: marks used to enable cull and frenzy charge generation on hit. Poacher's Life and mana on hit procs continuously during boss fights at our hit rate. 5% to generate a frenzy charge on hitting the marked target.
 
 # 9. Jewels & Gear Reference
 
@@ -509,7 +515,8 @@ Corrupted blood immunity jewel has 7% incr life and flat str.
 ## Equipment Reference
 
 ### Weapon — The Grey Wind (Spectral Axe)
-The entire value is the implicit: **Added Fire Damage equal to 12% of maximum life**. At 11k+ life this is ~1,320 flat fire per hit. The physical base (29–48) is negligible. Current version: 12% life conversion + **+5 max Rage** enchant (upgraded from 8% + 0 Rage base on 2026-04-03).
+The entire value is the implicit: **Added Fire Damage equal to 12% of maximum life**. At 11k+ life this is ~1,320 flat fire per hit. The physical base (29–48) is negligible. Current version: 12% life conversion + +5 max Rage uncorrupted ideally.
+With volatile vaal orbs can get to 14%, not sure if these stay to the next league. THat percentage is more important than rage value, and of course then incr fire dmg.
 
 **Axe enchant options:**
 - **AoE** (chosen): increases beam chain reach and overlap radius. Also buffs Smite and Infernal Blow swaps. No other AoE scaling exists in the build — this is the only source
@@ -525,7 +532,11 @@ Spell Damage applies to Attacks at 150% of its value. The −30% fire resistance
 5% increased Spell Damage per 100 maximum life. At 11k life this is 55% increased spell damage, which Crown of Eyes converts to 82.5% increased attack damage. Scales directly and continuously with life. Try to het good spell block roll. Crit for spells is wasted.
 
 ### Body Armour — Royal Plate ("Spirit Pelt")
-Current chest is exceptionally well-rolled: four T1 mods (+45 Intelligence, +499 Armour, 106% increased Armour, +180 maximum Life), +46% Fire Resistance, near-maximum intrinsic armour, +2% maximum Fire Resistance Exarch implicit, 7% Fortify chance implicit. Crafted suffix currently under evaluation (see Section 3b).
+Current chest is exceptionally well-rolled: four T1 mods (+45 Intelligence, +499 Armour, 106% increased Armour, +180 maximum Life), +46% Fire Resistance, near-maximum intrinsic armour.
+Implicits:
+- Exarch: +2% maximum Fire Resistance
+- Eater: 7% Fortify chance implicit.
+Crafted suffix currently under evaluation (see Section 3b). Probably 6% incr attributes is the best.
 
 **The no-life chest route**: a 15% increased maximum Life mastery activates with no life modifiers on body armour. Tested and rejected on this chest — with that equipment the mastery produced 11,148 final life versus this chest's 11,489. On a less exceptional chest this calculation may differ. Run the numbers in PoB before assuming flat life wins.
 
@@ -542,16 +553,22 @@ Hunter influence to get % incr life prefix and/or % incr attributes suffix. Whis
 Both rings carry the mandatory −7 Non-Channelling Mana Cost craft. Combined with the life mastery cost offset and Fuel the Fight mana leech: 22 mana + 11 life per cast in sustained combat.
 
 ### Gloves
-Rare gloves. Priority stats: life, strength, intelligence, resistances as needed to cap. Possible exarch implicit: Gain Rage on Hit — contributes to rage ramp alongside Bloodscent and tree nodes. Open prefix for 40% incr damage while leeching benchcraft.
+Rare gloves. Priority stats: life recovery rate, life, strength, intelligence, attack speed, resistances as needed to cap. Possible exarch implicit: Gain Rage on Hit — contributes to rage ramp alongside Bloodscent and tree nodes. Although Attack Speed can be more attractive (there was something about that rage on hit being on 1 second cooldown anyway, unconfirmed). Open prefix for 40% incr damage while leeching benchcraft.
+Highly recommeneded to get high % life recovery rate here. Perhaps get a fracture for 20-21% and start crafting there.
+Eater - GLobal Accuracy.
 
 ### Boots
-Rare boots. Priority stats: life, movement speed, resistances. Dexterity if needed for gem requirements.
+Rare boots. Priority stats: movement speed, life, life recovery rate, strength, int, fire and chaos resistances. Dexterity if needed for gem requirements.
+Later makes sense to get 35% ms fracture, or fracture yourself, start there.
+Eater/Exarch implicits - regen per endurance charge, action speed, sapped ground, scorched ground.
+
 
 # 10. Appendices
 
 ## 10a. Mark Analysis
 
-Marks are applied automatically via Mark on Hit Support. The Mark Mastery provides 10% chance to gain a frenzy charge on hit against the marked enemy — the primary frenzy source during bossing. Marks exist to enable frenzy generation and culling, not as primary damage layers.
+Marks are applied automatically via Mark on Hit Support. The Mark Mastery provides 10% chance to gain a frenzy charge on hit against the marked enemy — the primary frenzy source during bossing. Marks exist to enable frenzy generation and culling, not as primary damage layers. 
+Later dropped Mark Mastery and its wheel, and 4th frenzh charge.
 
 | Mark | Assessment |
 |------|-----------|
@@ -577,6 +594,7 @@ Without the imbue mechanic (next league): run **Urgent Orders + Blessed Call + M
 ### General Min-Maxing
 - **Sacred Orbs**: apply to all armour pieces — check that all are done
 - **Blessed Orbs on tincture**: the tincture implicit value is rollable — maximise it before committing to a suffix craft
+- **Tempering/Tailoring orbs** or harvest crafting enchant where reasonable. Orbs are expensive, so only on items that are that good.
 
 ## 10e. Origin — Peuget2 Template
 
