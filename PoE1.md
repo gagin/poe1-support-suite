@@ -55,7 +55,8 @@ Output: `build_snapshots/<CharacterName>_YYYYMMDDHHMM_expanded.json`
 |---|---|
 | `mechanics.md` | Core PoE mechanics: damage formula, defense layers, item affixes, cluster jewels, local/global, weapon swaps, skill links |
 | `skill.md` | Build analysis rules, damage scaling principles, Shield Crush specifics, ailment handling, resistance overcapping, build audit procedure |
-| `economy.md` | Lab economy, gem conversion, league stage priorities, PS pricing rules, upgrade advice |
+| `knowledge/economy.md` | Lab economy, gem conversion, league stage priorities, PS pricing rules, upgrade advice |
+| `knowledge/base_valuation_filterblade.md` | Base valuation and Filterblade economy adjustments |
 | `mirage_challenges.md` | Mirage league challenges, Mirage-specific mechanics (memory altars, borrowed power coins) |
 | `classes/chieftain.md` | All 7 Chieftain ascendancy notables, prerequisite tree, version history, build notes |
 | `better_trading/README.md` | Trade link generator usage for Better Trading browser extension |
