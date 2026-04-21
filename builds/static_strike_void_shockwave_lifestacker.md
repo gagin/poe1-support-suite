@@ -608,4 +608,4 @@ One final note: the 3.26 patch buffed Static Strike's base damage effectiveness 
 
 ## 10f. Possible Upgrades
 
-**Bound by Destiny** — Unique jewel giving up to +15% increased life for two equipped Elder items. Rare jewels give 7% and other stats, so it's not much of an improvement, but it's an option. Problem: we can't get Elder influence on Chest, Boots or Gloves as Exarch/Eater implicits there are more valuable. We theoretically can double-influence our belt, or influence rings, or perhaps get an uber version of helmet or shield by using Tainted Mythic Orb on a corresponding corrupted influenced base.
+**Bound by Destiny** — Unique jewel giving up to +15% increased life for two equipped Elder items. Rare jewels give 7% and other stats, so it's not much of an improvement, but it's an option. Problem: we can't get Elder influence on Chest, Boots or Gloves as Exarch/Eater implicits there are more valuable. We theoretically can double-influence our belt, or influence rings, or perhaps get an elder-influenced version of helmet or shield by using Tainted Mythic Orb on a corresponding corrupted influenced base.
