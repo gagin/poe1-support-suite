@@ -605,3 +605,7 @@ We cannot replicate that on PlayStation — the required Elegant Hubris seed doe
 What we gain by skipping Enmity's Embrace: free aura slots (Skitterbots, Arctic Armour, Precision), simpler gearing, and suffixes available for chaos res and attributes instead of being entirely devoted to fire res.
 
 One final note: the 3.26 patch buffed Static Strike's base damage effectiveness and introduced Void Shockwave as a new support. Both changes disproportionately benefit this build's architecture. The life-stacking Chieftain with Static Strike + Void Shockwave may simply be the stronger path in the current patch regardless of platform — and the Apostate + Enmity's Embrace route on PC would itself benefit from adopting this same tech on top of its higher life ceiling.
+
+## 10f. Possible Upgrades
+
+**Bound by Destiny** — Unique jewel giving up to +15% increased life for two equipped Elder items. Rare jewels give 7% and other stats, so it's not much of an improvement, but it's an option. Problem: we can't get Elder influence on Chest, Boots or Gloves as Exarch/Eater implicits there are more valuable. We theoretically can double-influence our belt, or influence rings, or perhaps get an uber version of helmet or shield by using Tainted Mythic Orb on a corresponding corrupted influenced base.
