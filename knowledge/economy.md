@@ -460,3 +460,9 @@ Wanders use flat damage from abyss jewels as a primary source — high flat valu
 - For gem recommendations: check if corrupted implicit (+1 level) matters for the skill before recommending corruption.
 - Always check if a unique's mods are still relevant after potential nerfs — verify via wiki.
 - Mastery choices: verify they work with the build mechanic before suggesting.
+
+---
+
+## Lesser Eldritch Ember Market Disconnect
+
+The high price of Lesser Eldritch Embers on PlayStation (often 1 chaos each) compared to PC is driven by an artificial scarcity resulting from loot filter friction. While high-end crafters generate a constant demand by using these embers as cheap fodder for Orb of Conflict gambling, the console supply remains drastically constrained. Most PlayStation players eventually switch to the default NeverSink "Uber Strict" loot filter to manage screen clutter, which completely hides Lesser Embers by default. Unlike PC players who are already at their computers and frequently use FilterBlade to customize their strict filters to re-enable profitable low-tier currency, console players face the extra hurdle of needing a separate device to edit and sync their profiles. Consequently, console players unknowingly leave thousands of predictable, easy-to-farm Embers on the ground, creating a highly profitable supply gap for anyone who adjusts their filter to pick them up and sell them to wealthy crafters.
