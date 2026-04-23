@@ -342,8 +342,8 @@ I have also Ruthless imbue, but not sure if it works with triggered effects - be
 Arguably ELemental Focus can be better than Close Combat as it's more universal. We lose ignite/chill/shock, but ignite is small, and chill/shock provided by Skitterbots. But at facetank distance, Close Combat is stronger (40% vs 35% more at lvl 21). Plus ignite gives few percents of dps too. In the final version I actually used Fire Penetration - on bigger bosses with more fire resistance it's more impactful.
 
 **The swappable socket:**
-- **Bossing**: Close Combat / Fire Penetration / Hypothermia.
-- **Mapping**: Replace either of above with Greater Chain — beams chain 3 additional times, clearing packs across a wider area while moving. Note: Greater Chain's longer range spreads kills over a wider area, which *reduces* Beyond portal spawn clustering. For Beyond density farming specifically, this is a drawback.
+- **On bosses**: Close Combat, Hypothermia (max DPS)
+- **On crowds**: Greater Chain, Fire Penetration (because enemies may not be affected by Skitterbot's chill yet)
 
 **Socket colours:** We mostly need red, which is easy with armour base, so it's not hard to use **Omen of Blanching** to get enough white sockets for flexibility.
 
