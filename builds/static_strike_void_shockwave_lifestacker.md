@@ -609,3 +609,43 @@ One final note: the 3.26 patch buffed Static Strike's base damage effectiveness 
 ## 10f. Possible Upgrades
 
 **Bound by Destiny** — Unique jewel giving up to +15% increased life for two equipped Elder items. Rare jewels give 7% and other stats, so it's not much of an improvement, but it's an option. Problem: we can't get Elder influence on Chest, Boots or Gloves as Exarch/Eater implicits there are more valuable. We theoretically can double-influence our belt, or influence rings, or perhaps get an elder-influenced version of helmet or shield by using Tainted Mythic Orb on a corresponding corrupted influenced base.
+
+## 10g. End-Game Fortification & Content Swaps
+
+*Note: The prices listed below reflect the PlayStation market realities roughly one month into the Mirage league. PC pricing will differ entirely.*
+
+In the endgame, one can trade a bit of dps (PoB drops 10 to 9 mil) for much more tankiness.
+
+### The "Immortal Monolith" Defense (Swarms & Simulacrum)
+
+The ultimate defensive configuration relies on combining **Progenesis** with the **Defy Pain** notable via Forbidden Flesh and Flame jewels. Together, they perfectly cover the build's only real weakness: overlapping shotgun damage from massive swarms.
+
+* **Progenesis (Amethyst Flask) [~75 Divines]:** When active, 25% of life loss from damage is staggered over 4 seconds. With a 12,500+ life pool, this turns lethal spikes into a manageable degen that your 4,600+ life/second recovery easily outpaces.
+  * *Enchantment:* `"Used when Charges reach full"`. In dense content (Simulacrum, Delirium), the flask refills so quickly that it maintains permanent 100% uptime without manual input.
+  * *Warning:* Map modifiers that cause `"Buffs on Players expire faster"` will drastically reduce Progenesis duration, breaking the automated loop and leaving you vulnerable. Avoid this modifier.
+
+* **Forbidden Flesh & Flame — Defy Pain (Berserker) [~15 Divines for the pair]:** This acts as a "ghetto *Defiance of Destiny*," though technically, it provides a stronger recovery effect at maximum stacks. We use this specifically because unequipping our double-mutated (Foulborn) *Xoph's Blood* amulet is a better build. *Xoph's Blood* gives us *Elemental Overload* for free, allowing us to spend three passive points to gain 16% increased maximum life instead. Its increased life, attributes, strength, damage taken as fire, penetration, covering in ash - all is too good to replace.
+
+  * **The Seesaw Mechanic:** *Defy Pain* grants a stack of Defiance when you are hit (up to 10 stacks), with each stack healing you for 3% of your missing life *before* the damage of the next hit is applied. At 10 stacks, it heals you for **30% of missing life per hit** (substantially higher than *Defiance of Destiny's* 20% cap) before you immediately lose all stacks and start over. While *Defiance of Destiny* is a smooth, always-active recovery, *Defy Pain* is a survivability seesaw. This is where Progenesis buffer helps.
+
+### Other Situational Swaps
+
+While the defensive setup is great for swarms, you may want to swap gear for content that requires pure clear speed or burst damage (such as 5-Way Legions or Pinnacle Bossing). Keep the realities of the PlayStation market and flask uptime in mind.
+
+#### Oriath's End (Bismuth Flask) [~7 Divines] — *Optional Clear Speed Swap*
+* **The Role:** Replaces the Granite Flask for heavily packed mapping (e.g., 40%+ Delirious Beyond maps or Cloister farming).
+* **The Mechanic (Theory):** Enemies have a chance to explode for elemental damage on death. Because *Void Shockwave* kills enemies, it *theoretically* triggers the flask's explosion perfectly, which then chains to the next enemy, expanding your AoE significantly.
+* **The Reality:** Highly subjective. It's hard to visually confirm exactly how much work the explosions are doing in the chaos of a Delirium swarm. *Void Shockwave* combined with *Greater Chain Support* already clears screens effortlessly. *Oriath's End* seems to make clearing dense Mirages feel simpler, but can be wishful thinking. Something to experiment with.
+
+#### Bottled Faith (Sulphur Flask) [~8 Divines for a 23% decreased duration roll]
+* **The Role:** Drops a massive Consecrated Ground puddle that causes enemies to take 10% increased damage and grants massive base critical strike chance (guaranteeing *Elemental Overload* uptime).
+* **The Reality:** This flask is an uptime trap. For fights like The Searing Exarch or Maven, it will be dead for 90% of the encounter because you do not generate enough charges to sustain it. It provides absolutely zero DPS boost when empty. Use it only in content where kill volume sustains its high charge cost.
+
+#### Bisco's Leash (Heavy Belt) [~5 Chaos] — *The Budget Clear Speed Swap*
+* **The Role:** Replaces your Hunter attribute belt when you want more movement.
+* **The Mechanic:** Grants **Rampage**. Because weapon-swapping for Rampage was removed in 3.25, you must wear a Rampage item full-time to generate stacks. At 1,000 stacks in a 5-Way, Rampage grants 100% increased movement speed and automated screen-clearing explosions.
+* **The Reality:** Only attempt this swap if your Intelligence and Dexterity requirements do not break when removing your main belt. While the 200% increased damage from Rampage hits diminishing returns against your baseline 1,400%+ increased damage, the movement speed alone drastically increases your 5-Way General kills per minute.
+
+#### Forbidden Flesh & Flame — Aspect of Carnage (Berserker) [~170 Divines for the pair]
+* **The Role:** The ultimate offensive swap to replace *Defy Pain* when raw damage is the only metric that matters.
+* **The Mechanic:** A flat, unconditional **40% More Damage** multiplier to all hits, beams, and shockwaves, at the cost of taking 10% more damage. And losing Defiance stacks.
