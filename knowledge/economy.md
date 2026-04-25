@@ -465,4 +465,31 @@ Wanders use flat damage from abyss jewels as a primary source — high flat valu
 
 ## Lesser Eldritch Ember Market Disconnect
 
-The high price of Lesser Eldritch Embers on PlayStation (often 1 chaos each) compared to PC is driven by an artificial scarcity resulting from loot filter friction. While high-end crafters generate a constant demand by using these embers as cheap fodder for Orb of Conflict gambling, the console supply remains drastically constrained. Most PlayStation players eventually switch to the default NeverSink "Uber Strict" loot filter to manage screen clutter, which completely hides Lesser Embers by default. Unlike PC players who are already at their computers and frequently use FilterBlade to customize their strict filters to re-enable profitable low-tier currency, console players face the extra hurdle of needing a separate device to edit and sync their profiles. Consequently, console players unknowingly leave thousands of predictable, easy-to-farm Embers on the ground, creating a highly profitable supply gap for anyone who adjusts their filter to pick them up and sell them to wealthy crafters.
+The high price of Lesser Eldritch Embers on PlayStation (often 1 chaos each) compared to PC is driven by an artificial scarcity resulting from loot filter friction.
+
+---
+
+## 13. The Doryani's Machinarium Market (Delve Wealth Generation)
+
+The unique map **Doryani's Machinarium** presents one of the most predictable and profitable market inefficiencies in Path of Exile, particularly on the PlayStation market.
+
+### The Market Phenomenon
+- **Early League (Week 1-2):** The map usually hovers around **2 to 5 Divines**. Players are focused on Atlas completion and early bossing, but very few people are pushing 36/40 or 40/40 challenges yet.
+- **Mid-to-Late League (Month 1+):** The price skyrockets exponentially. In Mirage League, the map actively sells for **30 to 40 Divines** on the PlayStation market.
+
+### Why the Price Skyrockets
+*Doryani's Machinarium* is the ultimate challenge bottleneck. It does not drop naturally in maps and cannot be brute-forced through normal mapping mechanics. The only reliable way to get it is by killing **Ahuatotli the Blind** in Delve (who has a fixed ~16% drop rate for the map).
+
+Because the vast majority of the player base refuses to push Delve deep enough to find Vaal Outposts, the supply dries up completely while the demand from challenge-hunters reaches a fever pitch.
+
+### Strategy 1: Challenge Completion
+If you care about completing challenges for the league, **buy this map during Week 1 or Week 2.** Do not wait until you are 35/40 challenges deep in Month 2, or you will be forced to pay the 40 Divine premium.
+
+### Strategy 2: Wealth Storage & Generation
+If you are running a build capable of deep delving (like a life-stacking Juggernaut or Chieftain), *Doryani's Machinarium* is an inflation-proof asset that acts as a better value store than Divine Orbs or Mirror Shards.
+
+1. **The Farm:** Push your Delve depth to ~500+ and sweep horizontally. Ignore everything except Vaal Outposts to hunt for Ahuatotli.
+2. **The Hold:** Every time the map drops early in the league, **do not sell it.** Put it in your stash.
+3. **The Payout:** Wait until the mid-to-late league inflation hits and challenge desperation peaks. Sell the maps for 30–40 Divines each. Dropping just two of these maps funds massive endgame chase items like Aspect of Carnage or Progenesis.
+
+Because of this specific map, deep horizontal Delving is arguably the most profitable, low-effort endgame farm for generating raw Divines.
