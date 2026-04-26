@@ -515,5 +515,21 @@ Two nodes in the Breach tree grant a **chance** for dropped items to be +1 level
 
 **How it works:** When Alva spawns a temple in a tier 16 map, the base item level is 85. Nexus adds +1 to ALL items dropped in the temple, yielding many level 86 bases — more than Breach tree, bosses, or Stygian Spires. However, Breach tree can produce level 87 items.
 
+### Sources of ilvl 88+ Items
+
+**ilvl 88:**
+- **Delve** areas with "Monsters drop items 3 levels higher" modifier — base monster level at deep Delve is 85, giving ilvl 88 on rares/uniques
+- **Strongbox** with +5 Item Level in a T16 map — area level 83 + 5 = ilvl 88
+
+**ilvl 89:**
+- **Olmec's Sanctum (T16):** The unique boss Olmec drops ilvl 89 items — area level 83 + 2 (unique boss) + 4 (map modifier "Final Boss drops higher Level Items") = 89
+
+**ilvl 93:**
+- **Oba's Cursed Trove (T16):** Final room strongbox with +5 Item Level — area inside is level 88, so 88 + 5 = ilvl 93, the highest monster-adjacent drop in the game
+
+**ilvl 100:**
+- Certain divination card rewards specify ilvl 100 explicitly
+- Event rewards always have ilvl 100
+
 ### Option 4: Boss Speed-Farming
 Map bosses have a **chance** to drop higher level items. Speed-clearing content with frequent boss encounters (e.g., Destructive Play Kirac mission) can accumulate higher ilvl bases over time.
