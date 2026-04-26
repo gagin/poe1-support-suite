@@ -496,13 +496,23 @@ Because of this specific map, deep horizontal Delving is arguably the most profi
 
 ---
 
-## 14. Level 86 Bases — Breach +1 Strategy
+## 14. Level 86+ Bases — Farming Higher Item Levels
 
-With **T17 maps removed from the game**, level 86 map bases became significantly harder to obtain. The best source is **Breach** atlas passive nodes.
+With **T17 maps removed from the game**, level 86 map bases became significantly harder to obtain. Several strategies exist:
 
-### Breach Atlas Passives
-Two nodes in the Breach tree grant a **chance** for dropped items to be +1 level:
-- Provides a reliable routine for ilvl 86–87 bases when running Breach content
+### Option 1: Breach Atlas Passives
+Two nodes in the Breach tree grant a **chance** for dropped items to be +1 level. This provides the most routine source of ilvl 86–87 bases when running Breach content.
 
-### Alternate: Temple Nexus
-- See above — but Breach is more consistent
+### Option 2: Inspired Darkness (Stygian Revives)
+The **Inspired Darkness** atlas passive node causes Luminous Phantasms to drop +1 level items. Works with Stygian Spires in maps.
+
+### Option 3: Temple Nexus
+**Temple of Atzoatl** runs with the **Empowering Room III — Nexus** room (Tier 3).
+- **Architect:** Quipolatl
+- **Effect:** Monsters drop items 1 Level higher
+- **Side effects:** +20% monster cast/attack speed, +12% item rarity, +6% quantity, +3% pack size
+- **Value:** ~10c — significantly cheaper than Locust of Corruption or Doryani Institute temples (1–3 divines)
+- Temple Nexus converts items dropped in the temple to a higher level, bringing them up to level 86 if you run it on a tier 16 map.
+
+### Option 4: Boss Speed-Farming
+Map bosses have a **chance** to drop higher level items. Speed-clearing content with frequent boss encounters (e.g., Destructive Play Kirac mission) can accumulate higher ilvl bases over time.
