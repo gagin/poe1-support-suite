@@ -493,3 +493,14 @@ If you are running a build capable of deep delving (like a life-stacking Juggern
 3. **The Payout:** Wait until the mid-to-late league inflation hits and challenge desperation peaks. Sell the maps for 30–40 Divines each. Dropping just two of these maps funds massive endgame chase items like Aspect of Carnage or Progenesis.
 
 Because of this specific map, deep horizontal Delving is arguably the most profitable, low-effort endgame farm for generating raw Divines.
+
+---
+
+## 14. Level 86 Bases — Temple Nexus Strategy
+
+With **T17 maps removed from the game**, level 86 map bases became significantly harder to obtain. One reliable source: **Temple of Atzoatl** runs with **Temple Nexus** (Harbinger passive node).
+
+### How it works
+- Temple Nexus converts items dropped in the temple to a higher level, bringing them up to level 86 if you run it on a tier 16 map.
+- This is the primary source for ilvl 86 bases when T17s are unavailable.
+- The temple can be run on any map tier, but the higher the tier, the better the chance of good drops alongside the temple loot.
