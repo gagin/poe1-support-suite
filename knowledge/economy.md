@@ -523,7 +523,72 @@ Two nodes in the Breach tree grant a **chance** for dropped items to be +1 level
 **ilvl 89:**
 - **Olmec's Sanctum (T16):** The unique boss Olmec drops ilvl 89 items — area level 83 + 2 (unique boss) + 4 (map modifier "Final Boss drops higher Level Items") = 89
 
-**Crafting high ilvl bases:** When crafting/fusing items (e.g., using a higher ilvl base influences the result). Combining Warlock Gloves (ilvl 85) with Precursor Gauntlets (ilvl 89) produces ilvl 89. Use elevated bases or high ilvl bases as inputs to push item levels higher.
+**ilvl 93:**
+- **Oba's Cursed Trove (T16):** Final room strongbox — the area inside is level 88, which provides high ilvl (the strongbox itself doesn't add +5 anymore)
+
+## High Item Level Base Farming (3.28)
+
+This section covers how to farm and source ilvl 88–100 bases for crafting, and how item level affects both explicit costs and Recombinator output.
+
+### Why ilvl 88+ Matters
+
+Higher item level on a base means a **narrower affix pool weighted toward top tiers**, so fewer crafting attempts are needed to land high-level explicits. This value is independent of Recombinator use — an ilvl 88 base is intrinsically cheaper to craft on than an ilvl 86.
+
+### Recombinator ilvl Formula
+
+**output ilvl = floor((A + B) / 2) + 2, capped at max(A, B)**
+
+Key rules:
+- Both items must be the **same rarity** (both magic or both rare) — normal (white) items are rejected
+- **Parity matters**: even+even and odd+odd pairs average cleanly; mismatched parity floors the average and loses 1 ilvl on the output
+  - 84 + 90 → floor(87) + 2 = **89** ✓
+  - 84 + 89 → floor(86.5) + 2 = **88** ✗ (loses a level vs using 90)
+- The +2 bonus only reaches the cap when inputs are within 4 ilvls of each other
+
+### Realistic Base ilvls
+
+High-requirement bases like Vermillion Ring and Amethyst Ring drop at **ilvl 84** in standard T16 content (area 83 + rare bonus +2 = 85 for low-requirement bases, but high-requirement bases drop lower). To get these at ilvl 86, use the Temple Nexus (Incursion) trick.
+
+### Donor Pairing — Vermillion/Amethyst Ring (ilvl 84 base)
+
+| Donor ilvl | Parity match? | Output ilvl |
+|---|---|---|
+| 88 | even+even ✓ | 88 (hits cap) |
+| 89 | odd+even ✗ | 88 (floors) |
+| 90 | even+even ✓ | 89 |
+| 91 | odd+even ✗ | 89 (floors) |
+| 92 | even+even ✓ | 90 |
+| 100 | even+even ✓ | 94 |
+
+To reach ilvl 90 output on an ilvl 84 base, you need a donor of **ilvl 92+**. With realistic Oba's drops (89–90), **ilvl 89 is the practical ceiling** for standard Vermillion/Amethyst rings.
+
+### The Two-Farm System
+
+**Base farm — Temple Nexus (Incursion)**
+- Incursion with the Temple Nexus room; magic monsters drop ilvl 86 items
+- Farm bulk quantities of the specific bases you want
+- Use when you want ilvl 86 bases to pair with high donors for maximum output
+
+**Donor farm — by ilvl tier**
+
+| Source | ilvl | Notes |
+|---|---|---|
+| Delve (+3 monster level route) | 88 | Fast clears, low slog; area 83 + rare bonus (+2) + Delve mod (+3) = 88. Best bulk source of ilvl 88 |
+| Olmec's Sanctum (T16 unique map) | 89 | Main boss drops ilvl 89; requires killing 4 sub-bosses first; faster runs than Oba's |
+| Oba's Cursed Trove (T16 unique map) | 89–90 | 5-floor narrow corridor clear; ~3–4 items per run passing tight lootfilter; highest farmable drop ceiling |
+| Divination card donors | 100 | See below |
+
+### Divination Card Donors
+
+Certain divination cards award ilvl 100 items on mediocre base types. Pair with a cheap ilvl 84–86 target base:
+
+| Card | Donor item | Pair with | Output ilvl |
+|---|---|---|---|
+| The Opulent | ilvl 100 ring (any) | Vermillion/Amethyst Ring ilvl 84 | 94 |
+| The Opulent | ilvl 100 ring (any) | Vermillion/Amethyst Ring ilvl 86 | 95 |
+| Destined to Crumble | ilvl 100 armour base | Target chest ilvl 84–86 | 94–95 |
+
+**The Opulent** in particular should be set to a **higher tier in your lootfilter** — it is a direct ilvl 94–95 ring for the cost of one card plus a bulk-farmed base.
 
 **ilvl 93:**
 - **Oba's Cursed Trove (T16):** Final room strongbox — the area inside is level 88, which provides high ilvl (the strongbox itself doesn't add +5 anymore)
