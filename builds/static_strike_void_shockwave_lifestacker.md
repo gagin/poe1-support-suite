@@ -632,6 +632,21 @@ The ultimate defensive configuration relies on combining **Progenesis** with the
 
   * **The Seesaw Mechanic:** *Defy Pain* grants a stack of Defiance when you are hit (up to 10 stacks), with each stack healing you for 3% of your missing life *before* the damage of the next hit is applied. At 10 stacks, it heals you for **30% of missing life per hit** (substantially higher than *Defiance of Destiny's* 20% cap) before you immediately lose all stacks and start over. While *Defiance of Destiny* is a smooth, always-active recovery, *Defy Pain* is a survivability seesaw. This is where Progenesis buffer helps.
 
+### The Recovery Jewel Swap: Defy Pain vs. Untiring
+
+When scaling defenses on the Apostate life-stacker, the choice between **Defy Pain** (Berserker) and **Untiring** (Juggernaut) via Forbidden Flesh/Flame jewels comes down to personal preference. Path of Building heavily favors Untiring because of its high passive numbers, but in practice, both provide roughly the same level of survivability with different mechanical quirks.
+
+Neither jewel grants immortality. Your choice depends on which style of recovery feels better to you in the content you are running:
+
+* **The Defy Pain "Seesaw":** Defy Pain feels exceptionally smooth in dense swarms because its recovery happens *before* the hit connects. A swarm hitting you 15 times triggers 15 separate instances of pre-healing, dynamically buffering the damage. However, this smoothness only exists when you have high Defiance stacks. The moment you hit 10 stacks and reset back to zero (or if you take a massive slam at full HP where "missing life" is zero), the pre-healing vanishes. You are essentially naked against the next hit until the stacks build back up, creating a violent "seesaw" effect on your survivability.
+
+* **The Untiring "Wall":** Untiring converts prevented physical damage into a massive wall of sustained regeneration. It completely trivializes the *Progenesis* damage-over-time "pink zone" and ground degens because the healing is constant and unconditional. However, because regeneration is a linear heal-over-time, your health globe will visibly jump down and up. If a Beyond swarm hits you for 12,000 damage instantaneously, Untiring needs a full 1.5 seconds to refill the globe—a vulnerability window that can easily result in death if a second burst hits before you recover.
+
+**The Verdict:**
+* **Defy Pain** excels at buffering rapid-fire hits in dense mapping scenarios like Delirium or Simulacrum, but its uneven effect distribution leaves you highly vulnerable during stack resets.
+* **Untiring** provides unmatched sustained recovery against DoTs and degens, but the lack of immediate pre-hit mitigation makes it feel squishier against massive, synchronized burst damage.
+* *Tip:* Having both sets in your stash allows you to seamlessly bypass build-bricking map modifiers (e.g., swapping to Defy Pain for "Cannot Regenerate Life" maps).
+
 ### Other Situational Swaps
 
 While the defensive setup is great for swarms, you may want to swap gear for content that requires pure clear speed or burst damage (such as 5-Way Legions or Pinnacle Bossing). Keep the realities of the PlayStation market and flask uptime in mind.
