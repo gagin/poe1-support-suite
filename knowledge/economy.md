@@ -523,6 +523,8 @@ Two nodes in the Breach tree grant a **chance** for dropped items to be +1 level
 **ilvl 89:**
 - **Olmec's Sanctum (T16):** The unique boss Olmec drops ilvl 89 items — area level 83 + 2 (unique boss) + 4 (map modifier "Final Boss drops higher Level Items") = 89
 
+**Crafting high ilvl bases:** When crafting/fusing items (e.g., using a higher ilvl base influences the result). Combining Warlock Gloves (ilvl 85) with Precursor Gauntlets (ilvl 89) produces ilvl 89. Use elevated bases or high ilvl bases as inputs to push item levels higher.
+
 **ilvl 93:**
 - **Oba's Cursed Trove (T16):** Final room strongbox — the area inside is level 88, which provides high ilvl (the strongbox itself doesn't add +5 anymore)
 
