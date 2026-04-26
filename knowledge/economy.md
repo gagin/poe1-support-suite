@@ -504,6 +504,7 @@ With **T17 maps removed from the game**, level 86 map bases became significantly
 - **Architect:** Quipolatl
 - **Effect:** Monsters drop items 1 Level higher
 - **Side effects:** +20% monster cast/attack speed, +12% item rarity, +6% quantity, +3% pack size
+- **Value:** ~10c — significantly cheaper than Locust of Corruption or Doryani Institute temples (1–3 divines)
 
 ### How it works
 - Temple Nexus converts items dropped in the temple to a higher level, bringing them up to level 86 if you run it on a tier 16 map.
