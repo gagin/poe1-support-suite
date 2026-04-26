@@ -496,16 +496,13 @@ Because of this specific map, deep horizontal Delving is arguably the most profi
 
 ---
 
-## 14. Level 86 Bases — Temple Nexus Strategy
+## 14. Level 86 Bases — Breach +1 Strategy
 
-With **T17 maps removed from the game**, level 86 map bases became significantly harder to obtain. One reliable source: **Temple of Atzoatl** runs with the **Nexus** room (Tier 3).
+With **T17 maps removed from the game**, level 86 map bases became significantly harder to obtain. The best source is **Breach** atlas passive nodes.
 
-### Empowering Room III — Temple Nexus
-- **Architect:** Quipolatl
-- **Effect:** Monsters drop items 1 Level higher
-- **Side effects:** +20% monster cast/attack speed, +12% item rarity, +6% quantity, +3% pack size
-- **Value:** ~10c — significantly cheaper than Locust of Corruption or Doryani Institute temples (1–3 divines)
+### Breach Atlas Passives
+Two nodes in the Breach tree grant a **chance** for dropped items to be +1 level:
+- Provides a reliable routine for ilvl 86–87 bases when running Breach content
 
-### How it works
-- Temple Nexus converts items dropped in the temple to a higher level, bringing them up to level 86 if you run it on a tier 16 map.
-- One source for ilvl 86 bases when T17s are unavailable.
+### Alternate: Temple Nexus
+- See above — but Breach is more consistent
