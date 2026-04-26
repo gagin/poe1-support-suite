@@ -482,7 +482,7 @@ Helmet can be a corrupted one with +level of some gems, in my case to fire ones,
 - **Wave of Conviction**: auto-applies −15% Fire Exposure on hit — strongest exposure source in the build, supersedes the axe's max Rage exposure
 - **Vaal Molten Shell**: base version fires automatically via CwDT. Vaal version is manual panic button — use proactively on telegraphed large hits
 
-> **Apostate transition note:** After equipping The Apostate, we lose most innate armour (only Granite Flask remains), making Molten Shell's absorption very weak. The solution is not another guard skill — it's **Added Fire Damage Support** in the Wave of Conviction link. This ensures the fire component of WoC is always your highest damage type, guaranteeing the −15% Fire Exposure applies reliably. Without it, WoC might deal more chaos or cold damage depending on gear, and the fire exposure fails to trigger.
+> **Apostate transition note:** After equipping The Apostate, we lose most innate armour (only Granite Flask remains), making Molten Shell's absorption very weak. The solution is not another guard skill — it's **Added Fire Damage Support** in the Wave of Conviction link. Without it, WoC's fire (170–254) and lightning (164–245) ranges overlap significantly, making exposure random. With Added Fire, the fire floor (170+26=196) exceeds the lightning ceiling (245), guaranteeing the −15% Fire Exposure applies reliably.
 
 
 ## Boots (4L)
