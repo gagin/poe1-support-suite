@@ -518,8 +518,7 @@ Two nodes in the Breach tree grant a **chance** for dropped items to be +1 level
 ### Sources of ilvl 88+ Items
 
 **ilvl 88:**
-- **Delve** areas with "Monsters drop items 3 levels higher" modifier — base monster level at deep Delve is 85, giving ilvl 88 on rares/uniques
-- **Strongbox** with +1 Item Level in a T16 map — area level 83 + 1 = ilvl 84 (not sufficient for T1 mods)
+- **Delve** — at sufficient depth (monster level 85+), items drop at high ilvl
 
 **ilvl 89:**
 - **Olmec's Sanctum (T16):** The unique boss Olmec drops ilvl 89 items — area level 83 + 2 (unique boss) + 4 (map modifier "Final Boss drops higher Level Items") = 89
