@@ -512,7 +512,8 @@ Two nodes in the Breach tree grant a **chance** for dropped items to be +1 level
 - **Effect:** Monsters drop items 1 Level higher
 - **Side effects:** +20% monster cast/attack speed, +12% item rarity, +6% quantity, +3% pack size
 - **Value:** ~10c — significantly cheaper than Locust of Corruption or Doryani Institute temples (1–3 divines)
-- Temple Nexus converts items dropped in the temple to a higher level, bringing them up to level 86 if you run it on a tier 16 map.
+
+**How it works:** When Alva spawns a temple in a tier 16 map, the base item level is 85. Nexus adds +1 to ALL items dropped in the temple, yielding many level 86 bases — more than Breach tree, bosses, or Stygian Spires. However, Breach tree can produce level 87 items.
 
 ### Option 4: Boss Speed-Farming
 Map bosses have a **chance** to drop higher level items. Speed-clearing content with frequent boss encounters (e.g., Destructive Play Kirac mission) can accumulate higher ilvl bases over time.
