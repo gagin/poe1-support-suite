@@ -507,5 +507,4 @@ With **T17 maps removed from the game**, level 86 map bases became significantly
 
 ### How it works
 - Temple Nexus converts items dropped in the temple to a higher level, bringing them up to level 86 if you run it on a tier 16 map.
-- This is the primary source for ilvl 86 bases when T17s are unavailable.
-- The temple can be run on any map tier, but the higher the tier, the better the chance of good drops alongside the temple loot.
+- One source for ilvl 86 bases when T17s are unavailable.
