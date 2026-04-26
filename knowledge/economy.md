@@ -503,8 +503,8 @@ With **T17 maps removed from the game**, level 86 map bases became significantly
 ### Option 1: Breach Atlas Passives
 Two nodes in the Breach tree grant a **chance** for dropped items to be +1 level. This provides the most routine source of ilvl 86–87 bases when running Breach content.
 
-### Option 2: Inspired Darkness (Delirium)
-The **Inspired Darkness** atlas passive causes Delirium reward chests to drop +1 level items.
+### Option 2: Inspired Darkness (Stygian Spires)
+**Notable Passive Skill:** Stygian Spires in your Maps drop Items with +1 to Item Level
 
 ### Option 3: Temple Nexus
 **Temple of Atzoatl** runs with the **Empowering Room III — Nexus** room (Tier 3).
