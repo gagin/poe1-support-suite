@@ -498,7 +498,12 @@ Because of this specific map, deep horizontal Delving is arguably the most profi
 
 ## 14. Level 86 Bases — Temple Nexus Strategy
 
-With **T17 maps removed from the game**, level 86 map bases became significantly harder to obtain. One reliable source: **Temple of Atzoatl** runs with **Temple Nexus** (Harbinger passive node).
+With **T17 maps removed from the game**, level 86 map bases became significantly harder to obtain. One reliable source: **Temple of Atzoatl** runs with the **Nexus** room (Tier 3).
+
+### Empowering Room III — Temple Nexus
+- **Architect:** Quipolatl
+- **Effect:** Monsters drop items 1 Level higher
+- **Side effects:** +20% monster cast/attack speed, +12% item rarity, +6% quantity, +3% pack size
 
 ### How it works
 - Temple Nexus converts items dropped in the temple to a higher level, bringing them up to level 86 if you run it on a tier 16 map.
