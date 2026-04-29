@@ -626,7 +626,7 @@ The ultimate defensive configuration relies on combining **Progenesis** with the
 
 * **Progenesis (Amethyst Flask) [~75 Divines]:** When active, 25% of life loss from damage is staggered over 4 seconds. With a 12,500+ life pool, this turns lethal spikes into a manageable degen that your 4,600+ life/second recovery easily outpaces.
   * *Enchantment:* `"Used when Charges reach full"`. In dense content (Simulacrum, Delirium), the flask refills so quickly that it maintains permanent 100% uptime without manual input.
-  * *Warning:* Map modifiers that cause `"Buffs on Players expire faster"` will drastically reduce Progenesis duration, breaking the automated loop and leaving you vulnerable. Avoid this modifier.
+  * Warning: Map modifiers that cause "Buffs on Players expire faster" might look benign, but they are deceptively critical because they affect too many layers of the build simultaneously. Not only does this mod drastically reduce Progenesis duration and break the automated loop, but it also silently shreds the duration of your Consecrated Ground, Elemental Overload uptime, Fortify stacks, and Endurance charges. Avoid this modifier.
 
 * **Forbidden Flesh & Flame — Defy Pain (Berserker) [~15 Divines for the pair]:** This acts as a "ghetto *Defiance of Destiny*," though technically, it provides a stronger recovery effect at maximum stacks. We use this specifically because unequipping our double-mutated (Foulborn) *Xoph's Blood* amulet is a better build. *Xoph's Blood* gives us *Elemental Overload* for free, allowing us to spend three passive points to gain 16% increased maximum life instead. Its increased life, attributes, strength, damage taken as fire, penetration, covering in ash — all is too good to replace.
 
@@ -634,18 +634,24 @@ The ultimate defensive configuration relies on combining **Progenesis** with the
 
 ### The Recovery Jewel Swap: Defy Pain vs. Untiring
 
+Ah, that’s right—your previous testing showed that PoB massively favors Untiring, but in practice, Defy Pain’s “vulnerability window” is only about 0.3 seconds before the next hit starts the pre-heal again.  Plus, at 14k life, even a single stack heals for 520 life *before* the hit, which is incredible sustain against rapid hits like deep Delve (550+) where Untiring struggles.  Untiring also gets completely gutted by Temporal Bubble modifiers or reduced recovery maps because it relies entirely on a linear heal-over-time.
+
+Here is the updated section incorporating those mechanics:
+
+### The Recovery Jewel Swap: Defy Pain vs. Untiring
+
 When scaling defenses on the Apostate life-stacker, the choice between **Defy Pain** (Berserker) and **Untiring** (Juggernaut) via Forbidden Flesh/Flame jewels comes down to personal preference. Path of Building heavily favors Untiring because of its high passive numbers, but in practice, both provide roughly the same level of survivability with different mechanical quirks.
 
 Neither jewel grants immortality. Your choice depends on which style of recovery feels better to you in the content you are running:
 
-* **The Defy Pain "Seesaw":** Defy Pain feels exceptionally smooth in dense swarms because its recovery happens *before* the hit connects. A swarm hitting you 15 times triggers 15 separate instances of pre-healing, dynamically buffering the damage. However, this smoothness only exists when you have high Defiance stacks. The moment you hit 10 stacks and reset back to zero (or if you take a massive slam at full HP where "missing life" is zero), the pre-healing vanishes. You are essentially naked against the next hit until the stacks build back up, creating a violent "seesaw" effect on your survivability.
+* **The Defy Pain "Seesaw":** Defy Pain feels exceptionally smooth in dense swarms because its recovery happens *before* the hit connects. A swarm hitting you 15 times triggers 15 separate instances of pre-healing, dynamically buffering the damage. Even at just 1 stack of Defiance, the pre-heal is incredibly potent—at 14,000 maximum life, a 3% pre-heal restores over 500 life per hit before damage is taken.  While you do reset your stacks upon reaching 10, the "naked" vulnerability window only lasts for the ~0.3 seconds it takes for the next incoming hit to restart the cycle.  Against fast-hitting swarms (4+ hits per second), Defy Pain comfortably outperforms Untiring and makes deep content like Delve 550 much safer.
 
-* **The Untiring "Wall":** Untiring converts prevented physical damage into a massive wall of sustained regeneration. It completely trivializes the *Progenesis* damage-over-time "pink zone" and ground degens because the healing is constant and unconditional. However, because regeneration is a linear heal-over-time, your health globe will visibly jump down and up. If a Beyond swarm hits you for 12,000 damage instantaneously, Untiring needs a full 1.5 seconds to refill the globe—a vulnerability window that can easily result in death if a second burst hits before you recover.
+* **The Untiring "Wall":** Untiring converts prevented physical damage into a massive wall of sustained regeneration. It helps with ground degens because the healing is constant and unconditional. However, because regeneration is a linear heal-over-time, your health globe will visibly jump down and up. More importantly, Untiring can be completely broken by map modifiers like "Players have less Recovery Rate" or mechanics like **Temporal Bubble** rares, which cripple your regeneration rate and leave you defenseless against sustained burst.
 
 **The Verdict:**
-* **Defy Pain** excels at buffering rapid-fire hits in dense mapping scenarios like Delirium or Simulacrum, but its uneven effect distribution leaves you highly vulnerable during stack resets.
-* **Untiring** provides unmatched sustained recovery against DoTs and degens, but the lack of immediate pre-hit mitigation makes it feel squishier against massive, synchronized burst damage.
-* *Tip:* Having both sets in your stash allows you to seamlessly bypass build-bricking map modifiers (e.g., swapping to Defy Pain for "Cannot Regenerate Life" maps).
+* **Defy Pain** excels against rapid-fire hits (4+ hits per second) in dense mapping, Delve, or Simulacrum. The 0.3s vulnerability window upon stack reset is easily covered by your massive life pool, and its instantaneous on-hit healing is immune to Temporal Bubbles and low recovery map mods.
+* **Untiring** provides unmatched sustained recovery against DoTs and ground degens, but its linear healing feels squishier against massive burst damage and is hard-countered by Temporal Bubbles and recovery-reduction mechanics.
+* *Tip:* Having both sets in your stash allows you to seamlessly bypass build-bricking map modifiers (e.g., swapping to Defy Pain for "Cannot Regenerate Life" or low recovery maps).
 
 ### Other Situational Swaps
 
@@ -671,9 +677,7 @@ While the defensive setup is great for swarms, you may want to swap gear for con
 
 ## 10h. The Apostate Transition — The Fortification Engine
 
-One of the biggest traps when scaling a life-stacking build into the absolute endgame is misunderstanding where your physical mitigation actually comes from.
-
-When transitioning to **The Apostate** (which forces you to abandon all traditional Armour and Evasion), players often mistakenly believe that the sudden "squishiness" they feel is due to the loss of base Armour from their rare chest. **This is an illusion.** The fragility actually comes from unknowingly unplugging your primary physical damage mitigation: **Fortification**.
+When I first tried to switch to Apostate, I felt squishier and thought that's because of the armour lost. But the biggest factor was losing fortify implicit on the rare chest.
 
 Because *Void Shockwave* and *Static Strike* beams hit dozens of times per second, we can easily maintain maximum Fortification stacks automatically. To bridge the gap from League Start to the Immortal Monolith endgame, we use a specific "accordion" strategy with the **Steadfast** passive wheel.
 
@@ -685,7 +689,7 @@ While pushing through the campaign and early maps, allocate 5 points for the **S
 * **The Solution:** The Steadfast wheel gives `+3 to Maximum Fortification`, meaning you take a permanent **23% Less Damage from Hits**. More importantly, it grants `Regenerate 0.1% of Life per second per Fortification`. This single passive wheel provides massive flat life regeneration and physical mitigation, completely trivializing early map progression.
 
 **Phase 2: The Mid-Game Transition (The Rare Chest Era)**
-Once you craft your high-armour/life rare chest (e.g., a *Royal Plate* base) and use **Grand/Exceptional Eldritch Ichor** to roll the implicit `Melee Hits have x% chance to Fortify`, you can safely un-spec the Steadfast wheel.
+Once you craft your high-armour/life rare chest (e.g., a *Royal Plate* base) and use **Eldritch Ichor** to roll the implicit `Melee Hits have x% chance to Fortify`, you can safely un-spec the Steadfast wheel.
 * **The Pivot:** The Eldritch implicit on the chest now handles your Fortification automatically. You can refund those 5 passive points and dump them directly into massive `% Increased Maximum Life` nodes (like *Constitution* or *Purity of Flesh*) to scale your *Rathpith Globe* and *Grey Wind* damage higher.
 
 **Phase 3: The Endgame Monolith (The Apostate Era)**
