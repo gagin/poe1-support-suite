@@ -722,6 +722,18 @@ Culling Strike is similarly low-value in most fights: bosses are dangerous preci
 
 > Note: Greater Chain's longer range spreads kills over a wider area, which *reduces* Beyond portal spawn clustering. For Beyond density farming specifically, this is a drawback.
 
+### Shield Socket Options (Freed from WoC Removal)
+
+With WoC removed, the shield slot opens up for other defensive options:
+
+| Skill | What It Does | When Useful |
+|-------|-------------|------------|
+| **Vaal Rejuvenation Totem** | Provides life/mana regen aura | Already in build — works fine |
+| **Summon Stone Golem** | Life regen buff + taunt | More consistent regen than Vaal Rejuv; taunt helps in mapping |
+| **Summon Lightning Golem** | Attack/cast speed + mana regen | Attack speed for mapping; mana issues |
+| **Defiance of Destiny** | 20% life regen on hit | If you can reserve a socket |
+| **Frost Bomb** | Cold exposure + -regen | High-regen bosses (Uber Lab, regen map mods) |
+
 ### Precision to Arrogance: Freeing Mana Reservation
 
 Precision is currently on the Enlighten mana reservation setup. Moving it to its own **Arrogance Support** link reserves life instead of mana. The life cost is small relative to the total pool because Precision is flat reservation rather than percentage-based, and both the Grey Wind's flat fire scaling and Rathpith Globe's increased spell damage are based on **maximum life**, not unreserved life. The damage engine is unaffected.
