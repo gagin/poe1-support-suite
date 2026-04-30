@@ -698,3 +698,31 @@ The moment you unequip your rare chest to equip **The Apostate**, you must immed
 * **The Synergy:** Re-allocating Steadfast provides the 23% physical mitigation necessary to survive without Armour. Furthermore, because your Life pool is now 14,000+, the 2.3% Life Regeneration from 23 Fortification stacks translates to over **320 raw Life Regenerated per second**—perfectly offsetting the regeneration you lost when unequipping the rare chest.
 
 This strategy ensures you never experience a "glass cannon" phase and seamlessly scales your defence alongside your 15,000+ Life pool!
+
+---
+
+## 11. Replacing the WoC CwDT Setup — Socket Reallocation
+
+### Why the WoC Link Is Not Worth Four Sockets
+
+Wave of Conviction's exposure mechanic applies -15% to the elemental resistance matching the **highest damage taken** by the hit. Because this build converts physical damage to both fire and lightning (25% each via WoC's own conversion), and because lightning damage has a naturally wider random range than fire, WoC is not guaranteed to apply **fire** exposure on every cast — lightning can win the comparison and trigger the wrong exposure type. To force fire exposure reliably, **Added Fire Damage Support** is required to push the fire component above lightning, which costs a third socket.
+
+The result is a three-support setup (CwDT + WoC + Added Fire) spending **three sockets** just to reliably deliver -15% fire exposure, plus a fourth socket on Culling Strike for QoL. The Grey Wind axe already applies fire exposure at maximum Rage, so the entire WoC package is buying roughly **5% extra exposure** over what the axe provides automatically — a marginal gain for a large socket investment.
+
+Culling Strike is similarly low-value in most fights: bosses are dangerous precisely when near death, but manual or proc-based culling is unreliable in high-mobility encounters like Shaper or Sirus, and Static Strike's hit rate already carries clear speed without needing threshold kills.
+
+**The four sockets are better reallocated entirely.**
+
+### Precision to Arrogance: Freeing Mana Reservation
+
+Precision is currently on the Enlighten mana reservation setup. Moving it to its own **Arrogance Support** link reserves life instead of mana. The life cost is small relative to the total pool because Precision is flat reservation rather than percentage-based, and both the Grey Wind's flat fire scaling and Rathpith Globe's increased spell damage are based on **maximum life**, not unreserved life. The damage engine is unaffected.
+
+This frees a slot in the Enlighten mana setup, which can now carry **Arctic Armour** instead.
+
+### Arctic Armour in the Enlighten Setup
+
+Arctic Armour grants 21% less physical and fire damage taken while stationary. For a playstyle built around standing still and maintaining Static Strike beam uptime on a boss, the stationary requirement is not a meaningful limitation — it is simply the natural combat posture.
+
+The secondary benefit is **Pantheon flexibility**. Brine King (freeze immunity) is no longer mandatory when Arctic Armour provides its own freeze immunity implicitly, freeing the major Pantheon slot for damage-over-time protection or other situational choices. Tempest Shield remains a viable situational swap if shock becomes the primary threat in a specific encounter — it provides spell block and shock immunity but does not provide the stationary mitigation that Arctic Armour does, so it is a context-dependent substitute rather than a strict upgrade.
+
+The Enlighten setup at this point runs: **Purity of Fire — Summon Skitterbots — Arctic Armour — Enlighten**, with Precision reserved separately via Arrogance.
