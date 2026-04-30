@@ -713,6 +713,15 @@ Culling Strike is similarly low-value in most fights: bosses are dangerous preci
 
 **The four sockets are better reallocated entirely.**
 
+### Socket Swap Options
+
+| Content | Recommended Gems |
+|---------|-----------------|
+| **Bossing** | Close Combat / Fire Penetration / Hypothermia |
+| **Mapping** | Greater Chain — beams chain 3 additional times, clearing packs across a wider area while moving |
+
+> Note: Greater Chain's longer range spreads kills over a wider area, which *reduces* Beyond portal spawn clustering. For Beyond density farming specifically, this is a drawback.
+
 ### Precision to Arrogance: Freeing Mana Reservation
 
 Precision is currently on the Enlighten mana reservation setup. Moving it to its own **Arrogance Support** link reserves life instead of mana. The life cost is small relative to the total pool because Precision is flat reservation rather than percentage-based, and both the Grey Wind's flat fire scaling and Rathpith Globe's increased spell damage are based on **maximum life**, not unreserved life. The damage engine is unaffected.
