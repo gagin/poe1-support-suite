@@ -724,15 +724,22 @@ Culling Strike is similarly low-value in most fights: bosses are dangerous preci
 
 ### Shield Socket Options (Freed from WoC Removal)
 
-With WoC removed, the shield slot opens up for other defensive options:
+With WoC removed, the shield slot opens up for other options:
 
-| Skill | What It Does | When Useful |
-|-------|-------------|------------|
-| **Vaal Rejuvenation Totem** | Provides life/mana regen aura | Already in build — works fine |
-| **Summon Stone Golem** | Life regen buff + taunt | More consistent regen than Vaal Rejuv; taunt helps in mapping |
-| **Summon Lightning Golem** | Attack/cast speed + mana regen | Attack speed for mapping; mana issues |
-| **Defiance of Destiny** | 20% life regen on hit | If you can reserve a socket |
-| **Frost Bomb** | Cold exposure + -regen | High-regen bosses (Uber Lab, regen map mods) |
+| Skill | Assessment |
+|-------|------------|
+| **Vaal Molten Shell + CwDT** | Current in build — works fine for emergency absorption |
+| **Wave of Conviction** | Previously best: 15% fire exposure, but see Section 11 analysis above |
+| **Withering Step** | Rejected — CwDT triggers on damage taken, but Withering Step wants to be used proactively and can't be cast while already Elusive |
+| **Frost Bomb** | Cold exposure + -regen for high-regen bosses (Uber Lab, regen map mods) — kept in inventory for swap-in |
+| **Vaal Rejuvenation Totem** | Life/mana regen aura while active |
+
+### Original CwDT Slot (Reference)
+
+**Originally: Vaal Molten Shell + WoC + CwDT** — WoC was chosen because:
+- 15% fire exposure via CwDT is irreplaceable
+- Axe only provides 10% baseline exposure at max Rage
+- But as Section 11 explains, this costs too many sockets for marginal gain
 
 ### Precision to Arrogance: Freeing Mana Reservation
 
