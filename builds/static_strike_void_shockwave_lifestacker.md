@@ -1,6 +1,6 @@
 # Static Strike Life-Stacker — Chieftain (Mirage League)
 
-**Character:** MiragMaraBatato | **Realm:** Sony (PlayStation)
+**Character:** MiragMaraBatato | **Level:** 98 | **Realm:** Sony (PlayStation)
 
 ***
 
@@ -68,13 +68,13 @@ Skipping the Enmity's Embrace loop entirely is not purely a loss. The original b
 - **Precision** — accuracy for hit chance + critical strike for Elemental Overload uptime
 
 
-## Body Armour — Progression from Royal Plate to The Apostate
+## The Apostate Decision
 
-The original template uses an *Apostate* body armour. We have one in stash, six-linked and coloured — this is not a "can't afford it" situation. We chose not to use it early because the survival model in the original build depends on: push life high enough that raw HP + Defiance of Destiny absorbs what Apostate doesn't mitigate. On PC with corrupted life implicits on uniques and mirror-tier gear everywhere, you can reach the life threshold where this works. On PS without those implicits and with our actual budget, you cannot — the life total simply isn't achievable.
+The original template uses an *Apostate* body armour. We have one in stash, six-linked and coloured — this is not a "can't afford it" situation. We chose not to use it.
 
-A rare **Royal Plate** solves this early on: high armour base, Fortify from chest implicit, and all three prefixes available for life and stats.
+Apostate's defensive value is zero on its own. The entire survival model in Peuget2's version is: push life high enough that raw HP + Defiance of Destiny absorbs what Apostate doesn't mitigate. On PC with corrupted life implicits on uniques and mirror-tier gear everywhere, you can reach the life threshold where this works. On PS without those implicits and with our actual budget, you cannot — the life total simply isn't achievable.
 
-As life stacks higher (~14,000+) and other defences are in place, the **The Apostate** becomes viable. Apostate converts Energy Shield from ES bases (like Ghoul Spark boots and Rift Knuckle gloves) into additional life, and its −5% to all maximum resistances provides useful extra defensive headroom. However, equipping Apostate means losing Fortify from a rare chest implicit — this is where the **Steadfast** passive wheel becomes mandatory (see Section 10h).
+A rare **Royal Plate** solves this: high armour base, Fortify from chest implicit, and all three prefixes available for life and stats. Our current chest is exceptionally well-rolled (see Section 3b), but even a modest Royal Plate outperforms Apostate at any realistic PS budget by keeping you alive in the first place.
 
 If you are building this on PC with mirror-tier life-corrupted uniques and the correct Elegant Hubris seed, the Apostate + Enmity's Embrace route is strictly better. That build is Peuget2's, not this one. One final note though: the 3.26 patch buffed Static Strike's base damage effectiveness, and Void Shockwave was introduced as a new support in the same patch. Both changes disproportionately benefit this build's architecture. It is entirely possible that our approach — life-stacking Chieftain with Static Strike + Void Shockwave — is simply the stronger path in the current patch regardless of platform, and that the Apostate + Enmity's Embrace route on PC would itself benefit from adopting this same tech on top of its higher life ceiling.
 
@@ -342,8 +342,8 @@ I have also Ruthless imbue, but not sure if it works with triggered effects - be
 Arguably ELemental Focus can be better than Close Combat as it's more universal. We lose ignite/chill/shock, but ignite is small, and chill/shock provided by Skitterbots. But at facetank distance, Close Combat is stronger (40% vs 35% more at lvl 21). Plus ignite gives few percents of dps too. In the final version I actually used Fire Penetration - on bigger bosses with more fire resistance it's more impactful.
 
 **The swappable socket:**
-- **On bosses**: Close Combat, Hypothermia (max DPS)
-- **On crowds**: Greater Chain, Fire Penetration (because enemies may not be affected by Skitterbot's chill yet)
+- **Bossing**: Close Combat / Fire Penetration / Hypothermia.
+- **Mapping**: Replace either of above with Greater Chain — beams chain 3 additional times, clearing packs across a wider area while moving. Note: Greater Chain's longer range spreads kills over a wider area, which *reduces* Beyond portal spawn clustering. For Beyond density farming specifically, this is a drawback.
 
 **Socket colours:** We mostly need red, which is easy with armour base, so it's not hard to use **Omen of Blanching** to get enough white sockets for flexibility.
 
@@ -482,10 +482,6 @@ Helmet can be a corrupted one with +level of some gems, in my case to fire ones,
 - **Wave of Conviction**: auto-applies −15% Fire Exposure on hit — strongest exposure source in the build, supersedes the axe's max Rage exposure
 - **Vaal Molten Shell**: base version fires automatically via CwDT. Vaal version is manual panic button — use proactively on telegraphed large hits
 
-> **Apostate transition note:** After equipping The Apostate, we lose most innate armour (only Granite Flask remains), making Molten Shell's absorption very weak. The solution is not another guard skill — it's **Added Fire Damage Support** in the Wave of Conviction link. WoC level 7 deals 170–254 fire and 164–245 lightning — ranges overlap, so exposure is random. Added Fire adds 30% of phys (324–485) as extra fire: ~97–146. Fire becomes 267–400, definitively above lightning's 164–245, guaranteeing −15% Fire Exposure.
->
-> **CwDT adjustment:** With Armour/Molten Shell, we balanced CwDT level between trigger frequency and Molten Shell absorption. With Molten Shell dropped, switch to **CwDT lvl1 + WoC lvl7** — low CwDT for rapid WoC triggers, high WoC for maximum fire damage and guaranteed exposure.
-
 
 ## Boots (4L)
 
@@ -535,14 +531,14 @@ Spell Damage applies to Attacks at 150% of its value. The −30% fire resistance
 ### Shield — Rathpith Globe (Titanium Spirit Shield)
 5% increased Spell Damage per 100 maximum life. At 11k life this is 55% increased spell damage, which Crown of Eyes converts to 82.5% increased attack damage. Scales directly and continuously with life. Try to het good spell block roll. Crit for spells is wasted.
 
-### Body Armour — The Apostate (Vaal Spirit Armor)
-Current setup with high life pool. Converts ES from ES bases (Ghoul Spark, Rift Knuckle) into additional life. Provides −5% to all maximum resistances which gives useful headroom. Cannot roll Eldritch implicits and provides no armour — requires the Steadfast passive wheel for physical mitigation (see Section 10h).
+### Body Armour — Royal Plate ("Spirit Pelt")
+Current chest is exceptionally well-rolled: four T1 mods (+45 Intelligence, +499 Armour, 106% increased Armour, +180 maximum Life), +46% Fire Resistance, near-maximum intrinsic armour.
+Implicits:
+- Exarch: +2% maximum Fire Resistance
+- Eater: 7% Fortify chance implicit.
+Crafted suffix currently under evaluation (see Section 3b). Probably 6% incr attributes is the best.
 
-**Early game alternative: Royal Plate ("Spirit Pelt")**
-Rare chest with high armour base and Fortify implicit. Exceptionally well-rolled: four T1 mods (+45 Intelligence, +499 Armour, 106% increased Armour, +180 maximum Life), +46% Fire Resistance, near-maximum intrinsic armour.
-Implicits: Exarch (+2% maximum Fire Resistance), Eater (7% Fortify chance implicit). Crafted suffix for attributes.
-
-**The no-life chest route**: a 15% increased maximum Life mastery activates with no life modifiers on body armour. Tested and rejected with this chest — with that equipment the mastery produced 11,148 final life versus this chest's 11,489. Run the numbers in PoB before assuming flat life wins.
+**The no-life chest route**: a 15% increased maximum Life mastery activates with no life modifiers on body armour. Tested and rejected on this chest — with that equipment the mastery produced 11,148 final life versus this chest's 11,489. On a less exceptional chest this calculation may differ. Run the numbers in PoB before assuming flat life wins.
 
 ### Amulet — Xoph's Blood (Foulborn Amber)
 Mutated modifiers: Elemental Overload + 6% phys taken as fire. Removes Avatar of Fire restriction. Penetrates 10% fire resistance. The mutation removing Avatar of Fire is what enables the Red Dream chaos damage interaction.
@@ -556,15 +552,15 @@ Hunter influence to get % incr life prefix and/or % incr attributes suffix. Whis
 
 Both rings carry the mandatory −7 Non-Channelling Mana Cost craft. Combined with the life mastery cost offset and Fuel the Fight mana leech: 22 mana + 11 life per cast in sustained combat.
 
-### Gloves — Rift Knuckle (Vaal Gauntlets)
-With The Apostate, ES bases become life via conversion. Rift Knuckle provides high Energy Shield that converts to life. Priority stats: life recovery rate, life, strength, intelligence, attack speed, resistances as needed to cap. Possible exarch implicit: Gain Rage on Hit — contributes to rage ramp alongside Bloodscent and tree nodes. Although Attack Speed can be more attractive (there was something about that rage on hit being on 1 second cooldown anyway, unconfirmed). Open prefix for 40% incr damage while leeching benchcraft.
-Highly recommended to get high % life recovery rate here. Perhaps get a fracture for 20-21% and start crafting there.
-Eater — Global Accuracy.
+### Gloves
+Rare gloves. Priority stats: life recovery rate, life, strength, intelligence, attack speed, resistances as needed to cap. Possible exarch implicit: Gain Rage on Hit — contributes to rage ramp alongside Bloodscent and tree nodes. Although Attack Speed can be more attractive (there was something about that rage on hit being on 1 second cooldown anyway, unconfirmed). Open prefix for 40% incr damage while leeching benchcraft.
+Highly recommeneded to get high % life recovery rate here. Perhaps get a fracture for 20-21% and start crafting there.
+Eater - GLobal Accuracy.
 
-### Boots — Ghoul Spark (Slink Boots)
-With The Apostate, ES bases become life via conversion. Ghoul Spark provides high Energy Shield that converts to life. Priority stats: movement speed, life, life recovery rate, strength, int, fire and chaos resistances. Dexterity if needed for gem requirements.
+### Boots
+Rare boots. Priority stats: movement speed, life, life recovery rate, strength, int, fire and chaos resistances. Dexterity if needed for gem requirements.
 Later makes sense to get 35% ms fracture, or fracture yourself, start there.
-Eater/Exarch implicits — regen per endurance charge, action speed, sapped ground, scorched ground.
+Eater/Exarch implicits - regen per endurance charge, action speed, sapped ground, scorched ground.
 
 
 # 10. Appendices
@@ -604,7 +600,7 @@ Without the imbue mechanic (next league): run **Urgent Orders + Blessed Call + M
 
 This build originates from Peuget2's Apostate life-stacker Smite Chieftain. The original template uses *Enmity's Embrace* (stacking massive fire res on every gear slot, converting overcapped fire res to fire penetration via a specific *Elegant Hubris* seed) for ~40% more damage from the ring alone. The entire gearing strategy in that build is warped around fire res on every suffix, with Purity of Elements consuming 35% reservation to cap other resistances.
 
-We cannot replicate that on PlayStation — the required Elegant Hubris seed does not exist on the PS market, awakened support gems have zero supply, and mirror-tier life-corrupted uniques are not achievable. We have an Apostate in stash, six-linked and coloured — this is not a budget constraint. We chose not to use it early because without the life-corrupted uniques to push HP high enough, Apostate's zero-defence model leaves you dead at any realistic PS budget. A rare Royal Plate with flat armour, Fortify, and T1 life mods keeps you alive where Apostate cannot. See Section 2 for the progression to Apostate once life is high enough.
+We cannot replicate that on PlayStation — the required Elegant Hubris seed does not exist on the PS market, awakened support gems have zero supply, and mirror-tier life-corrupted uniques are not achievable. We have an Apostate in stash, six-linked and coloured — this is not a budget constraint. We chose not to use it because without the life-corrupted uniques to push HP high enough, Apostate's zero-defence model leaves you dead at any realistic PS budget. A rare Royal Plate with flat armour, Fortify, and T1 life mods keeps you alive where Apostate cannot.
 
 What we gain by skipping Enmity's Embrace: free aura slots (Skitterbots, Arctic Armour, Precision), simpler gearing, and suffixes available for chaos res and attributes instead of being entirely devoted to fire res.
 
@@ -614,138 +610,55 @@ One final note: the 3.26 patch buffed Static Strike's base damage effectiveness 
 
 **Bound by Destiny** — Unique jewel giving up to +15% increased life for two equipped Elder items. Rare jewels give 7% and other stats, so it's not much of an improvement, but it's an option. Problem: we can't get Elder influence on Chest, Boots or Gloves as Exarch/Eater implicits there are more valuable. We theoretically can double-influence our belt, or influence rings, or perhaps get an elder-influenced version of helmet or shield by using Tainted Mythic Orb on a corresponding corrupted influenced base.
 
-## 10g. Expensive Defensive Upgrades
 
-*Note: The prices listed below reflect the PlayStation market realities roughly one month into the Mirage league. PC pricing will differ entirely.*
+# 10. The Fortification Engine & The Apostate Transition
 
-In the endgame, one can trade a bit of dps (PoB drops 10 to 9 mil) for much more tankiness.
+One of the biggest traps when scaling a life-stacking build into the absolute endgame is misunderstanding where your physical mitigation actually comes from. 
 
-### Progenesis + Defy Pain — The "Immortal Monolith" Defense (Swarms & Simulacrum)
-
-The ultimate defensive configuration relies on combining **Progenesis** with the **Defy Pain** notable via Forbidden Flesh and Flame jewels. Together, they perfectly cover the build's only real weakness: overlapping shotgun damage from massive swarms.
-
-* **Progenesis (Amethyst Flask) [~75 Divines]:** When active, 25% of life loss from damage is staggered over 4 seconds. With a 12,500+ life pool, this turns lethal spikes into a manageable degen that your 4,600+ life/second recovery easily outpaces.
-  * *Enchantment:* `"Used when Charges reach full"`. In dense content (Simulacrum, Delirium), the flask refills so quickly that it maintains permanent 100% uptime without manual input.
-  * Warning: Map modifiers that cause "Buffs on Players expire faster" might look benign, but they are deceptively critical because they affect too many layers of the build simultaneously. Not only does this mod drastically reduce Progenesis duration and break the automated loop, but it also silently shreds the duration of your Consecrated Ground, Elemental Overload uptime, Fortify stacks, and Endurance charges. Avoid this modifier.
-
-* **Forbidden Flesh & Flame — Defy Pain (Berserker) [~15 Divines for the pair]:** This acts as a "ghetto *Defiance of Destiny*," though technically, it provides a stronger recovery effect at maximum stacks. We use this specifically because unequipping our double-mutated (Foulborn) *Xoph's Blood* amulet is a better build. *Xoph's Blood* gives us *Elemental Overload* for free, allowing us to spend three passive points to gain 16% increased maximum life instead. Its increased life, attributes, strength, damage taken as fire, penetration, covering in ash — all is too good to replace.
-
-  * **The Seesaw Mechanic:** *Defy Pain* grants a stack of Defiance when you are hit (up to 10 stacks), with each stack healing you for 3% of your missing life *before* the damage of the next hit is applied. At 10 stacks, it heals you for **30% of missing life per hit** (substantially higher than *Defiance of Destiny's* 20% cap) before you immediately lose all stacks and start over. While *Defiance of Destiny* is a smooth, always-active recovery, *Defy Pain* is a survivability seesaw. This is where Progenesis buffer helps.
-
-### The Recovery Jewel Swap: Defy Pain vs. Untiring
-
-Ah, that’s right—your previous testing showed that PoB massively favors Untiring, but in practice, Defy Pain’s “vulnerability window” is only about 0.3 seconds before the next hit starts the pre-heal again.  Plus, at 14k life, even a single stack heals for 520 life *before* the hit, which is incredible sustain against rapid hits like deep Delve (550+) where Untiring struggles.  Untiring also gets completely gutted by Temporal Bubble modifiers or reduced recovery maps because it relies entirely on a linear heal-over-time.
-
-Here is the updated section incorporating those mechanics:
-
-### The Recovery Jewel Swap: Defy Pain vs. Untiring
-
-When scaling defenses on the Apostate life-stacker, the choice between **Defy Pain** (Berserker) and **Untiring** (Juggernaut) via Forbidden Flesh/Flame jewels comes down to personal preference. Path of Building heavily favors Untiring because of its high passive numbers, but in practice, both provide roughly the same level of survivability with different mechanical quirks.
-
-Neither jewel grants immortality. Your choice depends on which style of recovery feels better to you in the content you are running:
-
-* **The Defy Pain "Seesaw":** Defy Pain feels exceptionally smooth in dense swarms because its recovery happens *before* the hit connects. A swarm hitting you 15 times triggers 15 separate instances of pre-healing, dynamically buffering the damage. Even at just 1 stack of Defiance, the pre-heal is incredibly potent—at 14,000 maximum life, a 3% pre-heal restores over 500 life per hit before damage is taken.  While you do reset your stacks upon reaching 10, the "naked" vulnerability window only lasts for the ~0.3 seconds it takes for the next incoming hit to restart the cycle.  Against fast-hitting swarms (4+ hits per second), Defy Pain comfortably outperforms Untiring and makes deep content like Delve 550 much safer.
-
-* **The Untiring "Wall":** Untiring converts prevented physical damage into a massive wall of sustained regeneration. It helps with ground degens because the healing is constant and unconditional. However, because regeneration is a linear heal-over-time, your health globe will visibly jump down and up. More importantly, Untiring can be completely broken by map modifiers like "Players have less Recovery Rate" or mechanics like **Temporal Bubble** rares, which cripple your regeneration rate and leave you defenseless against sustained burst.
-
-**The Verdict:**
-* **Defy Pain** excels against rapid-fire hits (4+ hits per second) in dense mapping, Delve, or Simulacrum. The 0.3s vulnerability window upon stack reset is easily covered by your massive life pool, and its instantaneous on-hit healing is immune to Temporal Bubbles and low recovery map mods.
-* **Untiring** provides unmatched sustained recovery against DoTs and ground degens, but its linear healing feels squishier against massive burst damage and is hard-countered by Temporal Bubbles and recovery-reduction mechanics.
-* *Tip:* Having both sets in your stash allows you to seamlessly bypass build-bricking map modifiers (e.g., swapping to Defy Pain for "Cannot Regenerate Life" or low recovery maps).
-
-### Other Situational Swaps
-
-While the defensive setup is great for swarms, you may want to swap gear for content that requires pure clear speed or burst damage (such as 5-Way Legions or Pinnacle Bossing). Keep the realities of the PlayStation market and flask uptime in mind.
-
-**Oriath's End (Bismuth Flask) [~7 Divines]** — *Optional Clear Speed Swap*
-* **The Role:** Replaces the Granite Flask for heavily packed mapping (e.g., 40%+ Delirious Beyond maps or Cloister farming).
-* **The Mechanic (Theory):** Enemies have a chance to explode for elemental damage on death. Because *Void Shockwave* kills enemies, it *theoretically* triggers the flask's explosion perfectly, which then chains to the next enemy, expanding your AoE significantly.
-* **The Reality:** Highly subjective. It's hard to visually confirm exactly how much work the explosions are doing in the chaos of a Delirium swarm. *Void Shockwave* combined with *Greater Chain Support* already clears screens effortlessly. *Oriath's End* seems to make clearing dense Mirages feel simpler, but can be wishful thinking. Something to experiment with.
-
-**Bottled Faith (Sulphur Flask) [~8 Divines for a 23% decreased duration roll]**
-* **The Role:** Drops a massive Consecrated Ground puddle that causes enemies to take 10% increased damage and grants massive base critical strike chance (guaranteeing *Elemental Overload* uptime).
-* **The Reality:** This flask is an uptime trap. For fights like The Searing Exarch or Maven, it will be dead for 90% of the encounter because you do not generate enough charges to sustain it. It provides absolutely zero DPS boost when empty. Use it only in content where kill volume sustains its high charge cost.
-
-**Bisco's Leash (Heavy Belt) [~5 Chaos]** — *The Budget Clear Speed Swap*
-* **The Role:** Replaces your Hunter attribute belt when you want more movement.
-* **The Mechanic:** Grants **Rampage**. Because weapon-swapping for Rampage was removed in 3.25, you must wear a Rampage item full-time to generate stacks. At 1,000 stacks in a 5-Way, Rampage grants 100% increased movement speed and automated screen-clearing explosions.
-* **The Reality:** Only attempt this swap if your Intelligence and Dexterity requirements do not break when removing your main belt. While the 200% increased damage from Rampage hits diminishing returns against your baseline 1,400%+ increased damage, the movement speed alone drastically increases your 5-Way General kills per minute.
-
-**Forbidden Flesh & Flame — Aspect of Carnage (Berserker) [~170 Divines for the pair]**
-* **The Role:** The ultimate offensive swap to replace *Defy Pain* when raw damage is the only metric that matters.
-* **The Mechanic:** A flat, unconditional **40% More Damage** multiplier to all hits, beams, and shockwaves, at the cost of taking 10% more damage. And losing Defiance stacks.
-
-## 10h. The Apostate Transition — The Fortification Engine
-
-When I first tried to switch to Apostate, I felt squishier and thought that's because of the armour lost. But the biggest factor was losing fortify implicit on the rare chest.
+When transitioning to **The Apostate** (which forces you to abandon all traditional Armour and Evasion), players often mistakenly believe that the sudden "squishiness" they feel is due to the loss of base Armour from their rare chest. **This is an illusion.** The fragility actually comes from unknowingly unplugging your primary physical damage mitigation: **Fortification**.
 
 Because *Void Shockwave* and *Static Strike* beams hit dozens of times per second, we can easily maintain maximum Fortification stacks automatically. To bridge the gap from League Start to the Immortal Monolith endgame, we use a specific "accordion" strategy with the **Steadfast** passive wheel.
 
-### The Three-Phase Fortification Strategy
+## The Three-Phase Fortification Strategy
 
-**Phase 1: Leveling & Early Mapping (The Steadfast Era)**
-While pushing through the campaign and early maps, allocate 5 points for the **Steadfast** wheel and the **"Melee Hits Fortify"** mastery.
+### Phase 1: Leveling & Early Mapping (The Steadfast Era)
+While pushing through the campaign and early maps, allocate 5 points for the **Steadfast** wheel and the **"Melee Hits Fortify"** mastery. 
 * **The Problem:** Early on, you won't have Eldritch currency to craft implicits on your chest piece, and you can't afford to waste a socket on *Fortify Support*.
 * **The Solution:** The Steadfast wheel gives `+3 to Maximum Fortification`, meaning you take a permanent **23% Less Damage from Hits**. More importantly, it grants `Regenerate 0.1% of Life per second per Fortification`. This single passive wheel provides massive flat life regeneration and physical mitigation, completely trivializing early map progression.
 
-**Phase 2: The Mid-Game Transition (The Rare Chest Era)**
-Once you craft your high-armour/life rare chest (e.g., a *Royal Plate* base) and use **Eldritch Ichor** to roll the implicit `Melee Hits have x% chance to Fortify`, you can safely un-spec the Steadfast wheel.
+### Phase 2: The Mid-Game Transition (The Rare Chest Era)
+Once you craft your high-armour/life rare chest (e.g., a *Royal Plate* base) and use **Grand/Exceptional Eldritch Ichor** to roll the implicit `Melee Hits have x% chance to Fortify`, you can safely un-spec the Steadfast wheel.
 * **The Pivot:** The Eldritch implicit on the chest now handles your Fortification automatically. You can refund those 5 passive points and dump them directly into massive `% Increased Maximum Life` nodes (like *Constitution* or *Purity of Flesh*) to scale your *Rathpith Globe* and *Grey Wind* damage higher.
 
-**Phase 3: The Endgame Monolith (The Apostate Era)**
+### Phase 3: The Endgame Monolith (The Apostate Era)
 The moment you unequip your rare chest to equip **The Apostate**, you must immediately respec those 5 points back into the **Steadfast** wheel.
 * **The Reality Check:** The Apostate gives zero armour and cannot roll Eldritch implicits. If you put it on without Steadfast, you instantly give every monster in the game a 25% "More Damage" multiplier against you.
 * **The Synergy:** Re-allocating Steadfast provides the 23% physical mitigation necessary to survive without Armour. Furthermore, because your Life pool is now 14,000+, the 2.3% Life Regeneration from 23 Fortification stacks translates to over **320 raw Life Regenerated per second**—perfectly offsetting the regeneration you lost when unequipping the rare chest.
 
-This strategy ensures you never experience a "glass cannon" phase and seamlessly scales your defence alongside your 15,000+ Life pool!
+This strategy ensures you never experience a "glass cannon" phase and seamlessly scales your defense alongside your 15,000+ Life pool!
 
----
 
-## 11. Replacing the WoC CwDT Setup — Socket Reallocation
+## Section 11. Replacing the WoC CwDT Setup — Socket Reallocation
 
 ### Why the WoC Link Is Not Worth Four Sockets
 
-Wave of Conviction's exposure mechanic applies -15% to the elemental resistance matching the **highest damage taken** by the hit. Because this build converts physical damage to both fire and lightning (25% each via WoC's own conversion), and because lightning damage has a naturally wider random range than fire, WoC is not guaranteed to apply **fire** exposure on every cast — lightning can win the comparison and trigger the wrong exposure type. To force fire exposure reliably, **Added Fire Damage Support** is required to push the fire component above lightning, which costs a third socket.
+Wave of Conviction's exposure mechanic applies -15% to the elemental resistance matching the highest damage taken by the hit. Because this build converts physical damage to both fire and lightning (25% each via WoC's own conversion), and because lightning damage has a naturally wider random range than fire, WoC is not guaranteed to apply **fire** exposure on every cast — lightning can win the comparison and trigger the wrong exposure type. To force fire exposure reliably, Added Fire Damage Support is required to push the fire component above lightning, which costs a third socket.
 
-The result is a three-support setup (CwDT + WoC + Added Fire) spending **three sockets** just to reliably deliver -15% fire exposure, plus a fourth socket on Culling Strike for QoL. The Grey Wind axe already applies fire exposure at maximum Rage, so the entire WoC package is buying roughly **5% extra exposure** over what the axe provides automatically — a marginal gain for a large socket investment.
+The result is a three-support setup (CwDT + WoC + Added Fire) spending three sockets just to reliably deliver -15% fire exposure, plus a fourth socket on Culling Strike for QoL. The Grey Wind axe already applies fire exposure at maximum Rage, so the entire WoC package is buying roughly **5% extra exposure** over what the axe provides automatically — a marginal gain for a large socket investment.
 
 Culling Strike is similarly low-value in most fights: bosses are dangerous precisely when near death, but manual or proc-based culling is unreliable in high-mobility encounters like Shaper or Sirus, and Static Strike's hit rate already carries clear speed without needing threshold kills.
 
-**The four sockets are better reallocated entirely.**
+The four sockets are better reallocated entirely.
 
-### Socket Swap Options
-
-| Content | Recommended Gems |
-|---------|-----------------|
-| **Bossing** | Close Combat / Fire Penetration / Hypothermia |
-| **Mapping** | Greater Chain — beams chain 3 additional times, clearing packs across a wider area while moving |
-
-> Note: Greater Chain's longer range spreads kills over a wider area, which *reduces* Beyond portal spawn clustering. For Beyond density farming specifically, this is a drawback.
-
-### Shield Socket Options (Freed from WoC Removal)
-
-With WoC removed, the shield slot opens up for other options:
-
-| Skill | Assessment |
-|-------|------------|
-| **Vaal Molten Shell + CwDT** | Current in build — works fine for emergency absorption |
-| **Wave of Conviction** | Previously best: 15% fire exposure, but see Section 11 analysis above |
-| **Withering Step** | Rejected — CwDT triggers on damage taken, but Withering Step wants to be used proactively and can't be cast while already Elusive |
-| **Frost Bomb** | Cold exposure + -regen for high-regen bosses (Uber Lab, regen map mods) — kept in inventory for swap-in |
-| **Vaal Rejuvenation Totem** | Life/mana regen aura while active |
-
-### Original CwDT Slot (Reference)
-
-**Originally: Vaal Molten Shell + WoC + CwDT** — WoC was chosen because:
-- 15% fire exposure via CwDT is irreplaceable
-- Axe only provides 10% baseline exposure at max Rage
-- But as Section 11 explains, this costs too many sockets for marginal gain
+---
 
 ### Precision to Arrogance: Freeing Mana Reservation
 
 Precision is currently on the Enlighten mana reservation setup. Moving it to its own **Arrogance Support** link reserves life instead of mana. The life cost is small relative to the total pool because Precision is flat reservation rather than percentage-based, and both the Grey Wind's flat fire scaling and Rathpith Globe's increased spell damage are based on **maximum life**, not unreserved life. The damage engine is unaffected.
 
 This frees a slot in the Enlighten mana setup, which can now carry **Arctic Armour** instead.
+
+---
 
 ### Arctic Armour in the Enlighten Setup
 
@@ -754,3 +667,34 @@ Arctic Armour grants 21% less physical and fire damage taken while stationary. F
 The secondary benefit is **Pantheon flexibility**. Brine King (freeze immunity) is no longer mandatory when Arctic Armour provides its own freeze immunity implicitly, freeing the major Pantheon slot for damage-over-time protection or other situational choices. Tempest Shield remains a viable situational swap if shock becomes the primary threat in a specific encounter — it provides spell block and shock immunity but does not provide the stationary mitigation that Arctic Armour does, so it is a context-dependent substitute rather than a strict upgrade.
 
 The Enlighten setup at this point runs: **Purity of Fire — Summon Skitterbots — Arctic Armour — Enlighten**, with Precision reserved separately via Arrogance.
+
+---
+
+### Two Remaining Sockets: Options
+
+After the above changes, two sockets remain available from the former WoC link. The options ranked by overall value for this build are:
+Here is the corrected full Section 11, with Arctic Armour and Arrogance treated as the setup change, and the table limited to the remaining socket-use options. 
+
+## Section 11. Replacing the WoC CwDT Setup — Socket Reallocation 
+
+Wave of Conviction’s exposure applies to the element of the highest damage taken by the hit, and because WoC converts to both fire and lightning while lightning has a wider roll range, it is not guaranteed to apply fire exposure every time without Added Fire support forcing fire to win the comparison.  That makes the old package effectively CwDT + WoC + Added Fire, plus a fourth socket often used for Culling Strike, all to gain roughly 5% more fire exposure over the axe’s built-in exposure at maximum Rage. 
+
+The better trade is to give up that extra 5% exposure and use the freed mana reservation to bring back Arctic Armour.  Precision moves off the Enlighten mana setup into its own Arrogance link, which is efficient here because Precision is flat reservation and both Grey Wind and Rathpith care about maximum life, not unreserved life. 
+
+Arctic Armour fits the build’s actual play pattern: standing still and hitting the boss while beams and shockwaves do the real work.  It also frees the major pantheon from Brine King dependence, while Tempest Shield remains a situational alternative if shock immunity is ever the real problem in a particular encounter. 
+
+After Arrogance + Precision uses two sockets, the remaining socket options are: 
+
+| Option | Sockets | Value | Notes |
+|---|---:|---|---|
+| **CwDT + Blade Vortex + Culling Strike** | 3 | ✅ Chosen — automated boss cull | Level 1 CwDT + level 8 Blade Vortex (same player level requirement 38) + Culling Strike. BV orbits and hits the boss frequently while facetanking, making cull close to instant as soon as the target reaches 10% life. The cleanest automated cull package for a stationary build.  |
+| **Vaal Haste + Vaal Grace or More Duration** | 2 | Burst avoidance and speed burst | Strong panic-button pair with no reservation, but limited dex limits levels and so effect. Tried Haste + Duration, didn't feel impactful - speed boost not noticable compred to 39 boots (with action speed implicit) and attack speed does not scale the beam/shockwave part of the damage.  |
+| **Phase Run / Withering Step Automation** | 2–4 | Movement QoL, Phasing, Elusive | Elusive’s 15% avoid-all-hits is strong if uptime is consistent, but it decays quickly in practice and the benefit is less relevant once Shield Charge and action speed already feel good.  |
+| **Vaal Smite + Culling Strike** | 2 | ~8% more flat damage from lightning aura | Vaal Smite’s aura adds about 112 average flat lightning on top of the axe’s roughly 1320 flat fire, but Vaal Smite’s slow attack animation makes it awkward.  |
+| **Stone Golem via CwDT** | 2 | Passive regen + brief taunt | Set-and-forget; golem taunts briefly redirect boss attention. Modest but reliable defensive layer.  |
+| **Automated Steelskin** | 2 | Short burst smoothing | Armour-independent guard skill; at level 20 it absorbs up to 2209 damage for 1.5 seconds with a 3-second cooldown, so the effective cycle is about 4.5 seconds. But this is 2209 before mitigation, so actual effect is much smaller |
+| **Spectre + Minion Life** | 2 | Utility decoy | Fun and occasionally useful, but too fragile for the hardest content.  |
+
+If using more than 2 sockets for this, have to drop one of Flame Dash - Shield Charge - Faster Attacks. I dropped attack speed, as with action speed, and movement speed, and attack speed we have this boost doesn't feel that important, automated instant cull feels bettwer.
+
+Blade Vortex wins because it does exactly what the build wants from utility sockets: no placement delay, no manual timing, no dependency on gem level feeling good, and immediate cull once the boss crosses threshold.  Shield Charge without Faster Attacks already feels good enough, so the movement role is solved separately and does not need to consume the remaining support budget.
