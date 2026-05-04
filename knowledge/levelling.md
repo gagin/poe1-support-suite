@@ -12,7 +12,7 @@ The most efficient XP method combines Beyond and Breach mechanics:
 **Scarab setup:**
 - Scarab of Invasion (Beyond)
 - 2x Pack size scarabs (more magic monsters = more XP)
-- Scarab of Multitudes (more abyss monsters) or Scarab of Teaching (shrine XP)
+- Scarab of Multitudes (more abyss monsters)
 
 ## Atlas Tree Nodes
 
@@ -38,7 +38,7 @@ Magic monsters grant more XP than normal. Maximize with:
 ## Map Strategy
 
 - **Tier:** T16 maps — best XP/danger balance
-- **Layouts:** Mesa, Dunes, Jungle Valley
+- **Best layout:** City Square (compact, predictable); skip Mesa (too big)
 - **Skip bosses** — slow, lower XP/hour
 - **Full clear** better than speed-running
 - **Avoid backtracking** — hurts XP efficiency
@@ -48,6 +48,6 @@ Magic monsters grant more XP than normal. Maximize with:
 - **Omens of Amelioration** — Reduces death penalty from 10% to ~1.5%
 - Use on each map when grinding XP
 
-## Alternative: Breachstone Rotations
+## Alternative: 5-Way Legion Rotations
 
-Join Chayula breachstone or 5-way Legion rotations. Each player contributes one map, runs 6x XP at 1x cost.
+Join 5-way Legion rotations for consistent, fast XP.
