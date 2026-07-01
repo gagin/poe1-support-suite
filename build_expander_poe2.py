@@ -214,7 +214,10 @@ def expand_items(character_data: dict, include_swap: bool = False) -> dict:
             "typeLine": type_line,
             "baseType": base_type,
             "frameType": frame_type,
-            "isUnique": frame_type == 4,
+            # PoE2's frameType does NOT flag uniques (they report ft=3, same as
+            # rares); the reliable signal is the `rarity` string.
+            "rarity": item.get("rarity", ""),
+            "isUnique": str(item.get("rarity", "")).lower() == "unique",
             "properties": item.get("properties", []),
             "requirements": item.get("requirements", []),
             "runes": [_gem_name(s) for s in socketed if s.get("support") is None],
