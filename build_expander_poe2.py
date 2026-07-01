@@ -11,9 +11,8 @@ All passive-tree data is read directly from the tree.json shipped inside
 PathOfBuilding-PoE2 (src/TreeData/<version>/tree.json), so it works offline.
 
 Two-step harness (mirrors PoE1):
-  1) cd PathOfBuilding-PoE2/tools
-     lua import_character_cli.lua POE2 <account#tag> <CharName> [POESESSID]
-     -> writes <CharName>_YYYYMMDDHHMM.json
+  1) uv run python poe2_import.py <CharName>
+     -> writes PathOfBuilding-PoE2/tools/<CharName>_YYYYMMDDHHMM.json
   2) uv run python build_expander_poe2.py PathOfBuilding-PoE2/tools/<CharName>_*.json
      -> writes <CharName>_YYYYMMDDHHMM_expanded.json
 
@@ -272,7 +271,7 @@ def expand_skills(character_data: dict) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description="Expand a PoE2 character build (offline).")
-    parser.add_argument("character_file", help="JSON from import_character_cli.lua (supports globs)")
+    parser.add_argument("character_file", help="JSON from poe2_import.py (supports globs)")
     parser.add_argument("--tree-version", help="Tree version dir under src/TreeData (default: latest)")
     parser.add_argument("--output", "-o", help="Output file path")
     args = parser.parse_args()

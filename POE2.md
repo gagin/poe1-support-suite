@@ -67,7 +67,6 @@ make logout2                          # forget token
 |---|---|
 | `poe2_import.py` | OAuth downloader (Mac port of PoB-PoE2's PoEAPI + LaunchServer) |
 | `build_expander_poe2.py` | Offline expander (reads PoB-PoE2 `tree.json`) |
-| `PathOfBuilding-PoE2/tools/import_character_cli.lua` | **Legacy/unused for PoE2** — cookie downloader kept only as a reference; the legacy endpoint doesn't serve PoE2 |
 | `PathOfBuilding-PoE2/tools/.poe2_token.json` | Saved OAuth refresh token (gitignored, chmod 600) |
 
 ---
