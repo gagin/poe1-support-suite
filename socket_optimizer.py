@@ -112,13 +112,23 @@ def make_frame(flat_chunks: dict[str, float], inc: float, cast: float,
 
 
 def weights(f: Frame) -> dict[str, float]:
-    """EQ weights from numeric perturbation; flat = 1.0."""
-    base = _engine(f).total_cursed
+    """EQ weights from numeric perturbation; flat = 1.0.
+
+    Poison chance is assumed capped (pc = 100%) for weighting -- it is a build
+    constraint guaranteed by the end, so early selections must not discount
+    dot merely because pc jewels are not socketed yet.
+    """
+    eff = Frame(
+        name="w", flatsum=dict(f.flatsum), inc=f.inc, cast=f.cast,
+        poison_chance=1.0,
+        amanamu_dot_pool=f.amanamu_dot_pool, curse=f.curse,
+    )
+    base = _engine(eff).total_cursed
 
     def delta(apply) -> float:
         g = Frame(
             name="w", flatsum=dict(f.flatsum), inc=f.inc, cast=f.cast,
-            poison_chance=f.poison_chance,
+            poison_chance=1.0,
             amanamu_dot_pool=f.amanamu_dot_pool, curse=f.curse,
         )
         apply(g)
