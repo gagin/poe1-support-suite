@@ -64,6 +64,13 @@ class Jewel:
                        + self.cast * w_cast
                        + self.dot * w_dot)
 
+    def eql(self, w_flat: float, w_inc: float, w_cast: float, w_dot: float,
+            w_life: float, w_es: float, mult: float) -> float:
+        """Life/ES-weighted score (EQL): EQ plus life and ES at their weights."""
+        return self.eq(w_flat, w_inc, w_cast, w_dot, mult) + mult * (
+            self.life * w_life + self.es * w_es
+        )
+
 
 def load_jewels(db_path: str) -> dict[str, Jewel]:
     con = sqlite3.connect(db_path)
@@ -170,17 +177,27 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
     #   'dps'      -> non-pc jewel, tree
     #   'belt_pc'  -> pc jewel, belt
     #   'nonbelt_pc'-> pc jewel, tree
+    W_LIFE = 0.5   # consistent with jewels.db eql = eq + 0.5×life + 0.5×es
+    W_ES = 0.5
+
+    def cur_w():
+        return weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult))
+
+    def sc_eql(j, w, mult):
+        return j.eql(w["flat"], w["inc"], w["cast"], w["dot"],
+                     W_LIFE, W_ES, mult)
+
     def best_dps(avail) -> Jewel:
-        w = weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult))
-        return max(avail, key=lambda j: j.eq(w["flat"], w["inc"], w["cast"], w["dot"], 1.0))
+        w = cur_w()
+        return max(avail, key=lambda j: sc_eql(j, w, 1.0))
 
     def best_belt_pc(avail) -> Jewel:
-        w = weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult))
-        return max(avail, key=lambda j: j.eq(w["flat"], w["inc"], w["cast"], w["dot"], belt_mult))
+        w = cur_w()
+        return max(avail, key=lambda j: sc_eql(j, w, belt_mult))
 
     def best_tree_pc(avail) -> Jewel:
-        w = weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult))
-        return max(avail, key=lambda j: j.eq(w["flat"], w["inc"], w["cast"], w["dot"], 1.0))
+        w = cur_w()
+        return max(avail, key=lambda j: sc_eql(j, w, 1.0))
 
     order = ["dps", "dps", "belt_pc", "belt_pc", "nonbelt_pc",
              "nonbelt_pc", "nonbelt_pc", "dps"]
@@ -188,7 +205,7 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
     if verbose:
         print(f"baseline flat={flat} inc={inc} cast={cast} belt_mult={belt_mult}")
         hdr = f"{'step':>4} {'slot':<10} {'jewel':<18} {'flat':>6} {'inc':>4} {'cast':>4} {'dot':>4} {'pc':>4} | "
-        hdr += f"{'w_flat':>6} {'w_inc':>6} {'w_cast':>7} {'w_dot':>6} {'EQ':>7}"
+        hdr += f"{'w_flat':>6} {'w_inc':>6} {'w_cast':>7} {'w_dot':>6} {'EQL':>7}"
         print(hdr)
         print("-" * len(hdr))
 
@@ -225,16 +242,16 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
 
         # recompute weights AFTER adding (that is the point of the process)
         w2 = weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult))
-        eq = chosen.eq(w2["flat"], w2["inc"], w2["cast"], w2["dot"], mult)
+        eql = sc_eql(chosen, w2, mult)
         if verbose:
             print(
                 f"{step:>4} {slot:<10} {chosen.id:<18} {chosen.flat:6.1f} "
                 f"{chosen.inc:4.0f} {chosen.cast:4.0f} {chosen.dot:4.0f} {chosen.pc:4.0f} | "
-                f"{w2['flat']:6.2f} {w2['inc']:6.2f} {w2['cast']:7.2f} {w2['dot']:6.2f} {eq:7.1f}"
+                f"{w2['flat']:6.2f} {w2['inc']:6.2f} {w2['cast']:7.2f} {w2['dot']:6.2f} {eql:7.1f}"
             )
 
     if verbose:
-        print("\nFinal socketed set:")
+        print("\nFinal socketed set (EQL-ranked):")
         print("  belt:", ", ".join(j.id for j in belt))
         print("  tree:", ", ".join(j.id for j in tree))
 
