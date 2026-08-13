@@ -1,0 +1,6 @@
+[mcp_servers.notes]
+command = "/Users/a/code/7days/notes-mcp"
+
+[mcp_servers.notes.env]
+VAULT_PATH = "/Users/a/code/agenty-notes-vault"
+SCOPE_TOKEN = "poe325"
