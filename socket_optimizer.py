@@ -251,6 +251,7 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
         base_life: float = 1830.0, base_es: float = 735.0,
         inc_life: float = 151.6, inc_es: float = 112.7,
         base_es_regen: float = 686.3, base_life_regen: float = 136.6,
+        seed_tree: list[str] | None = None,
         verbose: bool = True) -> None:
     jewels = load_jewels(db_path)
     # baseline flat chunk (amanamu ag-0-attr adds 0)
@@ -259,6 +260,14 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
     belt: list[Jewel] = []
     tree: list[Jewel] = []
     picked: set[str] = set()
+
+    # Pre-socket fixed jewels (e.g. a chaos-res-cap jewel) on the tree. They
+    # occupy non-pc tree slots, reducing the number of 'dps' picks below.
+    for sid in (seed_tree or []):
+        if sid not in jewels:
+            raise ValueError(f"unknown seed jewel: {sid}")
+        tree.append(jewels[sid])
+        picked.add(sid)
 
     # Priority: (slot_type, belt_or_tree)
     #   'dps'      -> non-pc jewel, tree
@@ -285,11 +294,25 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
         w = cur_w()
         return max(avail, key=lambda j: j.dps(w, 1.0))
 
-    order = ["dps", "dps", "belt_pc", "belt_pc", "nonbelt_pc",
-             "nonbelt_pc", "nonbelt_pc", "dps"]
+    # 6 flexible tree slots (7 minus Amanamu) + 2 belt. 3 of the 6 tree slots
+    # must be pc (to cap 100 alongside the 2 belt pc). Seeded non-pc tree jewels
+    # fill some of the remaining non-pc slots, so fewer 'dps' picks are needed.
+    tree_pc_slots = 3          # nonbelt_pc
+    belt_pc_slots = 2          # belt_pc
+    seed_nonpc = sum(1 for j in tree if not j.is_pc)
+    tree_dps_slots = (6 - tree_pc_slots) - seed_nonpc  # remaining non-pc tree slots
+    # Priority sequence (user's order): 1-2 non-pc DPS -> 3-4 belt pc -> 5-7
+    # tree pc -> last non-pc DPS. Seeded non-pc jewels shrink the trailing dps
+    # block; the pc blocks are fixed.
+    dps_front = min(tree_dps_slots, 2)
+    order = (["dps"] * dps_front
+             + ["belt_pc"] * belt_pc_slots
+             + ["nonbelt_pc"] * tree_pc_slots
+             + ["dps"] * (tree_dps_slots - dps_front))
 
     if verbose:
-        print(f"baseline flat={flat} inc={inc} cast={cast} belt_mult={belt_mult}")
+        print(f"baseline flat={flat} inc={inc} cast={cast} belt_mult={belt_mult}"
+              + (f" seeded_tree={tree}" if tree else ""))
         hdr = f"{'step':>4} {'slot':<10} {'jewel':<18} {'flat':>6} {'inc':>4} {'cast':>4} {'dot':>4} {'pc':>4} | "
         hdr += f"{'pt_flat':>7} {'pt_inc':>7} {'pt_cast':>8} {'pt_dot':>7} {'DPSL':>7}"
         print(hdr)
@@ -361,13 +384,15 @@ def main(argv=None) -> None:
     p.add_argument("--inc-es", type=float, default=112.7, help="%% increased es")
     p.add_argument("--base-es-regen", type=float, default=686.3, help="non-jewel ES regen/s")
     p.add_argument("--base-life-regen", type=float, default=136.6, help="non-jewel life regen/s")
+    p.add_argument("--seed-tree", action="append", default=None,
+                   help="jewel id to pre-socket on the tree (repeatable)")
     p.add_argument("--quiet", action="store_true")
     args = p.parse_args(argv)
     run(args.db, args.belt_mult, args.flat, args.inc, args.cast,
         base_life=args.base_life, base_es=args.base_es,
         inc_life=args.inc_life, inc_es=args.inc_es,
         base_es_regen=args.base_es_regen, base_life_regen=args.base_life_regen,
-        verbose=not args.quiet)
+        seed_tree=args.seed_tree, verbose=not args.quiet)
 
 
 if __name__ == "__main__":
