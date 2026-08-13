@@ -16,7 +16,9 @@ Selection priority (belt = x2.21 on every stat, tree = x1.0):
 
 Poison chance is always assumed capped (pc = 100%) when computing deltas -- it
 is a guaranteed-achievable constraint, so dot is valued from the first step.
-DPSL = DPS + life/ES points (default 0.5 each, tunable via flags).
+DPSL = DPS points + life/ES points, where +1 life and +1 es are each valued by
+their effective-HP contribution (x inc_life / inc_es) as a % of total EHP, in
+the SAME 0.01%-of-total units as the DPS points (see DPSWeights.pt_life/pt_es).
 
 Usage:
     uv run python socket_optimizer.py
@@ -51,6 +53,10 @@ class DPSWeights:
     d_inc: float            # absolute DPS gained by +1% inc
     d_cast: float           # absolute DPS gained by +1% cast
     d_dot: float            # absolute DPS gained by +1% dot
+    base_life: float        # non-jewel base life (before inc_life)
+    base_es: float          # non-jewel base es (before inc_es)
+    inc_life: float         # % increased life
+    inc_es: float           # % increased es
 
     def scale(self, val: float) -> float:
         """Convert an absolute-DPS delta into DPS-points (1 pt = 0.01% of total)."""
@@ -66,6 +72,26 @@ class DPSWeights:
     def pt_cast(self) -> float: return self.scale(self.d_cast)
     @property
     def pt_dot(self) -> float: return self.scale(self.d_dot)
+
+    @property
+    def total_ehp(self) -> float:
+        """Total effective life+es pool (base x inc multipliers)."""
+        return (self.base_life * (1 + self.inc_life / 100)
+                + self.base_es * (1 + self.inc_es / 100))
+
+    @property
+    def pt_life(self) -> float:
+        """DPS-points worth of +1 life: its +EHP as a % of total EHP, same 0.01% units."""
+        if self.total_ehp <= 0:
+            return 0.0
+        return (1 + self.inc_life / 100) / (self.total_ehp * 0.0001)
+
+    @property
+    def pt_es(self) -> float:
+        """DPS-points worth of +1 es (same 0.01% units as +1 life and DPS)."""
+        if self.total_ehp <= 0:
+            return 0.0
+        return (1 + self.inc_es / 100) / (self.total_ehp * 0.0001)
 
 
 @dataclass
@@ -88,18 +114,20 @@ class Jewel:
     def is_pc(self) -> bool:
         return self.pc > 0
 
-    def dps(self, w: DPSWeights, mult: float, w_life: float = 0.0,
-            w_es: float = 0.0) -> float:
+    def dps(self, w: DPSWeights, mult: float, incl_life_es: bool = True) -> float:
         """DPS-points contributed by this jewel at belt/tree scaling.
 
-        Pure damage portion scales by d_flat/d_inc/d_cast/d_dot. If life/ES
-        weights are provided (DPSL), their points are added too.
+        Damage portion scales by pt_flat/pt_inc/pt_cast/pt_dot. When
+        incl_life_es, life and ES are valued at their effective-HP point worth
+        (pt_life/pt_es) -- the same 0.01%-of-total units as the DPS points.
         """
         dmg = mult * (self.flat * w.pt_flat
                       + self.inc * w.pt_inc
                       + self.cast * w.pt_cast
                       + self.dot * w.pt_dot)
-        life = mult * (self.life * w_life + self.es * w_es)
+        if not incl_life_es:
+            return dmg
+        life = mult * (self.life * w.pt_life + self.es * w.pt_es)
         return dmg + life
 
 
@@ -149,7 +177,8 @@ def make_frame(flat_chunks: dict[str, float], inc: float, cast: float,
     )
 
 
-def dps_weights(f: Frame) -> DPSWeights:
+def dps_weights(f: Frame, base_life: float = 1830.0, base_es: float = 735.0,
+                inc_life: float = 151.6, inc_es: float = 112.7) -> DPSWeights:
     """Absolute marginal DPS deltas, measured against the total cursed bossing DPS.
 
     Poison chance is assumed capped (pc = 100%) for weighting -- it is a build
@@ -186,11 +215,14 @@ def dps_weights(f: Frame) -> DPSWeights:
     def edot(g): g.amanamu_dot_pool += 0.01
     ddot = delta(edot)
 
-    return DPSWeights(total=base, d_flat=dflat, d_inc=dinc, d_cast=dcast, d_dot=ddot)
+    return DPSWeights(total=base, d_flat=dflat, d_inc=dinc, d_cast=dcast, d_dot=ddot,
+                      base_life=base_life, base_es=base_es,
+                      inc_life=inc_life, inc_es=inc_es)
 
 
 def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
-        W_LIFE_OVERRIDE: float | None = None, W_ES_OVERRIDE: float | None = None,
+        base_life: float = 1830.0, base_es: float = 735.0,
+        inc_life: float = 151.6, inc_es: float = 112.7,
         verbose: bool = True) -> None:
     jewels = load_jewels(db_path)
     # baseline flat chunk (amanamu ag-0-attr adds 0)
@@ -204,29 +236,25 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
     #   'dps'      -> non-pc jewel, tree
     #   'belt_pc'  -> pc jewel, belt
     #   'nonbelt_pc'-> pc jewel, tree
-    # 1 DPS-point = 0.01% of total cursed bossing DPS.
-    W_LIFE = 0.5 if W_LIFE_OVERRIDE is None else W_LIFE_OVERRIDE
-    W_ES = 0.5 if W_ES_OVERRIDE is None else W_ES_OVERRIDE
+    # 1 DPS-point = 0.01% of total cursed bossing DPS; life/ES use the same
+    # 0.01%-of-total-EHP units (see DPSWeights.pt_life / pt_es).
 
     def cur_w() -> DPSWeights:
-        return dps_weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult))
-
-    def score(j, w, mult, add_lifees=True):
-        if add_lifees:
-            return j.dps(w, mult, W_LIFE, W_ES)
-        return j.dps(w, mult)
+        return dps_weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult),
+                           base_life=base_life, base_es=base_es,
+                           inc_life=inc_life, inc_es=inc_es)
 
     def best_dps(avail) -> Jewel:
         w = cur_w()
-        return max(avail, key=lambda j: j.dps(w, 1.0, W_LIFE, W_ES))
+        return max(avail, key=lambda j: j.dps(w, 1.0))
 
     def best_belt_pc(avail) -> Jewel:
         w = cur_w()
-        return max(avail, key=lambda j: j.dps(w, belt_mult, W_LIFE, W_ES))
+        return max(avail, key=lambda j: j.dps(w, belt_mult))
 
     def best_tree_pc(avail) -> Jewel:
         w = cur_w()
-        return max(avail, key=lambda j: j.dps(w, 1.0, W_LIFE, W_ES))
+        return max(avail, key=lambda j: j.dps(w, 1.0))
 
     order = ["dps", "dps", "belt_pc", "belt_pc", "nonbelt_pc",
              "nonbelt_pc", "nonbelt_pc", "dps"]
@@ -270,8 +298,10 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
         picked.add(chosen.id)
 
         # recompute weights AFTER adding (that is the point of the process)
-        w2 = dps_weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult))
-        dl = chosen.dps(w2, mult, W_LIFE, W_ES)
+        w2 = dps_weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult),
+                         base_life=base_life, base_es=base_es,
+                         inc_life=inc_life, inc_es=inc_es)
+        dl = chosen.dps(w2, mult)
         if verbose:
             print(
                 f"{step:>4} {slot:<10} {chosen.id:<18} {chosen.flat:6.1f} "
@@ -292,12 +322,15 @@ def main(argv=None) -> None:
     p.add_argument("--flat", type=float, default=DEFAULT_FLAT, help="non-jewel flat")
     p.add_argument("--inc", type=float, default=DEFAULT_INC, help="non-jewel inc pool %")
     p.add_argument("--cast", type=float, default=DEFAULT_CAST, help="non-jewel cast pool %")
-    p.add_argument("--w-life", type=float, default=0.5, help="DPSL: +1 life in points")
-    p.add_argument("--w-es", type=float, default=0.5, help="DPSL: +1 es in points")
+    p.add_argument("--base-life", type=float, default=1830.0, help="non-jewel base life")
+    p.add_argument("--base-es", type=float, default=735.0, help="non-jewel base es")
+    p.add_argument("--inc-life", type=float, default=151.6, help="%% increased life")
+    p.add_argument("--inc-es", type=float, default=112.7, help="%% increased es")
     p.add_argument("--quiet", action="store_true")
     args = p.parse_args(argv)
     run(args.db, args.belt_mult, args.flat, args.inc, args.cast,
-        W_LIFE_OVERRIDE=args.w_life, W_ES_OVERRIDE=args.w_es, verbose=not args.quiet)
+        base_life=args.base_life, base_es=args.base_es,
+        inc_life=args.inc_life, inc_es=args.inc_es, verbose=not args.quiet)
 
 
 if __name__ == "__main__":
