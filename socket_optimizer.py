@@ -57,6 +57,8 @@ class DPSWeights:
     base_es: float          # non-jewel base es (before inc_es)
     inc_life: float         # % increased life
     inc_es: float           # % increased es
+    base_es_regen: float    # total ES regen / s (pool for 0.01% scaling)
+    base_life_regen: float  # total life regen / s (pool for 0.01% scaling)
 
     def scale(self, val: float) -> float:
         """Convert an absolute-DPS delta into DPS-points (1 pt = 0.01% of total)."""
@@ -93,6 +95,20 @@ class DPSWeights:
             return 0.0
         return (1 + self.inc_es / 100) / (self.total_ehp * 0.0001)
 
+    @property
+    def pt_es_regen(self) -> float:
+        """DPS-points worth of +1 ES regen / s (0.01% of total ES regen)."""
+        if self.base_es_regen <= 0:
+            return 0.0
+        return 1.0 / (self.base_es_regen * 0.0001)
+
+    @property
+    def pt_life_regen(self) -> float:
+        """DPS-points worth of +1 life regen / s (0.01% of total life regen)."""
+        if self.base_life_regen <= 0:
+            return 0.0
+        return 1.0 / (self.base_life_regen * 0.0001)
+
 
 @dataclass
 class Jewel:
@@ -105,6 +121,8 @@ class Jewel:
     pc: float
     life: float
     es: float
+    es_regen: float = 0.0
+    life_regen_pct: float = 0.0
 
     @property
     def dps_mods(self) -> bool:
@@ -118,8 +136,10 @@ class Jewel:
         """DPS-points contributed by this jewel at belt/tree scaling.
 
         Damage portion scales by pt_flat/pt_inc/pt_cast/pt_dot. When
-        incl_life_es, life and ES are valued at their effective-HP point worth
-        (pt_life/pt_es) -- the same 0.01%-of-total units as the DPS points.
+        incl_life_es, life, ES, and regen are valued at their effective-HP /
+        regen point worth (pt_life/pt_es/pt_es_regen/pt_life_regen) -- the same
+        0.01%-of-total units as the DPS points. % life regen converts to flat/s
+        via the current base life (w.base_life).
         """
         dmg = mult * (self.flat * w.pt_flat
                       + self.inc * w.pt_inc
@@ -127,8 +147,11 @@ class Jewel:
                       + self.dot * w.pt_dot)
         if not incl_life_es:
             return dmg
-        life = mult * (self.life * w.pt_life + self.es * w.pt_es)
-        return dmg + life
+        life_regen = self.life_regen_pct / 100.0 * w.base_life  # flat life / s
+        surv = mult * (self.life * w.pt_life + self.es * w.pt_es
+                       + self.es_regen * w.pt_es_regen
+                       + life_regen * w.pt_life_regen)
+        return dmg + surv
 
 
 def load_jewels(db_path: str) -> dict[str, Jewel]:
@@ -145,6 +168,8 @@ def load_jewels(db_path: str) -> dict[str, Jewel]:
             pc=float(r["pc"] or 0.0),
             life=float(r["life"] or 0.0),
             es=float(r["es"] or 0.0),
+            es_regen=float(r["es_regen"] or 0.0),
+            life_regen_pct=float(r["life_regen_pct"] or 0.0),
         )
     con.close()
     return out
@@ -178,7 +203,8 @@ def make_frame(flat_chunks: dict[str, float], inc: float, cast: float,
 
 
 def dps_weights(f: Frame, base_life: float = 1830.0, base_es: float = 735.0,
-                inc_life: float = 151.6, inc_es: float = 112.7) -> DPSWeights:
+                inc_life: float = 151.6, inc_es: float = 112.7,
+                base_es_regen: float = 686.3, base_life_regen: float = 136.6) -> DPSWeights:
     """Absolute marginal DPS deltas, measured against the total cursed bossing DPS.
 
     Poison chance is assumed capped (pc = 100%) for weighting -- it is a build
@@ -217,12 +243,14 @@ def dps_weights(f: Frame, base_life: float = 1830.0, base_es: float = 735.0,
 
     return DPSWeights(total=base, d_flat=dflat, d_inc=dinc, d_cast=dcast, d_dot=ddot,
                       base_life=base_life, base_es=base_es,
-                      inc_life=inc_life, inc_es=inc_es)
+                      inc_life=inc_life, inc_es=inc_es,
+                      base_es_regen=base_es_regen, base_life_regen=base_life_regen)
 
 
 def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
         base_life: float = 1830.0, base_es: float = 735.0,
         inc_life: float = 151.6, inc_es: float = 112.7,
+        base_es_regen: float = 686.3, base_life_regen: float = 136.6,
         verbose: bool = True) -> None:
     jewels = load_jewels(db_path)
     # baseline flat chunk (amanamu ag-0-attr adds 0)
@@ -242,7 +270,8 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
     def cur_w() -> DPSWeights:
         return dps_weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult),
                            base_life=base_life, base_es=base_es,
-                           inc_life=inc_life, inc_es=inc_es)
+                           inc_life=inc_life, inc_es=inc_es,
+                           base_es_regen=base_es_regen, base_life_regen=base_life_regen)
 
     def best_dps(avail) -> Jewel:
         w = cur_w()
@@ -267,7 +296,10 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
         print("-" * len(hdr))
 
     for step, slot in enumerate(order, 1):
-        w = dps_weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult))
+        w = dps_weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult),
+                        base_life=base_life, base_es=base_es,
+                        inc_life=inc_life, inc_es=inc_es,
+                        base_es_regen=base_es_regen, base_life_regen=base_life_regen)
         used = set(x.id for x in belt) | set(x.id for x in tree) | picked
         avail = [j for j in jewels.values() if j.id not in used]
         # only socketable DPS jewels are eligible; pure-utility (attrib/leech)
@@ -300,7 +332,8 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
         # recompute weights AFTER adding (that is the point of the process)
         w2 = dps_weights(make_frame(flat_chunks, inc, cast, belt, tree, belt_mult),
                          base_life=base_life, base_es=base_es,
-                         inc_life=inc_life, inc_es=inc_es)
+                         inc_life=inc_life, inc_es=inc_es,
+                         base_es_regen=base_es_regen, base_life_regen=base_life_regen)
         dl = chosen.dps(w2, mult)
         if verbose:
             print(
@@ -326,11 +359,15 @@ def main(argv=None) -> None:
     p.add_argument("--base-es", type=float, default=735.0, help="non-jewel base es")
     p.add_argument("--inc-life", type=float, default=151.6, help="%% increased life")
     p.add_argument("--inc-es", type=float, default=112.7, help="%% increased es")
+    p.add_argument("--base-es-regen", type=float, default=686.3, help="non-jewel ES regen/s")
+    p.add_argument("--base-life-regen", type=float, default=136.6, help="non-jewel life regen/s")
     p.add_argument("--quiet", action="store_true")
     args = p.parse_args(argv)
     run(args.db, args.belt_mult, args.flat, args.inc, args.cast,
         base_life=args.base_life, base_es=args.base_es,
-        inc_life=args.inc_life, inc_es=args.inc_es, verbose=not args.quiet)
+        inc_life=args.inc_life, inc_es=args.inc_es,
+        base_es_regen=args.base_es_regen, base_life_regen=args.base_life_regen,
+        verbose=not args.quiet)
 
 
 if __name__ == "__main__":
