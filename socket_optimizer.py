@@ -210,12 +210,15 @@ def make_frame(flat_chunks: dict[str, float], inc: float, cast: float,
 # 90/107/90/79) minus that build's socketed jewel contributions.
 #   flat base pools (before inc multipliers): life 1840.5, es 763.6
 #   regen/recharge pools (flat, /s): es recharge 626.0, life regen 128.0
-#   res AFTER the -60 act penalty: cold 90, fire 107, ltg 48, chaos 69
+#   res AFTER the -60 act penalty: cold 76, fire 105, ltg 82, chaos 69
+#   (Spirit Suit chest, 2026-08-13: rerolled Eater implicit to phys-as-ele, so
+#   NO +8 all-ele-res; chest explicits +46 fire/+34 cold/+34 ltg replace
+#   Onslaught Jack's +48 fire/+48 cold. ltg base 48->82 removes the lres cap.)
 BASE_LIFE = 1840.5
 BASE_ES = 763.6
 BASE_ES_RECHARGE = 626.0
 BASE_LIFE_REGEN = 128.0
-BASE_RES = {"cold": 90.0, "fire": 107.0, "ltg": 48.0, "chaos": 69.0}
+BASE_RES = {"cold": 76.0, "fire": 105.0, "ltg": 82.0, "chaos": 69.0}
 INC_LIFE = 151.6
 INC_ES = 112.7
 
