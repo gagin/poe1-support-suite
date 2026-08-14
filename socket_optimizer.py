@@ -205,6 +205,88 @@ def make_frame(flat_chunks: dict[str, float], inc: float, cast: float,
     )
 
 
+# Non-jewel res/life/es baselines (derived from the current snapshot minus its
+# socketed jewel contributions). res are AFTER the -60 act penalty; the optimizer
+# scores DPS from flat/inc/cast and life/es from base pools, res is recorded only
+# for the resulting-build log.
+BASE_RES = {"cold": 112.0, "fire": 95.0, "ltg": 66.0, "chaos": 69.0}
+
+
+def _init_selection_table(db_path: str) -> None:
+    con = sqlite3.connect(db_path)
+    con.execute("""
+        CREATE TABLE IF NOT EXISTS jewel_selections(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          created TEXT NOT NULL,
+          belt_ids TEXT NOT NULL,            -- comma-separated
+          tree_ids TEXT NOT NULL,            -- comma-separated
+          seed_tree_ids TEXT,                -- comma-separated (seeds included in tree_ids)
+          belt_mult REAL, regen_scale REAL,
+          flat_base REAL, inc_base REAL, cast_base REAL,
+          total_dps REAL,                    -- engine total_cursed for final set
+          pc REAL,
+          life REAL, es REAL,                -- resulting effective life/es pools
+          es_regen REAL, life_regen REAL,    -- resulting regen / s (raw, pre-discount)
+          cold_res REAL, fire_res REAL, ltg_res REAL, chaos_res REAL)
+    """)
+    con.commit()
+    con.close()
+
+
+def record_selection(db_path: str, belt: list[Jewel], tree: list[Jewel],
+                     belt_mult: float, flat: float, inc: float, cast: float,
+                     base_life: float, base_es: float, inc_life: float,
+                     inc_es: float, base_es_regen: float, base_life_regen: float,
+                     regen_scale: float, seed_tree: list[str] | None) -> None:
+    """Persist the resulting build stats for this selection as a timestamped row."""
+    import datetime
+    _init_selection_table(db_path)
+
+    flat_chunks = {"baseline": flat}
+    frame = make_frame(flat_chunks, inc, cast, belt, tree, belt_mult)
+    total_dps = _engine(frame).total_cursed
+    jpc = sum(j.pc * belt_mult for j in belt) + sum(j.pc for j in tree)
+
+    life = base_life + sum(j.life * (belt_mult if j in belt else 1.0) for j in belt) \
+        + sum(j.life for j in tree)
+    es = base_es + sum(j.es * (belt_mult if j in belt else 1.0) for j in belt) \
+        + sum(j.es for j in tree)
+    es_regen = base_es_regen + sum(j.es_regen * (belt_mult if j in belt else 1.0) for j in belt) \
+        + sum(j.es_regen for j in tree)
+    life_regen = base_life_regen \
+        + sum((j.life_regen_pct / 100.0 * base_life) * (belt_mult if j in belt else 1.0) for j in belt) \
+        + sum(j.life_regen_pct / 100.0 * base_life for j in tree)
+
+    # res from jewels: read via sqlite (Jewel dataclass doesn't carry res)
+    import sqlite3
+    con = sqlite3.connect(db_path); con.row_factory = sqlite3.Row
+    jewel_rows = {r["id"]: r for r in con.execute("SELECT * FROM jewels")}
+    col = {"cold": "cold_res", "fire": "fire_res", "ltg": "ltg_res", "chaos": "chaos_res"}
+
+    def res_total(key: str) -> float:
+        c = col[key]
+        v = BASE_RES[key]
+        for j in belt:
+            v += (jewel_rows[j.id][c] or 0.0) * belt_mult
+        for j in tree:
+            v += (jewel_rows[j.id][c] or 0.0)
+        return v
+
+    seed_ids = ",".join(seed_tree or [])
+    con.execute(
+        "INSERT INTO jewel_selections(created,belt_ids,tree_ids,seed_tree_ids,belt_mult,"
+        "regen_scale,flat_base,inc_base,cast_base,total_dps,pc,life,es,es_regen,life_regen,"
+        "cold_res,fire_res,ltg_res,chaos_res) "
+        "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        (datetime.datetime.utcnow().isoformat(" "),
+         ",".join(j.id for j in belt), ",".join(j.id for j in tree), seed_ids,
+         belt_mult, regen_scale, flat, inc, cast, total_dps, jpc, life, es,
+         es_regen, life_regen, res_total("cold"), res_total("fire"),
+         res_total("ltg"), res_total("chaos")))
+    con.commit()
+    con.close()
+
+
 def dps_weights(f: Frame, base_life: float = 1830.0, base_es: float = 735.0,
                 inc_life: float = 151.6, inc_es: float = 112.7,
                 base_es_regen: float = 686.3, base_life_regen: float = 136.6,
@@ -381,6 +463,10 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
         print("\nFinal socketed set (DPSL-ranked):")
         print("  belt:", ", ".join(j.id for j in belt))
         print("  tree:", ", ".join(j.id for j in tree))
+
+    record_selection(db_path, belt, tree, belt_mult, flat, inc, cast,
+                     base_life, base_es, inc_life, inc_es,
+                     base_es_regen, base_life_regen, regen_scale, seed_tree)
 
 
 def main(argv=None) -> None:
