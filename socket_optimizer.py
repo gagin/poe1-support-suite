@@ -301,19 +301,23 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
         return max(avail, key=lambda j: j.dps(w, 1.0))
 
     # 6 flexible tree slots (7 minus Amanamu) + 2 belt. 3 of the 6 tree slots
-    # must be pc (to cap 100 alongside the 2 belt pc). Seeded non-pc tree jewels
-    # fill some of the remaining non-pc slots, so fewer 'dps' picks are needed.
-    tree_pc_slots = 3          # nonbelt_pc
+    # must be pc (to cap 100 alongside the 2 belt pc). Seeded jewels occupy
+    # their slot type: a seeded pc jewel reduces the pc picks still needed, a
+    # seeded non-pc jewel fills a non-pc slot (fewer 'dps' picks needed).
+    tree_pc_slots = 3          # pc tree slots total
     belt_pc_slots = 2          # belt_pc
+    seed_pc = sum(1 for j in tree if j.is_pc)
     seed_nonpc = sum(1 for j in tree if not j.is_pc)
-    tree_dps_slots = (6 - tree_pc_slots) - seed_nonpc  # remaining non-pc tree slots
+    pc_picks = max(0, tree_pc_slots - seed_pc)        # nonbelt_pc picks
+    tree_nonpc_filled = seed_nonpc                    # seeded non-pc slots used
+    tree_dps_slots = max(0, (6 - tree_pc_slots) - tree_nonpc_filled)
     # Priority sequence (user's order): 1-2 non-pc DPS -> 3-4 belt pc -> 5-7
     # tree pc -> last non-pc DPS. Seeded non-pc jewels shrink the trailing dps
     # block; the pc blocks are fixed.
     dps_front = min(tree_dps_slots, 2)
     order = (["dps"] * dps_front
              + ["belt_pc"] * belt_pc_slots
-             + ["nonbelt_pc"] * tree_pc_slots
+             + ["nonbelt_pc"] * pc_picks
              + ["dps"] * (tree_dps_slots - dps_front))
 
     if verbose:
