@@ -235,7 +235,8 @@ def _init_selection_table(db_path: str) -> None:
           pc REAL,
           life REAL, es REAL,                -- resulting effective life/es pools
           es_regen REAL, life_regen REAL,    -- resulting regen / s (raw, pre-discount)
-          cold_res REAL, fire_res REAL, ltg_res REAL, chaos_res REAL)
+          cold_res REAL, fire_res REAL, ltg_res REAL, chaos_res REAL,
+          equipment TEXT)                    -- free-form note: rare equipment piece names
     """)
     con.commit()
     con.close()
@@ -243,7 +244,8 @@ def _init_selection_table(db_path: str) -> None:
 
 def record_selection(db_path: str, belt: list[Jewel], tree: list[Jewel],
                      belt_mult: float, flat: float, inc: float, cast: float,
-                     regen_scale: float, seed_tree: list[str] | None) -> None:
+                     regen_scale: float, seed_tree: list[str] | None,
+                     equipment: str | None = None) -> None:
     """Persist the resulting build stats for this selection as a timestamped row."""
     import datetime
     _init_selection_table(db_path)
@@ -288,13 +290,13 @@ def record_selection(db_path: str, belt: list[Jewel], tree: list[Jewel],
     con.execute(
         "INSERT INTO jewel_selections(created,belt_ids,tree_ids,seed_tree_ids,belt_mult,"
         "regen_scale,flat_base,inc_base,cast_base,total_dps,pc,life,es,es_regen,life_regen,"
-        "cold_res,fire_res,ltg_res,chaos_res) "
-        "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        "cold_res,fire_res,ltg_res,chaos_res,equipment) "
+        "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         (datetime.datetime.utcnow().isoformat(" "),
          ",".join(j.id for j in belt), ",".join(j.id for j in tree), seed_ids,
          belt_mult, regen_scale, flat, inc, cast, total_dps, jpc, life, es,
          es_regen, life_regen, res_total("cold"), res_total("fire"),
-         res_total("ltg"), res_total("chaos")))
+         res_total("ltg"), res_total("chaos"), equipment))
     con.commit()
     con.close()
 
@@ -351,6 +353,7 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
         inc_life: float = 151.6, inc_es: float = 112.7,
         base_es_regen: float = 686.3, base_life_regen: float = 136.6,
         regen_scale: float = 0.5, seed_tree: list[str] | None = None,
+        equipment: str | None = None,
         verbose: bool = True) -> None:
     jewels = load_jewels(db_path)
     # baseline flat chunk (amanamu ag-0-attr adds 0)
@@ -477,7 +480,7 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
         print("  tree:", ", ".join(j.id for j in tree))
 
     record_selection(db_path, belt, tree, belt_mult, flat, inc, cast,
-                     regen_scale, seed_tree)
+                     regen_scale, seed_tree, equipment)
 
 
 def main(argv=None) -> None:
@@ -497,6 +500,9 @@ def main(argv=None) -> None:
                    help="discount factor for conditional regen (ES=recharge, life gated behind ES)")
     p.add_argument("--seed-tree", action="append", default=None,
                    help="jewel id to pre-socket on the tree (repeatable)")
+    p.add_argument("--equipment", default=None,
+                   help="free-form note of rare equipment piece names, so a later "
+                        "gear change is identifiable in the selection log")
     p.add_argument("--quiet", action="store_true")
     args = p.parse_args(argv)
     run(args.db, args.belt_mult, args.flat, args.inc, args.cast,
@@ -504,7 +510,8 @@ def main(argv=None) -> None:
         inc_life=args.inc_life, inc_es=args.inc_es,
         base_es_regen=args.base_es_regen, base_life_regen=args.base_life_regen,
         regen_scale=args.regen_scale,
-        seed_tree=args.seed_tree, verbose=not args.quiet)
+        seed_tree=args.seed_tree, equipment=args.equipment,
+        verbose=not args.quiet)
 
 
 if __name__ == "__main__":
