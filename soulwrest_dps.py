@@ -510,7 +510,7 @@ def build_frame_from_snapshot(snapshot_path: str, db_path: str = "jewels.db",
     # Belt socket order is authoritative: Darkness Enthroned always holds the
     # Hollow Oculus then the Whispering Globe (the two stat-stuffed ones). This
     # resolves the Whispering Globe collision outright.
-    belt_order = ["ho-0-es-pc", "wg-17-life-es-pc"]
+    belt_order = ["ho-23-es-pc", "wg-17-life-es-pc"]
     belt_override = {g["name"]: belt_order[i] for i, g in enumerate(belt_sockets)}
     # a second Whisp would collide in the override dict; keep only 1:1 names
     seen = set()
