@@ -210,15 +210,21 @@ def make_frame(flat_chunks: dict[str, float], inc: float, cast: float,
 # 90/107/90/79) minus that build's socketed jewel contributions.
 #   flat base pools (before inc multipliers): life 1840.5, es 763.6
 #   regen/recharge pools (flat, /s): es recharge 626.0, life regen 128.0
-#   res AFTER the -60 act penalty: cold 76, fire 105, ltg 82, chaos 69
-#   (Spirit Suit chest, 2026-08-13: rerolled Eater implicit to phys-as-ele, so
-#   NO +8 all-ele-res; chest explicits +46 fire/+34 cold/+34 ltg replace
-#   Onslaught Jack's +48 fire/+48 cold. ltg base 48->82 removes the lres cap.)
-BASE_LIFE = 1840.5
-BASE_ES = 763.6
-BASE_ES_RECHARGE = 626.0
-BASE_LIFE_REGEN = 128.0
-BASE_RES = {"cold": 76.0, "fire": 105.0, "ltg": 82.0, "chaos": 69.0}
+# Non-jewel baselines for the RESULTING-build log. Stripped to no-jewel state
+# 2026-08-13 (only Amanamu's Gaze socketed): life 4410, es 1639, es recharge
+# 546.3, life regen 126.8, res 88/93/93/92 (after -60 act penalty, all overcap).
+# The gear change freed every res constraint -- Spirit Suit (phys-as-cold eater
+# implicit, NO +8 all-res implicit) + Brood Gyre ring (no ring res pressure) so
+# jewels need carry NO res; +20 cold/ltg benchcraft on boots instead of +35 cold.
+#   flat base pools (before inc multipliers): life 1752.8, es 770.6 (= no-jewel
+#   value / (1 + inc_life or inc_es / 100))
+#   regen/recharge pools (flat, /s): es recharge 546.3, life regen 126.8
+#   res AFTER the -60 act penalty: cold 88, fire 93, ltg 93, chaos 92
+BASE_LIFE = 4410.0 / (1 + 151.6 / 100)      # 1752.8
+BASE_ES = 1639.0 / (1 + 112.7 / 100)        # 770.6
+BASE_ES_RECHARGE = 546.3
+BASE_LIFE_REGEN = 126.8
+BASE_RES = {"cold": 88.0, "fire": 93.0, "ltg": 93.0, "chaos": 92.0}
 INC_LIFE = 151.6
 INC_ES = 112.7
 
