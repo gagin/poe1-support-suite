@@ -205,11 +205,19 @@ def make_frame(flat_chunks: dict[str, float], inc: float, cast: float,
     )
 
 
-# Non-jewel res/life/es baselines (derived from the current snapshot minus its
-# socketed jewel contributions). res are AFTER the -60 act penalty; the optimizer
-# scores DPS from flat/inc/cast and life/es from base pools, res is recorded only
-# for the resulting-build log.
-BASE_RES = {"cold": 112.0, "fire": 95.0, "ltg": 66.0, "chaos": 69.0}
+# Non-jewel baselines for the RESULTING-build log, derived from the CURRENT
+# in-game build (life 4825, es 1911, life regen 138.8, es recharge 637, res
+# 90/107/90/79) minus that build's socketed jewel contributions.
+#   flat base pools (before inc multipliers): life 1840.5, es 763.6
+#   regen/recharge pools (flat, /s): es recharge 626.0, life regen 128.0
+#   res AFTER the -60 act penalty: cold 90, fire 107, ltg 48, chaos 69
+BASE_LIFE = 1840.5
+BASE_ES = 763.6
+BASE_ES_RECHARGE = 626.0
+BASE_LIFE_REGEN = 128.0
+BASE_RES = {"cold": 90.0, "fire": 107.0, "ltg": 48.0, "chaos": 69.0}
+INC_LIFE = 151.6
+INC_ES = 112.7
 
 
 def _init_selection_table(db_path: str) -> None:
@@ -235,8 +243,6 @@ def _init_selection_table(db_path: str) -> None:
 
 def record_selection(db_path: str, belt: list[Jewel], tree: list[Jewel],
                      belt_mult: float, flat: float, inc: float, cast: float,
-                     base_life: float, base_es: float, inc_life: float,
-                     inc_es: float, base_es_regen: float, base_life_regen: float,
                      regen_scale: float, seed_tree: list[str] | None) -> None:
     """Persist the resulting build stats for this selection as a timestamped row."""
     import datetime
@@ -247,15 +253,21 @@ def record_selection(db_path: str, belt: list[Jewel], tree: list[Jewel],
     total_dps = _engine(frame).total_cursed
     jpc = sum(j.pc * belt_mult for j in belt) + sum(j.pc for j in tree)
 
-    life = base_life + sum(j.life * (belt_mult if j in belt else 1.0) for j in belt) \
-        + sum(j.life for j in tree)
-    es = base_es + sum(j.es * (belt_mult if j in belt else 1.0) for j in belt) \
-        + sum(j.es for j in tree)
-    es_regen = base_es_regen + sum(j.es_regen * (belt_mult if j in belt else 1.0) for j in belt) \
-        + sum(j.es_regen for j in tree)
-    life_regen = base_life_regen \
-        + sum((j.life_regen_pct / 100.0 * base_life) * (belt_mult if j in belt else 1.0) for j in belt) \
-        + sum(j.life_regen_pct / 100.0 * base_life for j in tree)
+    # Effective in-game pools: (flat base + jewel flat) x (1 + inc/100).
+    def jewel_sum(belt_j: list[Jewel], tree_j: list[Jewel], attr: str) -> float:
+        return sum(getattr(j, attr) * (belt_mult if j in belt_j else 1.0) for j in belt_j) \
+            + sum(getattr(j, attr) for j in tree_j)
+
+    flat_life = BASE_LIFE + jewel_sum(belt, tree, "life")
+    flat_es = BASE_ES + jewel_sum(belt, tree, "es")
+    life = flat_life * (1 + INC_LIFE / 100)
+    es = flat_es * (1 + INC_ES / 100)
+    # regen/recharge are flat pools + jewel contributions (flat /s, no multiplier).
+    # life regen from % mods converts via the current flat base life.
+    es_regen = BASE_ES_RECHARGE + jewel_sum(belt, tree, "es_regen")
+    life_regen = BASE_LIFE_REGEN \
+        + sum((j.life_regen_pct / 100.0 * flat_life) * (belt_mult if j in belt else 1.0) for j in belt) \
+        + sum(j.life_regen_pct / 100.0 * flat_life for j in tree)
 
     # res from jewels: read via sqlite (Jewel dataclass doesn't carry res)
     import sqlite3
@@ -465,8 +477,7 @@ def run(db_path: str, belt_mult: float, flat: float, inc: float, cast: float,
         print("  tree:", ", ".join(j.id for j in tree))
 
     record_selection(db_path, belt, tree, belt_mult, flat, inc, cast,
-                     base_life, base_es, inc_life, inc_es,
-                     base_es_regen, base_life_regen, regen_scale, seed_tree)
+                     regen_scale, seed_tree)
 
 
 def main(argv=None) -> None:
