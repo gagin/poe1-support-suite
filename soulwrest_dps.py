@@ -47,6 +47,14 @@ class Frame:
     poison_dur: float = 3.3            # baseline bossing w/ Unbound (+65% dur)
     # poison chance 0..1 (>=1 == capped)
     poison_chance: float = 1.0
+    # minion critical strike chance. A poison inflicted by a crit gains a +50%
+    # damage-over-time multiplier, additive with other DoT-mult sources (the
+    # model's amanamu_dot_pool). CD (100% less crit) zeroes this. 
+    crit_chance: float = 0.05
+    # minion critical strike multiplier (base 150%). A crit hit deals this x
+    # damage; only affects the hit portion (the +20% from a crit wheel does not
+    # touch poison, whose DoT-mult bonus is the flat +50% above).
+    crit_multi: float = 1.50
 
     # -- defensive stats (from jewels+belt, usually override per checked frame) #
     #  per-element resistance: cold/fire/lightning
@@ -83,6 +91,7 @@ class JewelLoad:
     flatsum: dict[str, float]   # key = jewel id, val = flat (post belt mult)
     inc: float
     cast: float
+    dot: float
     ele_res: dict[str, float]   # cold/fire/lightning (post belt mult)
     chaos_res: float
     life: float
@@ -111,7 +120,7 @@ def load_jewels_from_db(db_path, belt_ids, tree_ids, belt_mult: float = 2.21) ->
     con.row_factory = sqlite3.Row
 
     jl = JewelLoad(
-        flatsum={}, inc=0.0, cast=0.0,
+        flatsum={}, inc=0.0, cast=0.0, dot=0.0,
         ele_res={"cold": 0.0, "fire": 0.0, "lightning": 0.0},
         chaos_res=0.0, life=0.0, es=0.0, pc=0.0,
         belt_ids=set(belt_ids), tree_ids=set(tree_ids),
@@ -123,7 +132,8 @@ def load_jewels_from_db(db_path, belt_ids, tree_ids, belt_mult: float = 2.21) ->
 
     ph = ",".join("?" * len(ids))
     rows = con.execute(
-        'SELECT id, phys_l, phys_h, chaos_l, chaos_h, fire_l, fire_h, inc, "cast", life, es, pc, '
+        'SELECT id, phys_l, phys_h, chaos_l, chaos_h, fire_l, fire_h, inc, '
+        'minion_cast_speed, life, es, pc, dot, str, '
         "cold_res, fire_res, ltg_res, chaos_res, all_res FROM jewels WHERE id IN (" + ph + ")",
         ids,
     ).fetchall()
@@ -137,12 +147,13 @@ def load_jewels_from_db(db_path, belt_ids, tree_ids, belt_mult: float = 2.21) ->
         mult = belt_mult if jid in jl.belt_ids else 1.0
         jl.flatsum[jid] = avg_flat(r) * mult
         jl.inc += (r["inc"] or 0.0) * mult
-        jl.cast += (r["cast"] or 0.0) * mult
+        jl.cast += (r["minion_cast_speed"] or 0.0) * mult
+        jl.dot += (r["dot"] or 0.0) * mult
         jl.ele_res["cold"] += (r["cold_res"] or 0.0) * mult
         jl.ele_res["fire"] += (r["fire_res"] or 0.0) * mult
         jl.ele_res["lightning"] += (r["ltg_res"] or 0.0) * mult
         jl.chaos_res += (r["chaos_res"] or 0.0) * mult
-        jl.life += (r["life"] or 0.0) * mult
+        jl.life += ((r["life"] or 0.0) + (r["str"] or 0.0) / 2.0) * mult
         jl.es += (r["es"] or 0.0) * mult
         jl.pc += (r["pc"] or 0.0) * mult
         # all_res applies to cold/fire/lightning
@@ -187,6 +198,7 @@ def jewel_frame(name, db_path, belt_ids, tree_ids, gear_flat=None, gear_inc=0.0,
         life=jl.life + gear_life,
         es=jl.es + gear_es,
         poison_chance=jl.pc / 100.0 if jl.pc < 100.0 else 1.0,
+        amanamu_dot_pool=1.30 + jl.dot / 100.0,
         curse=curse,
     )
 
@@ -404,7 +416,7 @@ def _resolve_jewel(name: str, sig: dict[str, float], db_path: str,
     best, best_score = None, 10 ** 9
     for r in rows:
         cand = {"flat": r["flat"] or 0.0, "inc": r["inc"] or 0.0,
-                "cast": r["cast"] or 0.0, "life": r["life"] or 0.0,
+                "cast": r["minion_cast_speed"] or 0.0, "life": r["life"] or 0.0,
                 "es": r["es"] or 0.0, "pc": r["pc"] or 0.0,
                 "hinder": r["hinder"] or 0.0}
         for k in ("cold", "fire", "lightning"):
@@ -491,7 +503,8 @@ def _parse_tree(snap) -> dict:
 
 def build_frame_from_snapshot(snapshot_path: str, db_path: str = "jewels.db",
                               belt_mult: float = 2.21, name: str = "snapshot",
-                              curse: str = "despair_tc") -> Frame:
+                              curse: str = "despair_tc",
+                              belt_order: Optional[list[str]] = None) -> Frame:
     """Derive a Frame from an expanded snapshot JSON.
 
     Hybrid: tree/gear/supports/auras are read from the snapshot; socketed jewel
@@ -507,10 +520,10 @@ def build_frame_from_snapshot(snapshot_path: str, db_path: str = "jewels.db",
     belt_sockets = [g for g in (belt.get("socketedGems") or []) if isinstance(g, dict) and g.get("name")]
     belt_names = [g["name"] for g in belt_sockets]
 
-    # Belt socket order is authoritative: Darkness Enthroned always holds the
-    # Hollow Oculus then the Whispering Globe (the two stat-stuffed ones). This
-    # resolves the Whispering Globe collision outright.
-    belt_order = ["ho-23-es-pc", "wg-17-life-es-pc"]
+    # Belt socket order is authoritative: Darkness Enthroned currently holds the
+    # Hollow Sight then the Whispering Globe. Resolves the Whispering Globe
+    # collision outright. Overridable when the belt pair changes.
+    belt_order = belt_order or ["hs-20-pc-life", "wg-17-life-es-pc"]
     belt_override = {g["name"]: belt_order[i] for i, g in enumerate(belt_sockets)}
     # a second Whisp would collide in the override dict; keep only 1:1 names
     seen = set()
@@ -572,17 +585,25 @@ def build_frame_from_snapshot(snapshot_path: str, db_path: str = "jewels.db",
     for it in items:
         if it.get("inventoryId") in ("Helm", "BodyArmour", "Gloves", "Boots", "Belt", "Ring", "Ring2", "Amulet"):
             for m in _item_mods(it):
-                mm = _re.match(r"\+(\d+)% to (\w+) Resistance", m)
-                if mm:
-                    elem = mm.group(2).lower()
-                    v = float(mm.group(1))
-                    if elem == "all":
-                        for k in ("cold", "fire", "lightning"):
-                            res[k] += v
-                    elif elem == "chaos":
-                        chaos_res += v
-                    elif elem in res:
-                        res[elem] += v
+                # combined craft like "+19% to Fire and Cold Resistances" AND
+                # singular "+27% to Lightning Resistance" / "+30% to Chaos Res"
+                elems = set(); v = None
+                com = _re.match(r"\+(\d+)% to ([\w ]+) Resist", m)
+                if com:
+                    v = float(com.group(1))
+                    for part in com.group(2).split(" and "):
+                        p = part.strip().lower()
+                        if p in ("cold", "fire", "lightning", "chaos", "all"):
+                            elems.add(p)
+                if v is not None:
+                    for elem in elems:
+                        if elem == "all":
+                            for k in ("cold", "fire", "lightning"):
+                                res[k] += v
+                        elif elem == "chaos":
+                            chaos_res += v
+                        else:
+                            res[elem] += v
                 ml = _re.match(r"\+(\d+) to maximum Life\b", m)
                 if ml:
                     life += float(ml.group(1))
@@ -625,7 +646,7 @@ def build_frame_from_snapshot(snapshot_path: str, db_path: str = "jewels.db",
 # Current frame (snapshot-derived). Swapping gear = re-derive or patch inputs. #
 # --------------------------------------------------------------------------- #
 
-DEFAULT_SNAPSHOT = "build_snapshots/Phantomastress_202608130159_expanded.json"
+DEFAULT_SNAPSHOT = "build_snapshots/Phantomastress_202608151933_expanded.json"
 
 frames: dict[str, Frame] = {
     "current": build_frame_from_snapshot(DEFAULT_SNAPSHOT, name="Current (snapshot-derived)"),
@@ -671,9 +692,13 @@ def compute_boss_dps(f: Frame) -> DpsResult:
     dur = effective_poison_dur(f)
 
     hit_pre = per_attack * total_rate * more
+    # crits raise the hit by (crit_multi-1) on crit_chance of hits; poison's
+    # crit bonus is a separate flat +50% DoT mult (additive with the pool).
+    hit_pre *= (1.0 + f.crit_chance * (f.crit_multi - 1.0))
+    crit_poison_mult = 1.0 + f.crit_chance * 0.50 / max(f.amanamu_dot_pool, 1e-9)
     poison_pre = (
         per_attack * total_rate * f.poison_base * dur * chance
-        * more * f.amanamu_dot_pool * f.malevolence_more
+        * more * f.amanamu_dot_pool * f.malevolence_more * crit_poison_mult
     )
 
     # curses: Despair always present (−30% chaos res => x1.30 to hit & poison base,
