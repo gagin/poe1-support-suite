@@ -1,0 +1,8 @@
+[submodule "pob-port/PathOfBuilding-SimpleGraphic"]
+	path = pob-port/PathOfBuilding-SimpleGraphic
+	url = https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic.git
+
+[submodule "pob-port/PathOfBuildingCommunityMac"]
+	path = pob-port/PathOfBuildingCommunityMac
+	url = https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
+	branch = dev
