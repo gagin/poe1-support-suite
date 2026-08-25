@@ -96,7 +96,9 @@ local function main()
 		os.exit(1)
 	end
 
-	local realmId = arg[1]
+	-- Realm IDs are displayed canonically in uppercase, but accept convenient
+	-- case-insensitive input from direct calls and Makefile variables.
+	local realmId = string.upper(arg[1])
 	local accountName = arg[2]
 	local characterName = arg[3]
 	local poesessid = arg[4]

@@ -1,7 +1,7 @@
-.PHONY: help snapshot download expand clean viewlatest snapshot2 download2 expand2 listchars2 logout2
+.PHONY: help snapshot download expand viewlatest clean snapshot2 download2 expand2 listchars2 logout2 expandmd
 
-CHARACTER ?= MiragMaraBatato
-LEAGUE ?= Mirage
+CHARACTER ?= Phantomastress
+LEAGUE ?= Allflame
 REALM ?= SONY
 ACCOUNT ?= Ladimir_Lepin#9831
 POESESSID ?=
@@ -12,9 +12,10 @@ BUILD_SNAPSHOTS2 := build_snapshots_poe2
 
 help:
 	@echo "PoE1 targets:"
-	@echo "  make snapshot CHARACTER=<name> LEAGUE=<league> REALM=<realm>  - Download and expand a PoE1 character"
+	@echo "  make snapshot CHARACTER=<name> LEAGUE=<league> REALM=<realm>  - Download + expand a PoE1 character (JSON + MD), including weapon swap"
 	@echo "  make download CHARACTER=<name> REALM=<realm>                 - Download PoE1 character (lua)"
-	@echo "  make expand FILE=<file> LEAGUE=<league> REALM=<realm>        - Expand downloaded PoE1 JSON"
+	@echo "  make expand CHARACTER=<name> LEAGUE=<league> REALM=<realm>   - Expand latest downloaded PoE1 JSON, including weapon swap"
+	@echo "  make expandmd CHARACTER=<name>                               - Render latest snapshot as compact markdown (manual reading)"
 	@echo "  make viewlatest                                              - View latest expanded file with less"
 	@echo "  make clean                                                   - Clean build_snapshots/"
 	@echo "PoE2 targets (OAuth, one-time browser login):"
@@ -24,7 +25,7 @@ help:
 	@echo "  make expand2 CHARACTER=<name>          - Expand downloaded PoE2 JSON"
 	@echo "  make logout2                           - Forget saved PoE2 OAuth token"
 
-snapshot: download expand
+snapshot: download expand expandmd
 
 download:
 	@echo "Downloading $(CHARACTER) from $(REALM)..."
@@ -34,7 +35,7 @@ expand:
 	@mkdir -p $(BUILD_SNAPSHOTS)
 	@echo "Expanding $(CHARACTER)..."
 	@LATEST_JSON=$$(ls -t $(POB_TOOLS)/$(CHARACTER)_*.json | head -1) && \
-	uv run python build_expander.py "$$LATEST_JSON" --league $(LEAGUE) --realm $(REALM) -o $(BUILD_SNAPSHOTS)/$(CHARACTER)_`date +%Y%m%d%H%M`_expanded.json
+	uv run python build_expander.py "$$LATEST_JSON" --league $(LEAGUE) --realm $(REALM) --include-swap -o $(BUILD_SNAPSHOTS)/$(CHARACTER)_`date +%Y%m%d%H%M`_expanded.json
 
 clean:
 	@rm -rf $(BUILD_SNAPSHOTS)
@@ -43,6 +44,13 @@ clean:
 viewlatest:
 	@LATEST=$$(ls -t $(BUILD_SNAPSHOTS)/*_expanded.json 2>/dev/null | head -1) && \
 	if [ -n "$$LATEST" ]; then less "$$LATEST"; else echo "No expanded files in $(BUILD_SNAPSHOTS)/"; fi
+
+# Render the latest expanded JSON as compact, human-readable markdown
+expandmd:
+	@mkdir -p $(BUILD_SNAPSHOTS)
+	@echo "Rendering $(CHARACTER) as markdown..."
+	@LATEST_JSON=$$(ls -t $(POB_TOOLS)/$(CHARACTER)_*.json | head -1) && \
+	uv run python build_expander_md.py "$$LATEST_JSON" --include-swap -o $(BUILD_SNAPSHOTS)/$(CHARACTER)_`date +%Y%m%d%H%M`_expanded.md
 
 # ---- PoE2 ----
 

@@ -174,7 +174,7 @@ def _gem_name(g: dict) -> str:
     return g.get("baseType") or g.get("name") or g.get("typeLine", "")
 
 
-def expand_items(character_data: dict, include_swap: bool = False) -> dict:
+def expand_items(character_data: dict, include_swap: bool = True) -> dict:
     items_data = character_data.get("items", {}) or {}
     inventory = list(items_data.get("items", []) or [])
     # Tree-socketed jewels live under passive_tree.items in the GGG payload.
@@ -188,6 +188,9 @@ def expand_items(character_data: dict, include_swap: bool = False) -> dict:
         if not item:
             continue
         inv = str(item.get("inventoryId", ""))
+        # PoE2 weapon sets are build-relevant: skills and Lineage supports can
+        # explicitly depend on Weapon Set I vs II. Unlike the PoE1 expander,
+        # keep swap weapons by default so the active DPS set is not hidden.
         if not include_swap and inv.lower() in SWAP_SLOTS:
             continue
         name = item.get("name", "")

@@ -15,6 +15,15 @@ The **body armour** is the default 6-link slot for the main skill. Exceptions:
 
 **Always identify which slot is the actual main skill slot before advising on links.**
 
+### Leap Slam on console
+
+On console, set Leap Slam to its alternate behavior that jumps the maximum
+distance in the chosen direction. The default targeting behavior can select
+nearby enemies, making travel inconsistent and making precise utility hits such
+as Culling Strike impractical. For console builds, do not recommend Culling
+Strike on Leap Slam unless the player has personally confirmed reliable
+targeting.
+
 ---
 
 ## Damage Formula

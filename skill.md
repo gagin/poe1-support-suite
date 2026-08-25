@@ -415,6 +415,7 @@ This check is irrelevant for fire Chieftain builds where the fire conversion is 
 - Is the main skill in a 6-link? Is every support actually applying to the skill (check for "no green checkmark" in PoB)?
 - Are support gems leveled appropriately? A support at level 1 when it should be 18-20 is a major loss (especially impale, empower, etc.).
 - Are gems corrupted for +1 level where it matters (key active skill, empower)?
+- **Matching socket colour grants quality (3.29):** a gem's quality bonus applies only when the socket colour matches the gem's colour — an off-colour gem gets no quality. Verify every gem whose quality you care about sits in a matching-colour socket, and recolor (Chromatic) so valuable gems aren't stranded off-colour (or in grey) where their quality is lost, and no matching socket is spent on a gem whose quality doesn't matter. Easy to miss; check socket colours vs gem colour before assuming a gem setup is final.
 
 ## 5. Aura / Reservation Budget
 

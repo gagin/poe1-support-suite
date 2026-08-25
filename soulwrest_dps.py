@@ -18,6 +18,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field, asdict
 from typing import Optional, Iterable
 
+import phantasm_model as M
+
 # --------------------------------------------------------------------------- #
 # Frame model — everything that shapes DPS, fed as one dataclass.              #
 # --------------------------------------------------------------------------- #
@@ -25,36 +27,53 @@ from typing import Optional, Iterable
 @dataclass
 class Frame:
     name: str
-    # -- base damage -------------------------------------------------------- #
-    intrinsic: float = 684.1          # level-21 Summon Phantasm phys base
-    add_eff: float = 1.5              # phantasm added-damage effectiveness
+    # -- base damage (constants: phantasm_model) ---------------------------- #
+    intrinsic: float = M.INTRINSIC    # level-21 Summon Phantasm phys base
+    add_eff: float = M.ADD_EFF        # phantasm added-damage effectiveness
     # flat chunks (all converted to chaos). key = label, value = avg flat.
     flatsum: dict[str, float] = field(default_factory=dict)
     # -- scaling pools ------------------------------------------------------ #
     inc: float = 0.0                  # total % increased minion damage
     cast: float = 0.0                 # total % minion cast speed (spellcaster)
     # -- attack -------------------------------------------                  #
-    count: float = 59                 # phantasms active (Helm Doubled + Congreg)
-    base_aps: float = 0.855           # actions/sec per phantasm at 0 cast
+    count: float = M.DEFAULT_COUNT    # phantasms active (Helm Doubled, NO Congregation — bossing config)
+    base_aps: float = M.BASE_APS      # actions/sec per phantasm at 0 cast
     # -- more & DoT ---------------------------------------                  #
-    more: list[float] = field(default_factory=lambda: [1.40, 1.35, 1.12, 1.25])
-    amanamu_dot_pool: float = 1.30    # +30% DoT mult (additive pool)
-    malevolence_more: float = 1.28    # Malevolence+Generosity DoT more
+    more: list[float] = field(default_factory=lambda: list(M.POISON_MORE))
+    # Unbound Ailments 21: "Supported Skills deal 20% more Damage with Ailments"
+    # — poison-only (hits are not ailments). Set 1.0 for Unbound-less configs.
+    unbound_ailment_more: float = M.UNBOUND_AILMENT_MORE
+    amanamu_dot_pool: float = M.AMANAMU_POOL_BASE   # +30% DoT mult (additive pool)
+    malevolence_more: float = M.MALEV   # Malevolence+Generosity DoT more
     # -- curses: exactly one of "despair_tc" or "sniper" -------------------  #
     curse: str = "despair_tc"
+    # extra monster chaos-res penetration (% points) beyond the curse itself
+    # (e.g. 20 => Despair's -30% becomes -50% total pen)
+    # Void Beacon (allocated permanently via Forbidden Flame/Flesh jewels):
+    # -20% enemy Chaos Res, always on, applies to hits AND DoT
+    chaos_pen_bonus: float = M.VOID_BEACON_CHAOS_RES_REDUCTION
+    # the bossing target's own chaos resistance (%); damage scales with
+    # 1 - (boss_res - pen)/100, so Despair vs this boss is x1.00, not x1.30
+    boss_chaos_res: float = M.BOSS_CHAOS_RES
+    # Withered stacks on the target (minions apply via Unholy Might on hit;
+    # sustained-bossing assumption: full stacks). 0 disables.
+    withered_stacks: float = M.WITHERED_MAX_STACKS
+    # Bloodline node: unholy-might damage Penetrates 10% chaos res -- HIT ONLY
+    # (DoT never penetrates; poison base is pre-mitigation)
+    minion_chaos_pen: float = M.BLOODLINE_CHAOS_PEN
     # -- poison ------------------------------------------------------------- #
-    poison_base: float = 0.20          # 20% of combined phys+chaos hit /s
-    poison_dur: float = 3.3            # baseline bossing w/ Unbound (+65% dur)
+    poison_base: float = M.POISON_BASE  # 20% of combined phys+chaos hit /s
+    poison_dur: float = M.POISON_DUR_UNBOUND  # baseline bossing w/ Unbound (+65% dur)
     # poison chance 0..1 (>=1 == capped)
     poison_chance: float = 1.0
     # minion critical strike chance. A poison inflicted by a crit gains a +50%
     # damage-over-time multiplier, additive with other DoT-mult sources (the
     # model's amanamu_dot_pool). CD (100% less crit) zeroes this. 
-    crit_chance: float = 0.05
+    crit_chance: float = M.MINION_CRIT_CHANCE
     # minion critical strike multiplier (base 150%). A crit hit deals this x
     # damage; only affects the hit portion (the +20% from a crit wheel does not
     # touch poison, whose DoT-mult bonus is the flat +50% above).
-    crit_multi: float = 1.50
+    crit_multi: float = M.MINION_CRIT_MULTI
 
     # -- defensive stats (from jewels+belt, usually override per checked frame) #
     #  per-element resistance: cold/fire/lightning
@@ -198,7 +217,7 @@ def jewel_frame(name, db_path, belt_ids, tree_ids, gear_flat=None, gear_inc=0.0,
         life=jl.life + gear_life,
         es=jl.es + gear_es,
         poison_chance=jl.pc / 100.0 if jl.pc < 100.0 else 1.0,
-        amanamu_dot_pool=1.30 + jl.dot / 100.0,
+        amanamu_dot_pool=M.amanamu_pool(jl.dot),
         curse=curse,
     )
 
@@ -436,22 +455,30 @@ def _resolve_jewel(name: str, sig: dict[str, float], db_path: str,
     return best
 
 
-def _parse_flat(snap) -> dict[str, float]:
-    """flat from staff (bossing) + Envy aura; phys+chaos+fire all as Chaos."""
+WEAPON_SET_SLOTS = {1: ("Weapon", "Offhand"), 2: ("Weapon2", "Offhand2")}
+
+
+def _parse_flat(snap, weapon_set: int = 1) -> dict[str, float]:
+    """flat from the chosen weapon set (staff) + Envy aura; phys+chaos+fire all
+    as Chaos. Keyed by inventoryId so same-name staves (two Soulwrest rolls,
+    one per swap) cannot collide and silently drop one."""
+    slots = WEAPON_SET_SLOTS.get(weapon_set, WEAPON_SET_SLOTS[1])
     flat = {}
     for it in _all_items(snap):
         inv = it.get("inventoryId")
         mods = _item_mods(it)
-        if inv in ("Weapon", "Weapon2"):
+        if inv in slots:
             # pick the bossing staff = the one with Minion phys flat
             for m in mods:
                 a = _flat_avg(m)
                 if a:
-                    flat["staff " + it.get("name", inv)] = a
+                    flat[f"staff {inv} " + it.get("name", inv)] = a
         elif inv == "Amulet":
-            # Envy aura: "Adds 91 to 121 Chaos Damage to Spells" is granted by the
-            # granted Envy skill, not the amulet mods; the 106 comes from the model.
-            flat["envy"] = 106.0
+            # Envy aura: "Adds 91 to 121 Chaos Damage to Spells" is granted by
+            # Aul's Uprising (see phantasm_model.ENVY_SOURCE_AMULET), not by an
+            # amulet mod — so include it only while that amulet is equipped.
+            if (it.get("name") or "").lower() == M.ENVY_SOURCE_AMULET.lower():
+                flat["envy"] = M.ENVY_FLAT_EFFECTIVE
     return flat
 
 
@@ -501,63 +528,143 @@ def _parse_tree(snap) -> dict:
     return agg
 
 
+def resolve_snapshot_jewels(snap, db_path: str = "jewels.db",
+                            belt_order: Optional[list[str]] = None,
+                            ) -> tuple[list[str], list[str], list[str]]:
+    """Resolve socketed jewels (belt + tree + chest-abyssal) against jewels.db.
+
+    Returns ``(belt_ids, tree_ids, chest_ids)``. Every jewel resolves by
+    display name + mod signature; ``belt_order`` is an explicit positional
+    override for the belt only. Same-name collisions (two Whispering Globe
+    rolls) are separated by the parameter score. Chest abyssal sockets
+    (Shroud of the Lightless-style) carry NO belt multiplier. Unmatched names
+    are reported on stdout (normal for uniques like Amanamu's Gaze).
+    """
+    items = _all_items(snap)
+    belt = next((it for it in items if it.get("inventoryId") == "Belt"), {})
+    belt_sockets = [g for g in (belt.get("socketedGems") or []) if isinstance(g, dict) and g.get("name")]
+
+    unresolved: list[str] = []
+    belt_ids_resolved: list[str] = []
+    for g in belt_sockets:
+        ident = _resolve_jewel(g["name"], _jewel_signature(_item_mods(g)),
+                               db_path, None)
+        if ident:
+            belt_ids_resolved.append(ident)
+        else:
+            unresolved.append("belt:" + g["name"])
+    if belt_order:
+        belt_ids_resolved = list(belt_order)[:len(belt_sockets)]
+
+    jewel_ids: list[str] = []
+    chest_ids: list[str] = []
+    for it in items:
+        inv = it.get("inventoryId")
+        if inv == "PassiveJewels":
+            n = it.get("name")
+            if not n:
+                continue
+            sig = _jewel_signature(_item_mods(it))
+            ident = _resolve_jewel(n, sig, db_path, None)
+            if ident:
+                if ident not in jewel_ids:
+                    jewel_ids.append(ident)
+            elif n != "Amanamu's Gaze":   # unique: legitimately absent from the db pool
+                unresolved.append("tree:" + n)
+        elif inv == "BodyArmour":
+            for g in it.get("socketedGems") or []:
+                if not isinstance(g, dict) or g.get("baseType") != "Ghastly Eye Jewel":
+                    continue   # skill gems share these sockets
+                n = g.get("name") or ""
+                ident = _resolve_jewel(n, _jewel_signature(_item_mods(g)), db_path, None)
+                if ident:
+                    chest_ids.append(ident)
+                else:
+                    unresolved.append("chest:" + (n or "?"))
+    if unresolved:
+        print(f"[jewel-resolve] unmatched socketed jewels "
+              f"(ok for uniques): {', '.join(unresolved)}")
+    return belt_ids_resolved, jewel_ids, chest_ids
+
+
+def read_socketed_gems(snap, weapon_set: int = 1) -> list[dict]:
+    """Collect socketed gems from equipped items, for the ACTIVE weapon set only.
+
+    The inactive weapon swap's gems are not in play, so its supports must not
+    feed the model (the bow swap runs its own Predator/CD/Congregation setup).
+    Returns dicts with {"name", "baseType", "level", "support"} where level is
+    parsed from the gem's properties and support is True/False/None.
+    """
+    active_weapon_slots = {("Weapon", "Offhand")} if weapon_set == 1 \
+        else {("Weapon2", "Offhand2")}
+    active_weapon_slots = set(next(iter(active_weapon_slots)))
+    gems: list[dict] = []
+    for it in _all_items(snap):
+        inv = it.get("inventoryId")
+        if inv in ("Weapon", "Offhand", "Weapon2", "Offhand2") and inv not in active_weapon_slots:
+            continue
+        for g in it.get("socketedGems") or []:
+            if not isinstance(g, dict) or not g.get("baseType"):
+                continue
+            props = {p.get("name"): p.get("values") for p in g.get("properties") or [] if p.get("values")}
+            lvl_raw = str(props.get("Level", [["20"]])[0][0])
+            m = _re.match(r"(\d+)", lvl_raw)
+            gems.append({
+                "name": g.get("name") or g.get("baseType"),
+                "baseType": g.get("baseType"),
+                "level": float(m.group(1)) if m else 20.0,
+                "support": g.get("support"),
+                "inventoryId": inv,
+            })
+    return gems
+
+
 def build_frame_from_snapshot(snapshot_path: str, db_path: str = "jewels.db",
                               belt_mult: float = 2.21, name: str = "snapshot",
                               curse: str = "despair_tc",
-                              belt_order: Optional[list[str]] = None) -> Frame:
+                              belt_order: Optional[list[str]] = None,
+                              weapon_set: int = 1) -> Frame:
     """Derive a Frame from an expanded snapshot JSON.
 
     Hybrid: tree/gear/supports/auras are read from the snapshot; socketed jewel
     stats come from jewels.db (belt jewels get ×belt_mult on every stat) because
     the snapshot omits some jewel mods (e.g. corrupted Hollow Oculus).
+    ``weapon_set`` selects which weapon swap contributes flat/gems (1 = the
+    Weapon/Offhand slots, 2 = Weapon2/Offhand2).
     """
     with open(snapshot_path) as f:
         snap = _json.load(f)
 
-    # ---- jewels: belt = belt.socketedGems names, tree = the rest ---------- #
+    # ---- jewels: belt = belt.socketedGems, tree = PassiveJewels ----------- #
     items = _all_items(snap)
-    belt = next((it for it in items if it.get("inventoryId") == "Belt"), {})
-    belt_sockets = [g for g in (belt.get("socketedGems") or []) if isinstance(g, dict) and g.get("name")]
-    belt_names = [g["name"] for g in belt_sockets]
+    belt_ids_resolved, jewel_ids, chest_ids = resolve_snapshot_jewels(
+        snap, db_path, belt_order)
 
-    # Belt socket order is authoritative: Darkness Enthroned currently holds the
-    # Hollow Sight then the Whispering Globe. Resolves the Whispering Globe
-    # collision outright. Overridable when the belt pair changes.
-    belt_order = belt_order or ["hs-20-pc-life", "wg-17-life-es-pc"]
-    belt_override = {g["name"]: belt_order[i] for i, g in enumerate(belt_sockets)}
-    # a second Whisp would collide in the override dict; keep only 1:1 names
-    seen = set()
-    belt_override = {n: i for n, i in belt_override.items()
-                     if not (n in seen or seen.add(n))}
-
-    jewel_ids: list[str] = []
-    for it in items:
-        if it.get("inventoryId") != "PassiveJewels":
-            continue
-        n = it.get("name")
-        if not n:
-            continue
-        sig = _jewel_signature(_item_mods(it))
-        # no belt override here: tree sockets resolve purely by mod matching,
-        # never against the belt-position map (which would misassign e.g. the
-        # standalone tree Whispering Globe to the belt id).
-        ident = _resolve_jewel(n, sig, db_path, None)
-        if ident and ident not in jewel_ids:
-            jewel_ids.append(ident)
-
-    jl = load_jewels_from_db(db_path, belt_ids=list(belt_override.values()), tree_ids=jewel_ids, belt_mult=belt_mult)
+    jl = load_jewels_from_db(db_path, belt_ids=belt_ids_resolved,
+                             tree_ids=jewel_ids + chest_ids, belt_mult=belt_mult)
 
     # ---- flatsum: jewels + staff + envy ------------------------------------ #
     flatsum = jl.to_flatsum_dict()
-    flatsum.update(_parse_flat(snap))
+    flatsum.update(_parse_flat(snap, weapon_set))
 
     # ---- inc / cast pools --------------------------------------------------- #
     tree = _parse_tree(snap)
     inc = jl.inc + tree["inc"]
     cast = jl.cast + tree["cast"]
 
-    # gear: gloves + ring2 minion inc/cast, auras (Vaal Haste), supports
+    # ---- gem configuration: derive supports/auras/curses from socketed gems - #
+    gems = read_socketed_gems(snap, weapon_set)
+    cfg = M.derive_gem_config(gems)
+    for w in cfg.warnings:
+        print(f"[gem-config] {w}")
+
+    # gear: gloves + ring2 minion inc/cast, auras, supports.
+    # SKIP PassiveJewels: their "increased Damage / Cast Speed" lines are already
+    # counted in jl.inc/jl.cast — scanning them here double-counted every jewel
+    # carrying those mods (2026-08-21 bug: +55 inc / +18 cast phantom pool).
     for it in items:
+        if it.get("inventoryId") in ("PassiveJewels", None):
+            continue
         inv = it.get("inventoryId")
         for m in _item_mods(it):
             if _re.match(r"Minions deal (\d+)% increased Damage", m):
@@ -568,8 +675,8 @@ def build_frame_from_snapshot(snapshot_path: str, db_path: str = "jewels.db",
                 cast += _num(m)
             if _re.match(r"Minions have (\d+)% increased Attack Speed", m):
                 pass  # attack speed does nothing for the spellcasting phantasm
-    # Vaal Haste aura (boots) = 24% minion cast speed
-    cast += 24.0
+    # Flesh Offering / Vaal Haste cast contributions (phantasm_model, from gems)
+    cast += cfg.cast_bump
 
     # ---- life / es / res from tree + gear + jewels -------------------------- #
     life = tree["life"] + jl.life
@@ -626,19 +733,31 @@ def build_frame_from_snapshot(snapshot_path: str, db_path: str = "jewels.db",
     inc_es = Frame(name="").inc_es
 
     poison_chance = min(1.0, jl.pc / 100.0)
+    if cfg.anger_flat:
+        flatsum["anger"] = cfg.anger_flat
 
     return Frame(
         name=name,
         flatsum=flatsum,
         inc=inc,
         cast=cast,
+        amanamu_dot_pool=M.amanamu_pool(jl.dot),
         ele_res=res,
         chaos_res=chaos_res,
         life=life,
         es=es,
         inc_es=inc_es,
         poison_chance=poison_chance,
-        curse=curse,
+        curse=cfg.curse or curse,
+        # gem-derived configuration (phantasm_model.derive_gem_config)
+        more=cfg.more,
+        count=cfg.count,
+        unbound_ailment_more=cfg.unbound_more,
+        # poison duration tracks whether Unbound Ailments is actually socketed
+        # (3.3s with Unbound, 2.0s base otherwise) -- never assume the pool.
+        poison_dur=(M.POISON_DUR_UNBOUND if cfg.unbound_more > 1.0
+                    else M.BASE_POISON_DUR),
+        malevolence_more=M.MALEV if cfg.malevolence else 1.0,
     )
 
 
@@ -679,7 +798,7 @@ class DpsResult:
 def effective_poison_dur(f: Frame) -> float:
     dur = f.poison_dur
     if f.curse == "despair_tc":
-        dur *= 1.40   # Temp Chains: debuffs expire 40% slower
+        dur *= M.TEMP_CHAINS_DUR_MULT   # Temp Chains: debuffs expire 40% slower
     return dur
 
 
@@ -694,24 +813,25 @@ def compute_boss_dps(f: Frame) -> DpsResult:
     hit_pre = per_attack * total_rate * more
     # crits raise the hit by (crit_multi-1) on crit_chance of hits; poison's
     # crit bonus is a separate flat +50% DoT mult (additive with the pool).
-    hit_pre *= (1.0 + f.crit_chance * (f.crit_multi - 1.0))
-    crit_poison_mult = 1.0 + f.crit_chance * 0.50 / max(f.amanamu_dot_pool, 1e-9)
+    hit_pre *= 1.0 + f.crit_chance * (f.crit_multi - 1.0)
+    hit_pre *= M.withered_mult(f.withered_stacks)
+    crit_poison_mult = 1.0 + f.crit_chance * M.CRIT_POISON_BONUS / max(f.amanamu_dot_pool, 1e-9)
     poison_pre = (
         per_attack * total_rate * f.poison_base * dur * chance
-        * more * f.amanamu_dot_pool * f.malevolence_more * crit_poison_mult
+        * more * f.unbound_ailment_more * f.amanamu_dot_pool
+        * f.malevolence_more * crit_poison_mult
     )
+    poison_pre *= M.withered_mult(f.withered_stacks)
 
-    # curses: Despair always present (−30% chaos res => x1.30 to hit & poison base,
-    # +35% DoT taken => x1.35 poison only). Temp Chains adds no hit mult and its
-    # duration effect is already folded into `dur`. Sniper's Mark adds x1.34 hit only.
-    if f.curse == "despair_tc":
-        hit_cursed = hit_pre * 1.30
-        poison_cursed = poison_pre * 1.30 * 1.35
-    elif f.curse == "sniper":
-        hit_cursed = hit_pre * 1.30 * 1.34
-        poison_cursed = poison_pre * 1.30 * 1.35
-    else:  # uncursed reference
-        hit_cursed, poison_cursed = hit_pre, poison_pre
+    # curses: Despair -30 chaos res vs the boss's own res (x1.00 at 30% boss res,
+    # not x1.30), +35% DoT taken poison-only; Temp Chains' duration effect is
+    # folded into `dur`; Sniper's Mark x1.34 hit only. chaos_pen_bonus stacks
+    # extra -% monster chaos res (hits+DoT); minion_chaos_pen is true
+    # penetration and boosts the HIT side only.
+    hit_mult, poison_mult = M.curse_mults(f.curse, f.chaos_pen_bonus,
+                                          f.boss_chaos_res, f.minion_chaos_pen)
+    hit_cursed = hit_pre * hit_mult
+    poison_cursed = poison_pre * poison_mult
 
     return DpsResult(
         frame=f.name,

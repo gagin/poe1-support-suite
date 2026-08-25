@@ -599,3 +599,9 @@ Certain divination cards award ilvl 100 items on mediocre base types. Pair with 
 
 ### Option 4: Boss Speed-Farming
 Map bosses have a **chance** to drop higher level items. Speed-clearing content with frequent boss encounters (e.g., Destructive Play Kirac mission) can accumulate higher ilvl bases over time.
+
+### Option 5: Uber Cortex corridor drops (confirmed)
+Running **Uber Cortex** drops many ilvl-86 items **along the path while you travel to the boss room** — effectively free high-ilvl bases per run, in the same "corridor farm" family as Oba's Cursed Trove.
+
+### Option 6: Kingsmarch expedition returns (confirmed)
+**Sending Kingsmarch expeditions** — the expedition's returned **armour** tends to come back with many ilvl-86 items. Low-effort passive source that adds up from running expeditions you'd do anyway.

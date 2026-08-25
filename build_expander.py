@@ -67,6 +67,10 @@ def expand_passive_tree(character_data: dict) -> dict:
     hashes = passive_data.get("hashes", [])
     # mastery_effects: {nodeId_str: effectId_int} — which effect was chosen per mastery node
     mastery_effects = passive_data.get("mastery_effects", {})
+    # skill_overrides: {nodeId_str: {...}} — tattoos (isTattoo) and rune-graft
+    # masteries (isMastery) that replace an allocated node's effect. e.g.
+    # "Tattoo of the Tasalio Bladedancer" grants "5% chance to Maim on Hit".
+    skill_overrides = passive_data.get("skill_overrides", {})
 
     # Build lookup: nodeId_str -> {effect_id, stats} for the selected effect
     mastery_effect_lookup = {}
@@ -95,14 +99,28 @@ def expand_passive_tree(character_data: dict) -> dict:
                 "type": node_type,
             }
 
+            # Overlay a tattoo/rune-graft override if present (replaces the
+            # node's effect).
+            override = skill_overrides.get(node_key)
+            if override:
+                node_info["name"] = override.get("name", node_info["name"])
+                node_info["stats"] = override.get("stats", node_info["stats"])
+                if override.get("isTattoo"):
+                    node_info["isTattoo"] = True
+                    if override.get("reminderText"):
+                        node_info["reminder_text"] = override["reminderText"]
+                elif override.get("isMastery"):
+                    node_info["runegraft"] = True
+
             if node.get("isKeystone"):
                 result["keystones"].append(node_info)
             elif node.get("isNotable"):
                 result["notables"].append(node_info)
             elif node.get("isMastery"):
-                # Enrich with the selected mastery effect
+                # Enrich with the selected mastery effect (unless a rune-graft
+                # override already replaced the stats)
                 effect_info = mastery_effect_lookup.get(node_key)
-                if effect_info:
+                if effect_info and not node_info.get("runegraft"):
                     node_info["effect_id"] = effect_info["effect_id"]
                     node_info["stats"] = effect_info["stats"]
                 result["masteries"].append(node_info)
@@ -200,6 +218,7 @@ def expand_items(character_data: dict, realm: str = "pc", league: str = "", incl
         
         item_entry = {
             "slot": idx,
+            "inventoryId": item.get("inventoryId", ""),
             "id": item_id,
             "name": name,
             "typeLine": type_line,
@@ -299,6 +318,8 @@ def expand_skills(character_data: dict, include_swap: bool = False, skip_poedb: 
                     "level": gem.get("level", 1),
                     "quality": gem.get("quality", 0),
                     "isEnabled": gem.get("enabled", True),
+                    "sourceInventoryId": item.get("inventoryId", ""),
+                    "sourceItemName": item.get("name", "") or item.get("typeLine", ""),
                 })
                 
                 if gem.get("support"):
@@ -389,6 +410,7 @@ async def main():
         "metadata": {
             "realm": args.realm,
             "league": league,
+            "include_weapon_swap": args.include_swap,
         },
     }
     
@@ -412,6 +434,7 @@ async def main():
     print(f"Jewels: {len(items['jewels'])}")
     print(f"Active skills: {len(skills['active_skills'])}")
     print(f"Support gems: {len(skills['support_gems'])}")
+    print(f"Weapon swap: {'included' if args.include_swap else 'excluded'}")
 
 
 if __name__ == "__main__":

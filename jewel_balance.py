@@ -24,8 +24,12 @@ Assumptions (all tunable)
 from __future__ import annotations
 import argparse
 
+import phantasm_model as M
 from soulwrest_dps import Frame, compute_boss_dps as _engine
 from socket_optimizer import load_jewels, ANGER_FLAT, CULL_MORE, _hit_more
+from phantasm_model import (BASELINE_FLAT as FLAT_BASE,
+                            BASELINE_INC as INC_BASE,
+                            BASELINE_CAST as CAST_BASE)
 
 STATS = ("flat", "inc", "cast", "pc", "dot")
 
@@ -47,18 +51,18 @@ def dps_of(v: list[float], amanamu_pool: float = 1.0, poison_dur: float = 2.0,
     """Engine total_cursed for absolute jewel pools v = [flat,inc,cast,pc,dot]."""
     f = Frame(
         name="balance",
-        flatsum={"base": 230.5, "anger": ANGER_FLAT, "jewel_pool": v[0]},
-        inc=379.0 + v[1],
-        cast=122.0 + v[2],
+        flatsum={"base": FLAT_BASE, "anger": ANGER_FLAT, "jewel_pool": v[0]},
+        inc=INC_BASE + v[1],
+        cast=CAST_BASE + v[2],
         poison_chance=min(1.0, v[3] / 100.0),
         amanamu_dot_pool=amanamu_pool + v[4] / 100.0,
         poison_dur=poison_dur,
         malevolence_more=malevolence_more,
-        crit_chance=0.0 if cd else 0.05,
+        crit_chance=0.0 if cd else M.MINION_CRIT_CHANCE,
     )
     f.curse = "sniper"
-    f.more = ([1.40, 1.35, 1.39, CULL_MORE] if cd
-              else [1.40, 1.35, CULL_MORE])
+    f.more = ([M.MD_MORE, M.VM_MORE, M.CD_MORE, CULL_MORE] if cd
+              else [M.MD_MORE, M.VM_MORE, CULL_MORE])
     return _engine(f).total_cursed
 
 
@@ -101,17 +105,18 @@ def aggregate_frame(agg: dict[str, float], amanamu_pool: float,
                     poison_dur: float, malevolence_more: float, cd: bool) -> Frame:
     f = Frame(
         name="fit",
-        flatsum={"base": 230.5, "anger": ANGER_FLAT, "jewel_pool": agg["flat"]},
-        inc=379.0 + agg["inc"],
-        cast=122.0 + agg["cast"],
+        flatsum={"base": FLAT_BASE, "anger": ANGER_FLAT, "jewel_pool": agg["flat"]},
+        inc=INC_BASE + agg["inc"],
+        cast=CAST_BASE + agg["cast"],
         poison_chance=min(1.0, agg["pc"] / 100.0),
         amanamu_dot_pool=amanamu_pool + agg["dot"] / 100.0,
         poison_dur=poison_dur,
         malevolence_more=malevolence_more,
-        crit_chance=0.0 if cd else 0.05,
+        crit_chance=0.0 if cd else M.MINION_CRIT_CHANCE,
     )
     f.curse = "sniper"
-    f.more = ([1.40, 1.35, 1.39, CULL_MORE] if cd else [1.40, 1.35, CULL_MORE])
+    f.more = ([M.MD_MORE, M.VM_MORE, M.CD_MORE, CULL_MORE] if cd
+              else [M.MD_MORE, M.VM_MORE, CULL_MORE])
     return f
 
 
@@ -160,12 +165,12 @@ def main() -> None:
     ap.add_argument("--belt-mult", type=float, default=2.21)
     ap.add_argument("--slots", type=int, default=9,
                     help="total jewel slots (7 tree + 2 belt)")
-    ap.add_argument("--amanamu-pool", type=float, default=1.30,
-                    help="amanamu_dot_pool (1.0 rare .. 1.30 Amanamu)")
-    ap.add_argument("--poison-dur", type=float, default=2.0,
-                    help="poison_dur (2.0 no Unbound .. 3.3 Unbound)")
-    ap.add_argument("--malevolence-more", type=float, default=1.28,
-                    help="malevolence_more (1.0 Anger .. 1.28 Malevolence)")
+    ap.add_argument("--amanamu-pool", type=float, default=M.AMANAMU_POOL_BASE,
+                    help="amanamu_dot_pool (1.0 rare .. Amanamu's Gaze)")
+    ap.add_argument("--poison-dur", type=float, default=M.BASE_POISON_DUR,
+                    help="poison_dur (base .. Unbound)")
+    ap.add_argument("--malevolence-more", type=float, default=M.MALEV,
+                    help="malevolence_more (1.0 Anger .. Malevolence)")
     ap.add_argument("--no-cd", action="store_true",
                     help="drop Controlled Destruction (keep crits) for Unbound")
     ap.add_argument("--db", default="jewels.db")

@@ -3,9 +3,9 @@
 Runs the greedy jewel optimizer across the three poison-vs-universal aspects to
 find whether a mid-point (partial poison scaling) beats either extreme:
 
-  amulet : rare (dot pool 1.0)            vs Amanamu's Gaze (pool 1.30)
-  aura   : Anger (flat +no DoT more)      vs Malevolence (DoT more 1.28)
-  support: Controlled Destruction (x1.39 more, both sides) vs Unbound (dur 3.3, poison)
+  amulet : rare (dot pool 1.0)            vs Amanamu's Gaze (pool = model base)
+  aura   : Anger (flat +no DoT more)      vs Malevolence (DoT more = model MALEV)
+  support: Controlled Destruction (x1.39 more, both sides) vs Unbound (poison duration)
 
 Universal scaling (CD more, Anger flat) multiplies BOTH the hit and poison base;
 poison-only scaling (Amanamu pool, Malevolence DoT, Unbound duration) multiplies
@@ -21,12 +21,12 @@ cast 6, and qu-0 is not a realistic option.
 from __future__ import annotations
 import argparse
 
+import phantasm_model as M
 from soulwrest_dps import compute_boss_dps as _engine
-from socket_optimizer import (make_frame, dps_weights, load_jewels, ANGER_FLAT)
-
-FLAT_BASE = 230.5
-INC_BASE = 379.0
-CAST_BASE = 122.0
+from socket_optimizer import make_frame, dps_weights, load_jewels, ANGER_FLAT
+from phantasm_model import (BASELINE_FLAT as FLAT_BASE,
+                            BASELINE_INC as INC_BASE,
+                            BASELINE_CAST as CAST_BASE)
 BELT_MULT = 2.21
 EXCLUDE = {"qu-0"}
 
@@ -79,11 +79,11 @@ def main() -> None:
     args = ap.parse_args()
 
     combos = []
-    for amulet_name, pool in (("rare", 1.0), ("amanamu", 1.30)):
+    for amulet_name, pool in (("rare", 1.0), ("amanamu", M.AMANAMU_POOL_BASE)):
         for aura_name, mm, anger in (("anger", 1.0, True),
-                                     ("malev", 1.28, False)):
-            for sup_name, cd, dur in (("cd", True, 2.0),
-                                      ("unbound", False, 3.3)):
+                                     ("malev", M.MALEV, False)):
+            for sup_name, cd, dur in (("cd", True, M.BASE_POISON_DUR),
+                                      ("unbound", False, M.POISON_DUR_UNBOUND)):
                 combos.append((f"{amulet_name}+{aura_name}+{sup_name}",
                                pool, dur, mm, cd, anger))
 
