@@ -14,6 +14,10 @@
     --dim: #5c6478;
     --accent: #e8b34b;
     --act: #4b9bff;
+    --d-sprint: #39b54a;
+    --d-cautious: #f0b429;
+    --d-dangerous: #e07b39;
+    --d-death: #e5484d;
   }
   * { box-sizing: border-box; }
   html, body {
@@ -55,6 +59,16 @@
   .actbadge.changed { animation: pulse .5s ease; }
   @keyframes pulse { 0% { transform: scale(1.15); background: rgba(75,155,255,.3); } 100% { transform: scale(1); } }
 
+  #chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1.8vh; }
+  .chip {
+    font-size: clamp(.8rem, 2vh, 1.15rem); font-weight: 700; letter-spacing: .03em;
+    padding: 5px 14px; border-radius: 999px; border: 1.5px solid #2a3144;
+    background: rgba(255,255,255,.03);
+  }
+  .chip.danger { border-width: 2px; }
+  .chip.level { color: var(--act); border-color: rgba(75,155,255,.45); background: rgba(75,155,255,.08); }
+  .chip.note { color: var(--accent); border-color: rgba(232,179,75,.45); background: rgba(232,179,75,.08); }
+
   #now { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
   #now .title {
     font-size: clamp(2.4rem, 9.5vh, 5.5rem);
@@ -69,6 +83,21 @@
     margin-top: 3vh; font-size: clamp(.9rem, 2.2vh, 1.3rem);
     color: var(--accent); font-weight: 700; letter-spacing: .03em;
   }
+
+  #loadout {
+    margin-top: 2.8vh; display: flex; flex-wrap: wrap; gap: 10px;
+    align-items: stretch;
+  }
+  #loadout .label {
+    align-self: center; font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--dim); margin-right: 4px;
+  }
+  .skillcard {
+    background: var(--panel2); border: 1px solid #2a3144; border-radius: 10px;
+    padding: 7px 14px; display: flex; align-items: baseline; gap: 8px;
+  }
+  .skillcard .skill { font-weight: 700; font-size: clamp(.95rem, 2.3vh, 1.3rem); }
+  .skillcard .sup { color: var(--muted); font-size: clamp(.72rem, 1.7vh, .95rem); }
 
   /* ---------- upcoming ---------- */
   #upcoming {
@@ -150,10 +179,11 @@
 
   <div id="main">
     <div class="actbadge" id="actbadge"></div>
+    <div id="chips"></div>
     <div id="now">
       <h1 class="title" id="nowtitle"></h1>
       <div class="body" id="nowbody"></div>
-      <div class="meta" id="nowmeta"></div>
+      <div id="loadout"></div>
     </div>
     <div id="upcoming">
       <div class="label">Up next</div>
@@ -211,6 +241,15 @@
 
   function el(id) { return document.getElementById(id); }
 
+  function dangerColor(d) {
+    var x = (d || "").toLowerCase();
+    if (x.indexOf("death") >= 0) return "var(--d-death)";
+    if (x.indexOf("danger") >= 0) return "var(--d-dangerous)";
+    if (x.indexOf("caut") >= 0) return "var(--d-cautious)";
+    if (x.indexOf("sprint") >= 0) return "var(--d-sprint)";
+    return "var(--muted)";
+  }
+
   function render() {
     var steps = GUIDE.steps;
     var s = steps[idx];
@@ -231,7 +270,43 @@
 
     el("nowtitle").textContent = s.title;
     el("nowbody").textContent = s.body || "";
-    el("nowmeta").textContent = s.meta ? ("■ " + s.meta) : "";
+
+    // chips: danger (colored) + expected level + free-form note
+    var chips = el("chips");
+    chips.innerHTML = "";
+    function addChip(className, text, color) {
+      var c = document.createElement("span");
+      c.className = "chip " + className;
+      c.textContent = text;
+      if (color) { c.style.color = color; c.style.borderColor = color; }
+      chips.appendChild(c);
+    }
+    if (s.danger) addChip("danger", "⚠ " + s.danger, dangerColor(s.danger));
+    if (s.level) addChip("level", "Level " + s.level);
+    if (s.meta) addChip("note", s.meta);
+
+    // loadout: expected current skills + supports
+    var lo = el("loadout");
+    lo.innerHTML = "";
+    if (s.loadout && s.loadout.length) {
+      var lab = document.createElement("span");
+      lab.className = "label"; lab.textContent = "Loadout";
+      lo.appendChild(lab);
+      s.loadout.forEach(function (entry) {
+        var card = document.createElement("span");
+        card.className = "skillcard";
+        var sp = document.createElement("span");
+        sp.className = "skill"; sp.textContent = entry.skill;
+        card.appendChild(sp);
+        if (entry.supports && entry.supports.length) {
+          var sup = document.createElement("span");
+          sup.className = "sup";
+          sup.textContent = entry.supports.map(function (x) { return "+" + x; }).join(" ");
+          card.appendChild(sup);
+        }
+        lo.appendChild(card);
+      });
+    }
 
     // upcoming steps
     var list = el("upcominglist");
