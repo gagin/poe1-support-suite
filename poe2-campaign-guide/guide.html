@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campaign Guide</title>
+<style>
+  :root {
+    --bg: #0d0f14;
+    --panel: #161a22;
+    --panel2: #1d2230;
+    --text: #eef1f7;
+    --muted: #8b93a7;
+    --dim: #5c6478;
+    --accent: #e8b34b;
+    --act: #4b9bff;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    overflow: hidden;
+  }
+  body { display: flex; flex-direction: column; }
+
+  /* ---------- top bar ---------- */
+  #topbar {
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 20px;
+    background: var(--panel);
+    border-bottom: 1px solid #000;
+    flex: 0 0 auto;
+  }
+  #topbar .title { font-size: 15px; font-weight: 600; letter-spacing: .02em; }
+  #topbar .subtitle { font-size: 12px; color: var(--muted); }
+  #topbar .spacer { flex: 1; }
+  #counter { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  #progresswrap { height: 4px; background: #000; flex: 0 0 auto; }
+  #progressbar { height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+
+  /* ---------- main ---------- */
+  #main {
+    flex: 1 1 auto; display: flex; flex-direction: column;
+    padding: 3vh 5vw 2vh; overflow: hidden;
+  }
+
+  .actbadge {
+    align-self: flex-start;
+    font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--act); background: rgba(75,155,255,.10);
+    padding: 6px 12px; border-radius: 6px;
+    margin-bottom: 1.5vh;
+  }
+  .actbadge.changed { animation: pulse .5s ease; }
+  @keyframes pulse { 0% { transform: scale(1.15); background: rgba(75,155,255,.3); } 100% { transform: scale(1); } }
+
+  #now { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
+  #now .title {
+    font-size: clamp(2.4rem, 9.5vh, 5.5rem);
+    font-weight: 800; line-height: 1.02; letter-spacing: -.02em;
+    margin: 0 0 2.5vh;
+  }
+  #now .body {
+    font-size: clamp(1.05rem, 3.4vh, 1.9rem);
+    color: #c6ccd9; line-height: 1.32; max-width: 68ch;
+  }
+  #now .meta {
+    margin-top: 3vh; font-size: clamp(.9rem, 2.2vh, 1.3rem);
+    color: var(--accent); font-weight: 700; letter-spacing: .03em;
+  }
+
+  /* ---------- upcoming ---------- */
+  #upcoming {
+    flex: 0 0 auto; border-top: 1px solid #232939;
+    padding-top: 2vh; margin-top: 2vh;
+  }
+  #upcoming .label {
+    font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim);
+    margin-bottom: 1vh;
+  }
+  #upcoming .row {
+    display: flex; align-items: baseline; gap: 14px; padding: 0.5vh 0;
+    white-space: nowrap; overflow: hidden;
+  }
+  #upcoming .row .idx { color: var(--dim); font-size: 13px; width: 2em; flex: 0 0 auto; font-variant-numeric: tabular-nums; }
+  #upcoming .row .t { font-size: clamp(.85rem, 2.2vh, 1.25rem); color: #9aa2b4; overflow: hidden; text-overflow: ellipsis; }
+  #upcoming .row:nth-child(2) .t { font-size: clamp(.95rem, 2.5vh, 1.45rem); color: #c4cad9; }
+
+  /* ---------- footer / reminders ---------- */
+  #footer {
+    flex: 0 0 auto; display: flex; gap: 12px; flex-wrap: wrap;
+    padding: 10px 20px; background: var(--panel); border-top: 1px solid #000;
+  }
+  .reminder {
+    font-size: 12px; color: var(--muted); background: var(--panel2);
+    padding: 5px 12px; border-radius: 999px; border: 1px solid #2a3144;
+  }
+  #footer .hint { font-size: 11px; color: var(--dim); align-self: center; margin-left: auto; }
+
+  /* ---------- nav buttons ---------- */
+  #nav { position: fixed; bottom: 12px; right: 16px; display: flex; gap: 8px; z-index: 5; }
+  #nav button {
+    width: 46px; height: 46px; border-radius: 12px; border: 1px solid #2a3144;
+    background: var(--panel2); color: var(--text); font-size: 20px; cursor: pointer;
+  }
+  #nav button:hover { background: #262c3d; }
+  #nav button:active { transform: scale(.94); }
+
+  /* ---------- reference overlay ---------- */
+  #ref {
+    position: fixed; inset: 0; background: rgba(0,0,0,.72); display: none;
+    z-index: 10; padding: 4vh 6vw; overflow-y: auto;
+  }
+  #ref.open { display: block; }
+  #ref .panel {
+    background: var(--panel); border: 1px solid #2a3144; border-radius: 14px;
+    max-width: 980px; margin: 0 auto; padding: 28px 32px;
+  }
+  #ref h2 { margin: 0 0 4px; }
+  #ref .close { float: right; cursor: pointer; font-size: 22px; color: var(--muted); background: none; border: none; }
+  #ref section { margin-top: 22px; }
+  #ref section h3 { font-size: 15px; letter-spacing: .05em; color: var(--accent); margin: 0 0 8px; text-transform: uppercase; }
+  #ref .text { font-size: 15px; line-height: 1.5; color: #c6ccd9; white-space: pre-line; }
+  #ref table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  #ref th, #ref td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #242a3a; }
+  #ref th { color: var(--muted); font-weight: 600; }
+  #ref td { color: #d5dae6; }
+  #ref tr:first-child td { }
+  kbd {
+    font-family: inherit; font-size: 11px; color: var(--dim);
+    border: 1px solid #2a3144; border-radius: 4px; padding: 1px 5px; margin: 0 2px;
+  }
+  #error {
+    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px; color: var(--muted); font-size: 16px; padding: 0 10vw; text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div id="error" style="display:none"></div>
+
+  <div id="topbar">
+    <div class="title" id="gtitle">Loading…</div>
+    <div class="subtitle" id="gsubtitle"></div>
+    <div class="spacer"></div>
+    <div id="counter"></div>
+  </div>
+  <div id="progresswrap"><div id="progressbar"></div></div>
+
+  <div id="main">
+    <div class="actbadge" id="actbadge"></div>
+    <div id="now">
+      <h1 class="title" id="nowtitle"></h1>
+      <div class="body" id="nowbody"></div>
+      <div class="meta" id="nowmeta"></div>
+    </div>
+    <div id="upcoming">
+      <div class="label">Up next</div>
+      <div id="upcominglist"></div>
+    </div>
+  </div>
+
+  <div id="footer">
+    <span class="reminder" id="rem1"></span>
+    <span class="reminder" id="rem2"></span>
+    <span class="reminder" id="rem3"></span>
+    <span class="hint"><kbd>→</kbd>/<kbd>Space</kbd> next · <kbd>←</kbd> prev · <kbd>?</kbd> reference · <kbd>R</kbd> restart</span>
+  </div>
+
+  <div id="nav">
+    <button id="prevBtn" title="Back (←)">‹</button>
+    <button id="nextBtn" title="Next (→ / Space)">›</button>
+  </div>
+
+  <div id="ref">
+    <div class="panel">
+      <button class="close" id="refClose" title="Close (Esc / ?)">✕</button>
+      <h2 id="refTitle">Reference</h2>
+      <div id="refBody"></div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---- build selection via ?build=name (loads guide-builds/name.js) ----
+  var params = new URLSearchParams(location.search);
+  var build = (params.get("build") || "varashta").replace(/[^\w-]/g, "");
+  var storeKey = "guide-pos-" + build;
+
+  var GUIDE = null;
+  var idx = 0;
+  var prevAct = "";
+
+  function loadBuild() {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = "guide-builds/" + build + ".js";
+      s.onload = function () {
+        if (window.GUIDE) { resolve(window.GUIDE); }
+        else { reject(new Error("guide-builds/" + build + ".js loaded but did not define window.GUIDE")); }
+      };
+      s.onerror = function () {
+        reject(new Error("Could not load guide-builds/" + build + ".js — does that build exist?"));
+      };
+      document.head.appendChild(s);
+    });
+  }
+
+  function el(id) { return document.getElementById(id); }
+
+  function render() {
+    var steps = GUIDE.steps;
+    var s = steps[idx];
+
+    el("gtitle").textContent = GUIDE.title;
+    el("gsubtitle").textContent = GUIDE.subtitle;
+    el("counter").textContent = (idx + 1) + " / " + steps.length;
+    el("progressbar").style.width = ((idx + 1) / steps.length * 100) + "%";
+
+    var badge = el("actbadge");
+    badge.textContent = s.act;
+    if (s.act !== prevAct) {
+      badge.classList.remove("changed");
+      void badge.offsetWidth; // restart animation
+      badge.classList.add("changed");
+      prevAct = s.act;
+    }
+
+    el("nowtitle").textContent = s.title;
+    el("nowbody").textContent = s.body || "";
+    el("nowmeta").textContent = s.meta ? ("■ " + s.meta) : "";
+
+    // upcoming steps
+    var list = el("upcominglist");
+    list.innerHTML = "";
+    for (var i = 1; i <= 3; i++) {
+      var t = steps[idx + i];
+      if (!t) break;
+      var row = document.createElement("div");
+      row.className = "row";
+      var d1 = document.createElement("span"); d1.className = "idx"; d1.textContent = (idx + i + 1);
+      var d2 = document.createElement("span"); d2.className = "t"; d2.textContent = t.title;
+      row.appendChild(d1); row.appendChild(d2);
+      list.appendChild(row);
+    }
+
+    // reminders
+    for (var r = 0; r < 3; r++) {
+      var rem = el("rem" + (r + 1));
+      if (GUIDE.reminders && GUIDE.reminders[r]) {
+        rem.textContent = GUIDE.reminders[r]; rem.style.display = "";
+      } else { rem.style.display = "none"; }
+    }
+  }
+
+  function buildReference() {
+    if (!GUIDE.reference) return;
+    el("refTitle").textContent = GUIDE.title + " — reference";
+    var body = el("refBody");
+    body.innerHTML = "";
+    GUIDE.reference.sections.forEach(function (sec) {
+      var section = document.createElement("section");
+      var h = document.createElement("h3");
+      h.textContent = sec.heading;
+      section.appendChild(h);
+      if (sec.type === "table") {
+        var table = document.createElement("table");
+        var thead = document.createElement("thead");
+        var tr = document.createElement("tr");
+        sec.columns.forEach(function (c) {
+          var th = document.createElement("th"); th.textContent = c; tr.appendChild(th);
+        });
+        thead.appendChild(tr); table.appendChild(thead);
+        var tbody = document.createElement("tbody");
+        sec.rows.forEach(function (row) {
+          var r = document.createElement("tr");
+          row.forEach(function (cell) {
+            var td = document.createElement("td"); td.textContent = cell; r.appendChild(td);
+          });
+          tbody.appendChild(r);
+        });
+        table.appendChild(tbody); section.appendChild(table);
+      } else {
+        var d = document.createElement("div");
+        d.className = "text"; d.textContent = sec.body; section.appendChild(d);
+      }
+      body.appendChild(section);
+    });
+  }
+
+  function go(n) {
+    idx = Math.max(0, Math.min(GUIDE.steps.length - 1, n));
+    render();
+    try { localStorage.setItem(storeKey, String(idx)); } catch (e) {}
+  }
+  function next() { go(idx + 1); }
+  function prev() { go(idx - 1); }
+
+  function toggleRef(force) {
+    var ref = el("ref");
+    var open = force !== undefined ? force : !ref.classList.contains("open");
+    ref.classList.toggle("open", open);
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (el("ref").classList.contains("open")) {
+      if (e.key === "Escape" || e.key === "?") { toggleRef(false); }
+      return;
+    }
+    switch (e.key) {
+      case "ArrowRight": case " ": case "Enter": case "l": case "d": case "PageDown":
+        e.preventDefault(); next(); break;
+      case "ArrowLeft": case "h": case "a": case "PageUp":
+        e.preventDefault(); prev(); break;
+      case "Home": e.preventDefault(); go(0); break;
+      case "End": e.preventDefault(); go(GUIDE.steps.length - 1); break;
+      case "r": case "R": go(0); break;
+      case "?": toggleRef(); break;
+    }
+  });
+
+  el("nextBtn").addEventListener("click", next);
+  el("prevBtn").addEventListener("click", prev);
+  el("refClose").addEventListener("click", function () { toggleRef(false); });
+  el("ref").addEventListener("click", function (e) {
+    if (e.target === el("ref")) toggleRef(false);
+  });
+
+  // ---- boot ----
+  loadBuild().then(function (g) {
+    GUIDE = g;
+    var saved = 0;
+    try { saved = parseInt(localStorage.getItem(storeKey), 10) || 0; } catch (e) {}
+    idx = Math.max(0, Math.min(GUIDE.steps.length - 1, saved));
+    render();
+    buildReference();
+    document.title = GUIDE.title + " — Campaign Guide";
+  }).catch(function (err) {
+    var box = el("error");
+    box.style.display = "flex";
+    box.innerHTML = "<div style='font-size:28px'>⚠️</div><div>" + err.message + "</div>" +
+      "<div style='font-size:13px'>Open <code>guide.html?build=NAME</code> where <code>guide-builds/NAME.js</code> exists.</div>";
+  });
+})();
+</script>
+</body>
+</html>
