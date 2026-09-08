@@ -20,9 +20,10 @@ help:
 	@echo "  make clean                                                   - Clean build_snapshots/"
 	@echo "PoE2 targets (OAuth, one-time browser login):"
 	@echo "  make listchars2                        - List your PoE2 characters"
-	@echo "  make snapshot2 CHARACTER=<name>        - Download + expand a PoE2 character"
+	@echo "  make snapshot2 CHARACTER=<name>        - Download + expand a PoE2 character (JSON + MD)"
 	@echo "  make download2 CHARACTER=<name>        - Download PoE2 character (OAuth)"
 	@echo "  make expand2 CHARACTER=<name>          - Expand downloaded PoE2 JSON"
+	@echo "  make expandmd2 CHARACTER=<name>        - Render latest snapshot as compact markdown (manual/agent reading)"
 	@echo "  make logout2                           - Forget saved PoE2 OAuth token"
 
 snapshot: download expand expandmd
@@ -54,7 +55,7 @@ expandmd:
 
 # ---- PoE2 ----
 
-snapshot2: download2 expand2
+snapshot2: download2 expand2 expandmd2
 
 listchars2:
 	@uv run python poe2_import.py
@@ -71,3 +72,10 @@ expand2:
 	@echo "Expanding $(CHARACTER) (PoE2)..."
 	@LATEST_JSON=$$(ls -t $(POB2_TOOLS)/$(CHARACTER)_*.json | head -1) && \
 	uv run python build_expander_poe2.py "$$LATEST_JSON" -o $(BUILD_SNAPSHOTS2)/$(CHARACTER)_`date +%Y%m%d%H%M`_expanded.json
+
+# Render the latest downloaded PoE2 JSON as compact, human-readable markdown
+expandmd2:
+	@mkdir -p $(BUILD_SNAPSHOTS2)
+	@echo "Rendering $(CHARACTER) (PoE2) as markdown..."
+	@LATEST_JSON=$$(ls -t $(POB2_TOOLS)/$(CHARACTER)_*.json | head -1) && \
+	uv run python build_expander_md_poe2.py "$$LATEST_JSON" -o $(BUILD_SNAPSHOTS2)/$(CHARACTER)_`date +%Y%m%d%H%M`_expanded.md
